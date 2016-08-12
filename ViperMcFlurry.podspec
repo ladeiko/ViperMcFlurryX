@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/rambler-ios/ViperMcFlurry.git", :tag => s.version.to_s }
   s.platform     = :ios, '7.0'
   s.requires_arc = true
-  s.header_mappings_dir = 'Code'
+  s.header_dir = 'Code'
 
   s.subspec 'Core' do |cs|
     cs.source_files = "Code/ViperMcFlurry.h", "Code/Core"
