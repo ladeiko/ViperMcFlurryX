@@ -1,6 +1,8 @@
 ### Overview
 
-[![Pod version](https://badge.fury.io/co/ViperMcFlurry.svg)](https://badge.fury.io/co/ViperMcFlurry)
+[![Pod version](https://badge.fury.io/co/ViperMcFlurryX.svg)](https://badge.fury.io/co/ViperMcFlurryX)
+
+**NOTE**: It is a fork of [Rambler VIPER McFlurry](https://github.com/rambler-digital-solutions/ViperMcFlurry)
 
 **VIPER McFlurry** is a modern framework for implementing [VIPER architecture](https://github.com/rambler-digital-solutions/The-Book-of-VIPER) in iOS application. It offers several tools and components that help either start new projects with VIPER or move from MVC.
 
@@ -106,7 +108,7 @@ Module factory can be replaced with segues for most cases. Except you need to cr
 Add to podfile
 
 ```ruby
-pod "ViperMcFlurry"
+pod "ViperMcFlurryX"
 ```
 
 ### License

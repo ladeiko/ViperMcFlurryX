@@ -13,6 +13,7 @@
 @protocol RamblerViperModuleTransitionHandlerProtocol;
 @protocol RamblerViperModuleFactoryProtocol;
 
+typedef void (^ModuleCloseCompletionBlock)();
 typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler,
                                       id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler);
 
@@ -34,5 +35,7 @@ typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProt
 - (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory withTransitionBlock:(ModuleTransitionBlock)transitionBlock;
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated;
+// Method removes/closes module
+- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
 
 @end

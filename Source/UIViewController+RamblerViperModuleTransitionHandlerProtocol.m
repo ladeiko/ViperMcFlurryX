@@ -72,19 +72,36 @@ static IMP originalPrepareForSegueMethodImp;
 }
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated {
+    [self closeCurrentModule:animated completion:nil];
+}
+
+- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
     BOOL isInNavigationStack = [self.parentViewController isKindOfClass:[UINavigationController class]];
     BOOL hasManyControllersInStack = isInNavigationStack ? ((UINavigationController *)self.parentViewController).childViewControllers.count > 1 : NO;
-
+    
     if (isInNavigationStack && hasManyControllersInStack) {
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
         [navigationController popViewControllerAnimated:animated];
+        if (completion) {
+            UIViewController* const topViewController = [[navigationController viewControllers] lastObject];
+            const NSTimeInterval delayInSeconds = [topViewController.transitionCoordinator transitionDuration] + 0.01;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
     else if (self.presentingViewController) {
-        [self dismissViewControllerAnimated:animated completion:nil];
+        [self dismissViewControllerAnimated:animated completion:completion];
     }
     else if (self.view.superview != nil){
         [self removeFromParentViewController];
         [self.view removeFromSuperview];
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
 }
 
