@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ViperMcFlurryX"
-  s.version      = "1.6.0"
+  s.version      = "1.6.1"
   s.summary      = "Fork of Rambler ViperMcFlurry framework."
 
   s.homepage         = "https://github.com/ladeiko/ViperMcFlurry/tree/master"
@@ -13,5 +13,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files =  "Source/*.{h,m}"
+  s.dependency 'ViperMcFlurrySwiftFix'
 
 end
