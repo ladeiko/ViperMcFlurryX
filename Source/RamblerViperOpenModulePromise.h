@@ -28,7 +28,6 @@ typedef id<RamblerViperModuleOutput>(^RamblerViperModuleLinkBlock)(id<RamblerVip
 @property (nonatomic,strong) PostLinkActionBlock postLinkActionBlock;
 @property (nonatomic,strong) PostChainActionBlock postChainActionBlock;
 
-- (instancetype)initWithPostChainActionBlock:(PostChainActionBlock)actionBlock;
 - (void)thenChainUsingBlock:(RamblerViperModuleLinkBlock)linkBlock;
 
 @end
