@@ -8,6 +8,13 @@
 
 ![McFlurry](http://67.media.tumblr.com/36413ae65aa3f97fbce9ec53b21aa0ef/tumblr_oa2wlngg6u1r8u8uko1_500.jpg)
 
+### Changes
+
+#### v1.6.2
+
+* *openModuleUsingSegue* will be called synchronously if *thenChainUsingBlock* was called on promise just after main call. In another case segue will be executed on next runloop cycle. Sync version ensures that after call to * openModuleUsingSegue* segue was executed.
+* Updated code of *- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion* for navigation controller case when completion call is required. Also added *[self willMoveToParentViewController:nil]* before *removeFromParentViewController*.
+
 ### Key Features
 
 - The framework itself pushes you to implement a **proper VIPER architecture**,
@@ -122,3 +129,6 @@ MIT
 - Andrey Zarembo-Godzyatsky / a.zarembo-godyzatsky@rambler-co.ru
 - Valery Popov / v.popov@rambler-co.ru
 - Egor Tolstoy / e.tolstoy@rambler-co.ru
+
+**ViperMcFlurryX** fork:
+- Siarhei Ladzeika / sergey.ladeiko@gmail.com

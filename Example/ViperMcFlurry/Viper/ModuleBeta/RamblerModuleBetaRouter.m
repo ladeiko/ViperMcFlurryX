@@ -11,8 +11,10 @@
 
 #pragma mark - RamblerModuleBetaRouterInput
 
-- (void)removeModule {
-    [self.transitionHandler closeCurrentModule:NO];
+- (void)removeModule:(BOOL)animated {
+    [self.transitionHandler closeCurrentModule:animated completion:^{
+        NSLog(@"Beta dismiss completed");
+    }];
 }
 
 @end

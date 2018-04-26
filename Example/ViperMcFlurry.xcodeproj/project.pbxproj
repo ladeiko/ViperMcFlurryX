@@ -117,7 +117,7 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurry.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViperMcFlurry.podspec; path = ../ViperMcFlurry.podspec; sourceTree = "<group>"; };
+		96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurryX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViperMcFlurryX.podspec; path = ../ViperMcFlurryX.podspec; sourceTree = "<group>"; };
 		9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		BCD36FC03A45A87A4597C0C7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAB36AAE88EAE4784F1616E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurry.podspec */,
+				96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurryX.podspec */,
 				BFAB36AAE88EAE4784F1616E /* README.md */,
 				29585292F60D04C0C6BFE358 /* LICENSE */,
 			);

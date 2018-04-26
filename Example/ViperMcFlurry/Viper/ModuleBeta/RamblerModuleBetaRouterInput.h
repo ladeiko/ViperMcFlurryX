@@ -9,7 +9,7 @@
 
 @protocol RamblerModuleBetaRouterInput <NSObject>
 
-- (void)removeModule;
+- (void)removeModule:(BOOL)animated;
 
 @end
 

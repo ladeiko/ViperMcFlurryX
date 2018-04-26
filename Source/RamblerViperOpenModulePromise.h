@@ -25,8 +25,8 @@ typedef id<RamblerViperModuleOutput>(^RamblerViperModuleLinkBlock)(id<RamblerVip
 @interface RamblerViperOpenModulePromise : NSObject
 
 @property (nonatomic,strong) id<RamblerViperModuleInput> moduleInput;
-@property (nonatomic,strong) PostLinkActionBlock postLinkActionBlock;
-@property (nonatomic,strong) PostChainActionBlock postChainActionBlock;
+@property (nonatomic,copy) PostLinkActionBlock postLinkActionBlock;
+@property (nonatomic,copy) PostChainActionBlock postChainActionBlock;
 
 - (void)thenChainUsingBlock:(RamblerViperModuleLinkBlock)linkBlock;
 

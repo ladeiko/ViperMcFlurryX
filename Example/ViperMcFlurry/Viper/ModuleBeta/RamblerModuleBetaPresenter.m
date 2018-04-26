@@ -33,6 +33,14 @@
     [self.view setExampleString:self.exampleString];
 }
 
+- (void)didClickBack {
+    [self.router removeModule:NO];
+}
+
+- (void)didClickBackAnimated {
+    [self.router removeModule:YES];
+}
+
 #pragma mark - RamblerModuleBetaInteractorOutput
 
 @end

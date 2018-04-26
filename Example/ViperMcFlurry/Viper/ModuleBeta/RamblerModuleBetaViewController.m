@@ -24,4 +24,20 @@
     self.exampleStringLabel.text = exampleString;
 }
 
+- (IBAction)goBack:(id)sender {
+    [self.output didClickBack];
+}
+
+- (IBAction)goBackAnimated:(id)sender {
+    [self.output didClickBackAnimated];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    [super willMoveToParentViewController:parent];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+}
+
 @end

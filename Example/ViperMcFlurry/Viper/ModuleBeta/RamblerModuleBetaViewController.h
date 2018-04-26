@@ -18,6 +18,9 @@
 @property (nonatomic, weak)   id<RamblerViperModuleConfiguratorProtocol> moduleConfigurator;
 
 @property (nonatomic, strong) IBOutlet UILabel *exampleStringLabel;
+@property (nonatomic, strong) IBOutlet UIButton *backButton;
+
+- (IBAction)goBack:(id)sender;
 
 @end
 

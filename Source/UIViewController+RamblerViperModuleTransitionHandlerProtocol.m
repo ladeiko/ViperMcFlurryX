@@ -47,7 +47,10 @@ static IMP originalPrepareForSegueMethodImp;
 // Method opens module using segue
 - (RamblerViperOpenModulePromise*)openModuleUsingSegue:(NSString*)segueIdentifier {
     RamblerViperOpenModulePromise *openModulePromise = [[RamblerViperOpenModulePromise alloc] init];
+    
     static const char key;
+    objc_setAssociatedObject(self, &key, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
     void (^perform)() = ^{
         if (!objc_getAssociatedObject(self, &key)) {
             objc_setAssociatedObject(self, &key, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -98,6 +101,7 @@ static IMP originalPrepareForSegueMethodImp;
     }
     return openModulePromise;
 }
+
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated {
     [self closeCurrentModule:animated completion:nil];
@@ -111,21 +115,26 @@ static IMP originalPrepareForSegueMethodImp;
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
         UIViewController* popped = [navigationController popViewControllerAnimated:animated];
         if (completion) {
-            [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-            } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                completion();
-            }];
-        }
-        else {
-            [navigationController popViewControllerAnimated:animated];
+            if (popped.transitionCoordinator) {
+                [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                    completion();
+                }];
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion();
+                });
+            }
         }
     }
     else if (self.presentingViewController) {
         [self dismissViewControllerAnimated:animated completion:completion];
     }
     else if (self.view.superview != nil){
-        [self removeFromParentViewController];
+        [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
+        [self removeFromParentViewController];
         if (completion) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion();

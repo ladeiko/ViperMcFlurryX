@@ -25,6 +25,7 @@
 }
 
 - (void)thenChainUsingBlock:(__nullable RamblerViperModuleLinkBlock)linkBlock {
+    assert(!self.linkBlockWasSet && "thenChainUsingBlock was already called");
     self.linkBlock = linkBlock;
     self.linkBlockWasSet = YES;
     [self tryPerformLink];

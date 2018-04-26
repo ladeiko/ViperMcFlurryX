@@ -10,6 +10,8 @@
 @protocol RamblerModuleBetaViewOutput <NSObject>
 
 - (void)setupView;
+- (void)didClickBack;
+- (void)didClickBackAnimated;
 
 @end
 
