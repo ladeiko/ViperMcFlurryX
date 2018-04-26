@@ -7,7 +7,7 @@
 
 #import "RamblerModuleGammaViewController.h"
 #import "RamblerModuleGammaViewOutput.h"
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 @interface RamblerModuleGammaViewController()
 

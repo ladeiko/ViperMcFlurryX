@@ -7,7 +7,7 @@
 
 #import "RamblerModuleGammaModuleAssembly.h"
 
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 #import "RamblerModuleGammaViewController.h"
 #import "RamblerModuleGammaInteractor.h"

@@ -59,6 +59,9 @@
     return [TyphoonDefinition withClass:[RamblerModuleAlphaRouter class]
                           configuration:^(TyphoonDefinition *definition) {
                               
+                              [definition injectProperty:@selector(thisModule)
+                                                    with:[self presenterRamblerModuleAlpha]];
+                              
                               [definition injectProperty:@selector(transitionHandler)
                                                     with:[self viewRamblerModuleAlpha]];
                               

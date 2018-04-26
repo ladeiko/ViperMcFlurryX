@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 @protocol RamblerModuleGammaInput <RamblerViperModuleInput>
 

@@ -11,6 +11,7 @@
 @protocol RamblerViperModuleInput;
 
 typedef void(^PostLinkActionBlock)();
+typedef void(^PostChainActionBlock)();
 
 /**
  This module is used to link modules one to another. ModuleInput is typically presenter of module.
@@ -25,7 +26,9 @@ typedef id<RamblerViperModuleOutput>(^RamblerViperModuleLinkBlock)(id<RamblerVip
 
 @property (nonatomic,strong) id<RamblerViperModuleInput> moduleInput;
 @property (nonatomic,strong) PostLinkActionBlock postLinkActionBlock;
+@property (nonatomic,strong) PostChainActionBlock postChainActionBlock;
 
+- (instancetype)initWithPostChainActionBlock:(PostChainActionBlock)actionBlock;
 - (void)thenChainUsingBlock:(RamblerViperModuleLinkBlock)linkBlock;
 
 @end

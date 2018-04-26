@@ -7,7 +7,7 @@
 
 #import "RamblerModuleBetaModuleAssembly.h"
 
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 #import "RamblerModuleBetaViewController.h"
 #import "RamblerModuleBetaInteractor.h"
@@ -57,7 +57,7 @@
 
     return [TyphoonDefinition withClass:[RamblerModuleBetaInteractor class]
                           configuration:^(TyphoonDefinition *definition) {
-                            [definition injectProperty:@selector(output) 
+                            [definition injectProperty:@selector(output)
                                                   with:[self presenterRamblerModuleBeta]];
              }];
 }

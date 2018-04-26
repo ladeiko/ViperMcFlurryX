@@ -9,6 +9,7 @@
 #import "RamblerModuleBetaViewOutput.h"
 #import "RamblerModuleBetaInteractorOutput.h"
 #import "RamblerModuleBetaInput.h"
+#import "RamblerModuleBetaOutput.h"
 
 @protocol RamblerModuleBetaViewInput;
 @protocol RamblerModuleBetaInteractorInput;
@@ -19,6 +20,7 @@
 @property (nonatomic, weak) id<RamblerModuleBetaViewInput> view;
 @property (nonatomic, strong) id<RamblerModuleBetaInteractorInput> interactor;
 @property (nonatomic, strong) id<RamblerModuleBetaRouterInput> router;
+@property (nonatomic, weak) id<RamblerModuleBetaOutput> moduleOutput;
 
 @end
 

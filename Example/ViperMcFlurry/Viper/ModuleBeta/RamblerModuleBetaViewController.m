@@ -7,7 +7,7 @@
 
 #import "RamblerModuleBetaViewController.h"
 #import "RamblerModuleBetaViewOutput.h"
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 @interface RamblerModuleBetaViewController()
 

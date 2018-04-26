@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RamblerModuleAlphaViewInput.h"
-#import <ViperMcFlurry/ViperMcFlurry.h>
+#import <ViperMcFlurryX/ViperMcFlurry.h>
 
 @protocol RamblerModuleAlphaViewOutput;
 

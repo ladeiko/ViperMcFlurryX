@@ -9,6 +9,7 @@
 #import "RamblerModuleAlphaViewInput.h"
 #import "RamblerModuleAlphaInteractorInput.h"
 #import "RamblerModuleAlphaRouterInput.h"
+#import "RamblerModuleBetaOutput.h"
 
 @interface RamblerModuleAlphaPresenter()
 
@@ -49,4 +50,12 @@
 
 #pragma mark - RamblerModuleAlphaInteractorOutput
 
+#pragma mark - RamblerModuleBetaOutput
+
+- (void)betaModuleDidChangeSomething
+{
+    NSLog(@"betaModuleDidChangeSomething did called");
+}
+
 @end
+

@@ -28,6 +28,10 @@
     self.linkBlock = linkBlock;
     self.linkBlockWasSet = YES;
     [self tryPerformLink];
+    if (self.postChainActionBlock) {
+        self.postChainActionBlock();
+        self.postChainActionBlock = nil;
+    }
 }
 
 - (void)tryPerformLink {

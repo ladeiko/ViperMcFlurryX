@@ -47,8 +47,36 @@ static IMP originalPrepareForSegueMethodImp;
 // Method opens module using segue
 - (RamblerViperOpenModulePromise*)openModuleUsingSegue:(NSString*)segueIdentifier {
     RamblerViperOpenModulePromise *openModulePromise = [[RamblerViperOpenModulePromise alloc] init];
+    static const char key;
+    void (^perform)() = ^{
+        if (!objc_getAssociatedObject(self, &key)) {
+            objc_setAssociatedObject(self, &key, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self performSegueWithIdentifier:segueIdentifier sender:openModulePromise];
+        }
+    };
+    //
+    // defined this to try execute segue if thenChainUsingBlock was called just after current
+    // openModuleUsingSegue call (when you should call some input method of module):
+    //  [[self.transitionHandler openModuleUsingSegue:SegueIdentifier]
+    //        thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<SomeModuleInput> moduleInput) {
+    //            [moduleInput moduleConfigurationMethod];
+    //            return nil;
+    //  }];
+    //  NOTE: In this case segue will be called in synchronous manner
+    //
+    openModulePromise.postChainActionBlock = ^{
+        perform();
+    };
+    //
+    // Also try to call segue if postChainActionBlock was not called in current runloop cycle,
+    // for example, thenChainUsingBlock was not called just after openModuleUsingSegue:
+    //
+    //  [self.transitionHandler openModuleUsingSegue:SegueIdentifier];
+    //
+    //  NOTE: In this case segue will be called in asynchronous manner
+    //
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:segueIdentifier sender:openModulePromise];
+        perform();
     });
     return openModulePromise;
 }
@@ -81,14 +109,15 @@ static IMP originalPrepareForSegueMethodImp;
     
     if (isInNavigationStack && hasManyControllersInStack) {
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
-        [navigationController popViewControllerAnimated:animated];
+        UIViewController* popped = [navigationController popViewControllerAnimated:animated];
         if (completion) {
-            UIViewController* const topViewController = [[navigationController viewControllers] lastObject];
-            const NSTimeInterval delayInSeconds = [topViewController.transitionCoordinator transitionDuration] + 0.01;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+            [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 completion();
-            });
+            }];
+        }
+        else {
+            [navigationController popViewControllerAnimated:animated];
         }
     }
     else if (self.presentingViewController) {

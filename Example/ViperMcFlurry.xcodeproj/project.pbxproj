@@ -50,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12E15D7C2091D19500D33294 /* RamblerModuleBetaOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RamblerModuleBetaOutput.h; sourceTree = "<group>"; };
 		162C73161B789D6700226B47 /* RamblerModuleAlphaInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaInteractor.h; path = Viper/ModuleAlpha/RamblerModuleAlphaInteractor.h; sourceTree = "<group>"; };
 		162C73171B789D6700226B47 /* RamblerModuleAlphaInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamblerModuleAlphaInteractor.m; path = Viper/ModuleAlpha/RamblerModuleAlphaInteractor.m; sourceTree = "<group>"; };
 		162C73181B789D6700226B47 /* RamblerModuleAlphaInteractorInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaInteractorInput.h; path = Viper/ModuleAlpha/RamblerModuleAlphaInteractorInput.h; sourceTree = "<group>"; };
@@ -192,9 +193,10 @@
 		162C732B1B789D7900226B47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				162C73231B789D6700226B47 /* RamblerModuleAlphaViewInput.h */,
+				162C73241B789D6700226B47 /* RamblerModuleAlphaViewOutput.h */,
 				162C73211B789D6700226B47 /* RamblerModuleAlphaViewController.h */,
 				162C73221B789D6700226B47 /* RamblerModuleAlphaViewController.m */,
-				162C73231B789D6700226B47 /* RamblerModuleAlphaViewInput.h */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -212,8 +214,6 @@
 		162C732D1B789D8400226B47 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				162C73191B789D6700226B47 /* RamblerModuleAlphaInteractorOutput.h */,
-				162C73241B789D6700226B47 /* RamblerModuleAlphaViewOutput.h */,
 				162C731C1B789D6700226B47 /* RamblerModuleAlphaPresenter.h */,
 				162C731D1B789D6700226B47 /* RamblerModuleAlphaPresenter.m */,
 			);
@@ -226,6 +226,7 @@
 				162C73161B789D6700226B47 /* RamblerModuleAlphaInteractor.h */,
 				162C73171B789D6700226B47 /* RamblerModuleAlphaInteractor.m */,
 				162C73181B789D6700226B47 /* RamblerModuleAlphaInteractorInput.h */,
+				162C73191B789D6700226B47 /* RamblerModuleAlphaInteractorOutput.h */,
 			);
 			name = Interactor;
 			sourceTree = "<group>";
@@ -234,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				162C733E1B78A45F00226B47 /* RamblerModuleBetaViewInput.h */,
+				162C733F1B78A45F00226B47 /* RamblerModuleBetaViewOutput.h */,
 				162C733C1B78A45F00226B47 /* RamblerModuleBetaViewController.h */,
 				162C733D1B78A45F00226B47 /* RamblerModuleBetaViewController.m */,
 			);
@@ -243,11 +245,10 @@
 		162C73461B78A47800226B47 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				162C73341B78A45F00226B47 /* RamblerModuleBetaInteractorOutput.h */,
+				162C73491B78A4A500226B47 /* RamblerModuleBetaInput.h */,
+				12E15D7C2091D19500D33294 /* RamblerModuleBetaOutput.h */,
 				162C73371B78A45F00226B47 /* RamblerModuleBetaPresenter.h */,
 				162C73381B78A45F00226B47 /* RamblerModuleBetaPresenter.m */,
-				162C733F1B78A45F00226B47 /* RamblerModuleBetaViewOutput.h */,
-				162C73491B78A4A500226B47 /* RamblerModuleBetaInput.h */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -255,9 +256,10 @@
 		162C73471B78A47E00226B47 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				162C73331B78A45F00226B47 /* RamblerModuleBetaInteractorInput.h */,
+				162C73341B78A45F00226B47 /* RamblerModuleBetaInteractorOutput.h */,
 				162C73311B78A45F00226B47 /* RamblerModuleBetaInteractor.h */,
 				162C73321B78A45F00226B47 /* RamblerModuleBetaInteractor.m */,
-				162C73331B78A45F00226B47 /* RamblerModuleBetaInteractorInput.h */,
 			);
 			name = Interactor;
 			sourceTree = "<group>";
@@ -547,9 +549,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
+				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -562,9 +573,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
+				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -622,13 +642,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BFF50882DD753EC3B7C13E59 /* [CP] Check Pods Manifest.lock */ = {
@@ -637,13 +660,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C6050BAFABC07C78254F390F /* [CP] Copy Pods Resources */ = {
@@ -808,7 +834,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ViperMcFlurry/ViperMcFlurry-Prefix.pch";
 				INFOPLIST_FILE = "ViperMcFlurry/ViperMcFlurry-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -828,7 +854,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ViperMcFlurry/ViperMcFlurry-Prefix.pch";
 				INFOPLIST_FILE = "ViperMcFlurry/ViperMcFlurry-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
 				OTHER_LDFLAGS = "$(inherited)";

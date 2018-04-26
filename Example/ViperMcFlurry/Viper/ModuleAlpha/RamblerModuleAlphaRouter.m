@@ -24,7 +24,7 @@ static NSString* const RamblerAlphaToBetaSegue = @"RamblerAlphaToBetaSegue";
     [[self.transitionHandler openModuleUsingSegue:RamblerAlphaToBetaSegue]
      thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerModuleBetaInput> moduleInput) {
          [moduleInput configureWithExampleString:exampleString];
-         return nil;
+         return self.thisModule;
      }];
 }
 
