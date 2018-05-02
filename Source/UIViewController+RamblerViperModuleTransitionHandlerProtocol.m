@@ -107,13 +107,29 @@ static IMP originalPrepareForSegueMethodImp;
     [self closeCurrentModule:animated completion:nil];
 }
 
+// Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+    [self closeModulesUntil:nil animated:animated completion:completion];
+}
+
+// Method removes/closes module
+- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+    assert(!transitionHandler || [transitionHandler isKindOfClass:[UIViewController class]]);
+    
     BOOL isInNavigationStack = [self.parentViewController isKindOfClass:[UINavigationController class]];
     BOOL hasManyControllersInStack = isInNavigationStack ? ((UINavigationController *)self.parentViewController).childViewControllers.count > 1 : NO;
     
     if (isInNavigationStack && hasManyControllersInStack) {
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
-        UIViewController* popped = [navigationController popViewControllerAnimated:animated];
+        UIViewController* popped = navigationController.viewControllers.lastObject;
+        
+        if (transitionHandler) {
+            [navigationController popToViewController:(UIViewController*)transitionHandler animated:animated];
+        }
+        else {
+            [navigationController popViewControllerAnimated:animated];
+        }
+        
         if (completion) {
             if (popped.transitionCoordinator) {
                 [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
@@ -129,9 +145,11 @@ static IMP originalPrepareForSegueMethodImp;
         }
     }
     else if (self.presentingViewController) {
+        assert(!transitionHandler && "not implemented");
         [self dismissViewControllerAnimated:animated completion:completion];
     }
     else if (self.view.superview != nil){
+        assert(!transitionHandler && "not implemented");
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
@@ -141,6 +159,39 @@ static IMP originalPrepareForSegueMethodImp;
             });
         }
     }
+    else {
+        assert("not applicable");
+    }
+}
+
+- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+    [self closeModulesUntil:self animated:animated completion:completion];
+}
+
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler {
+    BOOL isInNavigationStack = [self.parentViewController isKindOfClass:[UINavigationController class]];
+    
+    if (isInNavigationStack) {
+        
+        UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
+        if (navigationController.viewControllers.count == 1) {
+            return nil;
+        }
+        
+        const NSInteger idx = [navigationController.viewControllers indexOfObject:self];
+        if (idx == 0 || idx == NSNotFound) {
+            return nil;
+        }
+        
+        UIViewController* candidate = [navigationController.viewControllers objectAtIndex:idx - 1];
+        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
+            return nil;
+        }
+        
+        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+    }
+    // TODO
+    return nil;
 }
 
 #pragma mark - PrepareForSegue swizzling

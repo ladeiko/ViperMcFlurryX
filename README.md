@@ -10,6 +10,24 @@
 
 ### Changes
 
+### v1.7.1
+* Add more *closeModule* variations to
+  ```
+  RamblerViperModuleTransitionHandlerProtocol
+  ```
+  
+```
+- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+
+- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+```
+
+* Add 
+
+```
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler;
+```
+
 #### v1.6.2
 
 * *openModuleUsingSegue* will be called synchronously if *thenChainUsingBlock* was called on promise just after main call. In another case segue will be executed on next runloop cycle. Sync version ensures that after call to * openModuleUsingSegue* segue was executed.

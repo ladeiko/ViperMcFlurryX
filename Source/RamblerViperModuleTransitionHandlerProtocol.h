@@ -37,5 +37,11 @@ typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProt
 - (void)closeCurrentModule:(BOOL)animated;
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+// Method removes/closes module until specified transitionHandler becomes top
+- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+// Method removes/closes module. Uses self as transitionHandler in 'closeModulesUntil'
+- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+// Returns parent module if possible
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler;
 
 @end
