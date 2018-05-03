@@ -190,7 +190,22 @@ static IMP originalPrepareForSegueMethodImp;
         
         return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
     }
-    // TODO
+    else if (self.presentingViewController) {
+        UIViewController* candidate = self.presentingViewController;
+        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
+            return nil;
+        }
+        
+        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+    }
+    else {
+        UIViewController* candidate = self.parentViewController;
+        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
+            return nil;
+        }
+        
+        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+    }
     return nil;
 }
 

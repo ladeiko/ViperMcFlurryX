@@ -10,6 +10,10 @@
 
 ### Changes
 
+### v1.7.2
+
+* Update ```parentTransitionHandler``` logic
+
 ### v1.7.1
 * Add more *closeModule* variations to
   ```
