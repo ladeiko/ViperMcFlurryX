@@ -10,7 +10,7 @@
 
 ### Changes
 
-### v1.7.3
+### v1.7.3, v1.7.4
 * Remove some compilation warnings
 
 ### v1.7.2

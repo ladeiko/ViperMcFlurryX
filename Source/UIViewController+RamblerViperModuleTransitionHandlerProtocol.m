@@ -51,7 +51,7 @@ static IMP originalPrepareForSegueMethodImp;
     static const char key;
     objc_setAssociatedObject(self, &key, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-    void (^perform)() = ^{
+    void (^perform)(void) = ^{
         if (!objc_getAssociatedObject(self, &key)) {
             objc_setAssociatedObject(self, &key, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self performSegueWithIdentifier:segueIdentifier sender:openModulePromise];
