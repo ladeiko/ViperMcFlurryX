@@ -10,6 +10,9 @@
 
 ### Changes
 
+### v1.7.3
+* Remove some compilation warnings
+
 ### v1.7.2
 
 * Update ```parentTransitionHandler``` logic

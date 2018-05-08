@@ -13,7 +13,7 @@
 @protocol RamblerViperModuleTransitionHandlerProtocol;
 @protocol RamblerViperModuleFactoryProtocol;
 
-typedef void (^ModuleCloseCompletionBlock)();
+typedef void (^ModuleCloseCompletionBlock)(void);
 typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler,
                                       id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler);
 

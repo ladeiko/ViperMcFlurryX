@@ -10,8 +10,8 @@
 @protocol RamblerViperModuleOutput;
 @protocol RamblerViperModuleInput;
 
-typedef void(^PostLinkActionBlock)();
-typedef void(^PostChainActionBlock)();
+typedef void(^PostLinkActionBlock)(void);
+typedef void(^PostChainActionBlock)(void);
 
 /**
  This module is used to link modules one to another. ModuleInput is typically presenter of module.
