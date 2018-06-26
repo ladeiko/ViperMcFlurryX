@@ -128,10 +128,10 @@ static IMP originalPrepareForSegueMethodImp;
             embeddedView.translatesAutoresizingMaskIntoConstraints = NO;
             [containerView addConstraints:@[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[embeddedView]-0-|"
                                                                                     options:0
-                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(@"embeddedView")]]];
+                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(embeddedView)]]];
             [containerView addConstraints:@[[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[embeddedView]-0-|"
                                                                                     options:0
-                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(@"embeddedView")]]];
+                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(embeddedView)]]];
         };
         
         if (destinationViewController.isViewLoaded && destinationViewController.view.superview != nil) {

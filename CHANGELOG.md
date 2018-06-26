@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.2
+### Fixed
+* Crash on constraint visual format
+
 ## 1.8.1
 ### Added
 * ```- (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
