@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.3
+### Fixed
+* Crash on adding constraints
+* 
 ## 1.8.2
 ### Fixed
 * Crash on constraint visual format
