@@ -84,6 +84,91 @@ static IMP originalPrepareForSegueMethodImp;
     return openModulePromise;
 }
 
+- (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
+                                               configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock
+{
+    return [self createEmbeddableModuleUsingFactory:moduleFactory configurationBlock:configurationBlock lazyAllocation:NO];
+}
+
+- (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
+                                               configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock
+                                                   lazyAllocation:(BOOL)lazyAllocation
+{
+    __block UIViewController* sourceViewController;
+    __block UIViewController* destinationViewController;
+    
+    const void(^allocate)(void) = ^{
+        [[self openModuleUsingFactory:moduleFactory withTransitionBlock:^(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler, id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler) {
+            sourceViewController = (UIViewController*)sourceModuleTransitionHandler;
+            destinationViewController = (UIViewController*)destinationModuleTransitionHandler;
+        }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerViperModuleInput> moduleInput) {
+            return configurationBlock(moduleInput);
+        }];
+        NSAssert(sourceViewController, @"code above should be called synchronously");
+        NSAssert(destinationViewController, @"code above should be called synchronously");
+    };
+    
+    const EmbeddedModuleEmbedderBlock embedder  = ^EmbeddedModuleRemoverBlock(UIView* containerView) {
+        
+        if (lazyAllocation && destinationViewController == nil) {
+            allocate();
+        }
+        
+        const EmbeddedModuleRemoverBlock remover = ^{
+            if (!destinationViewController.isViewLoaded || (destinationViewController.view.superview != containerView)) {
+                return;
+            }
+            [destinationViewController willMoveToParentViewController:nil];
+            [destinationViewController.view removeFromSuperview];
+            [destinationViewController removeFromParentViewController];
+        };
+        
+        const void (^setupConstraints)(void) = ^{
+            UIView* const embeddedView = destinationViewController.view;
+            embeddedView.translatesAutoresizingMaskIntoConstraints = NO;
+            [containerView addConstraints:@[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[embeddedView]-0-|"
+                                                                                    options:0
+                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(@"embeddedView")]]];
+            [containerView addConstraints:@[[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[embeddedView]-0-|"
+                                                                                    options:0
+                                                                                    metrics:nil views:NSDictionaryOfVariableBindings(@"embeddedView")]]];
+        };
+        
+        if (destinationViewController.isViewLoaded && destinationViewController.view.superview != nil) {
+            if (destinationViewController.parentViewController == sourceViewController) { // parent controller is the same
+                
+                if (destinationViewController.view.superview == containerView) { // and view is the same
+                    return remover;
+                }
+                
+                // Does not need 'removeFromSuperview' because
+                // it is automatically called whill addSubview
+                [containerView addSubview:destinationViewController.view];
+                setupConstraints();
+                return remover;
+            }
+            else {
+                [destinationViewController willMoveToParentViewController:nil];
+                [destinationViewController.view removeFromSuperview];
+                [destinationViewController removeFromParentViewController];
+            }
+        }
+        
+        [destinationViewController willMoveToParentViewController:sourceViewController];
+        [sourceViewController addChildViewController:destinationViewController];
+        [containerView addSubview:destinationViewController.view];
+        [destinationViewController didMoveToParentViewController:sourceViewController];
+        setupConstraints();
+        return remover;
+    };
+    
+    if (!lazyAllocation) {
+        allocate();
+    }
+    
+    return embedder;
+}
+
 // Method opens module using module factory
 - (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory withTransitionBlock:(ModuleTransitionBlock)transitionBlock {
     RamblerViperOpenModulePromise *openModulePromise = [[RamblerViperOpenModulePromise alloc] init];

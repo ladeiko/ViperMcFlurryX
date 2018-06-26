@@ -9,6 +9,7 @@
 
 @class RamblerViperOpenModulePromise;
 @protocol RamblerViperModuleInput;
+@protocol RamblerViperModuleOutput;
 @class RamblerViperModuleFactory;
 @protocol RamblerViperModuleTransitionHandlerProtocol;
 @protocol RamblerViperModuleFactoryProtocol;
@@ -16,6 +17,9 @@
 typedef void (^ModuleCloseCompletionBlock)(void);
 typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler,
                                       id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler);
+typedef void (^EmbeddedModuleRemoverBlock)(void);
+typedef EmbeddedModuleRemoverBlock (^EmbeddedModuleEmbedderBlock)(UIView* containerView);
+typedef id<RamblerViperModuleOutput>(^EmbeddedModuleConfigurationBlock)(id<RamblerViperModuleInput> moduleInput);
 
 /**
  Protocol defines interface for intermodule transition
@@ -33,6 +37,26 @@ typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProt
 - (RamblerViperOpenModulePromise*)openModuleUsingSegue:(NSString*)segueIdentifier;
 // Method opens module using module factory
 - (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory withTransitionBlock:(ModuleTransitionBlock)transitionBlock;
+
+// Method returns block accepting sinlge container view as parameter,
+// if block is called then module is embedded to the specified view,
+// andblock returns another block which can be used to detach embedded
+// module from previous container view. 'lazyAllocation' defines, when
+// embedded module is created and configured: if lazyAllocation is true,
+// then module is create and configured at the moment of attachement,
+// if false, then at the moment when this function is called.
+// Example of usage you can see in SwiftyViperMcFlurryStoryboardComplexTableViewCacheTracker template
+// at https://github.com/ladeiko/SwiftyViperTemplates
+//
+// NOTE: Detaching block will remove from superview only if superview is the same it was while attaching!
+- (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
+                                               configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock
+                                                   lazyAllocation:(BOOL)lazyAllocation;
+
+// Shorter version of 'createEmbeddableModuleUsingFactory' where lazyAllocation is false
+- (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
+                                               configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock;
+
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated;
 // Method removes/closes module
