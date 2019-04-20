@@ -229,11 +229,11 @@ static IMP originalPrepareForSegueMethodImp;
             }
         }
     }
-    else if (self.presentingViewController) {
+    else if (self.presentingViewController.presentedViewController == self) {
         assert(!transitionHandler && "not implemented");
         [self dismissViewControllerAnimated:animated completion:completion];
     }
-    else if (self.view.superview != nil){
+    else if (self.parentViewController){
         assert(!transitionHandler && "not implemented");
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
@@ -275,7 +275,7 @@ static IMP originalPrepareForSegueMethodImp;
         
         return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
     }
-    else if (self.presentingViewController) {
+    else if (self.presentingViewController.presentedViewController == self) {
         UIViewController* candidate = self.presentingViewController;
         if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
             return nil;
