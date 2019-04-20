@@ -236,12 +236,29 @@ static IMP originalPrepareForSegueMethodImp;
     else if (self.parentViewController){
         assert(!transitionHandler && "not implemented");
         [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-        if (completion) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion();
-            });
+        if (animated) {
+            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
+                                  delay:0
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                                 self.view.alpha = 0;
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.view removeFromSuperview];
+                                 [self removeFromParentViewController];
+                                 if (completion) {
+                                     completion();
+                                 }
+                             }];
+        }
+        else {
+            [self.view removeFromSuperview];
+            [self removeFromParentViewController];
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion();
+                });
+            }
         }
     }
     else {
