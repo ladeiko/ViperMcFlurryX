@@ -154,7 +154,6 @@ static IMP originalPrepareForSegueMethodImp;
             }
         }
         
-        [destinationViewController willMoveToParentViewController:sourceViewController];
         [sourceViewController addChildViewController:destinationViewController];
         [containerView addSubview:destinationViewController.view];
         [destinationViewController didMoveToParentViewController:sourceViewController];
