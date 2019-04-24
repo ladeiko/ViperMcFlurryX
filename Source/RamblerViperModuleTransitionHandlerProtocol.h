@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class RamblerViperOpenModulePromise;
 @protocol RamblerViperModuleInput;
 @protocol RamblerViperModuleOutput;
@@ -18,8 +20,8 @@ typedef void (^ModuleCloseCompletionBlock)(void);
 typedef void (^ModuleTransitionBlock)(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler,
                                       id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler);
 typedef void (^EmbeddedModuleRemoverBlock)(void);
-typedef EmbeddedModuleRemoverBlock (^EmbeddedModuleEmbedderBlock)(UIView* containerView);
-typedef id<RamblerViperModuleOutput>(^EmbeddedModuleConfigurationBlock)(id<RamblerViperModuleInput> moduleInput);
+typedef EmbeddedModuleRemoverBlock _Nonnull (^EmbeddedModuleEmbedderBlock)(UIView* containerView);
+typedef id<RamblerViperModuleOutput>_Nullable(^EmbeddedModuleConfigurationBlock)(id<RamblerViperModuleInput> moduleInput);
 
 /**
  Protocol defines interface for intermodule transition
@@ -60,12 +62,15 @@ typedef id<RamblerViperModuleOutput>(^EmbeddedModuleConfigurationBlock)(id<Rambl
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated;
 // Method removes/closes module
-- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+- (void)closeCurrentModule:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Method removes/closes module until specified transitionHandler becomes top
-- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Method removes/closes module. Uses self as transitionHandler in 'closeModulesUntil'
-- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion;
+- (void)closeTopModules:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Returns parent module if possible
 - (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
