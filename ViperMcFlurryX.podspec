@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ViperMcFlurryX"
-  s.version      = "1.10.3"
+  s.version      = "1.10.4"
   s.summary      = "ViperMcFlurryX - Fork of Rambler ViperMcFlurry framework."
 
   s.homepage         = "https://github.com/ladeiko/ViperMcFlurryX"

@@ -64,7 +64,7 @@ typedef id<RamblerViperModuleOutput>_Nullable(^EmbeddedModuleConfigurationBlock)
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Method removes/closes module until specified transitionHandler becomes top
-- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
+- (void)closeModulesUntil:(_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Method removes/closes module. Uses self as transitionHandler in 'closeModulesUntil'
 - (void)closeTopModules:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Returns parent module if possible
