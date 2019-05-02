@@ -14,7 +14,7 @@ target 'ViperMcFlurry_Example' do
     appPods
 end
 
-target 'ViperMcFlurry_Tests' do
+target 'ViperMcFlurry_ExampleTests' do
     appPods
 end
 

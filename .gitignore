@@ -16,6 +16,7 @@ xcuserdata
 DerivedData
 *.xcuserstate
 
+Pods
 
 ### Objective-C ###
 # Xcode

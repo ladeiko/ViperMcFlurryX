@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12DD72F0227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DD72EF227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift */; };
+		12DD72FE227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.swift */; };
 		162C73251B789D6700226B47 /* RamblerModuleAlphaInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C73171B789D6700226B47 /* RamblerModuleAlphaInteractor.m */; };
 		162C73271B789D6700226B47 /* RamblerModuleAlphaPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C731D1B789D6700226B47 /* RamblerModuleAlphaPresenter.m */; };
 		162C73281B789D6700226B47 /* RamblerModuleAlphaRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C731F1B789D6700226B47 /* RamblerModuleAlphaRouter.m */; };
@@ -15,7 +17,6 @@
 		162C73421B78A45F00226B47 /* RamblerModuleBetaPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C73381B78A45F00226B47 /* RamblerModuleBetaPresenter.m */; };
 		162C73431B78A45F00226B47 /* RamblerModuleBetaRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C733A1B78A45F00226B47 /* RamblerModuleBetaRouter.m */; };
 		162C73441B78A45F00226B47 /* RamblerModuleBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C733D1B78A45F00226B47 /* RamblerModuleBetaViewController.m */; };
-		2F8EC9FE21353262E6D3028E /* Pods_ViperMcFlurry_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6F5979FBF96E09EF139449 /* Pods_ViperMcFlurry_Tests.framework */; };
 		429835321E2E835700DB54EC /* RamblerModuleGammaInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 429835241E2E835700DB54EC /* RamblerModuleGammaInteractor.m */; };
 		429835331E2E835700DB54EC /* RamblerModuleGammaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 429835281E2E835700DB54EC /* RamblerModuleGammaModuleAssembly.m */; };
 		429835341E2E835700DB54EC /* RamblerModuleGammaPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298352A1E2E835700DB54EC /* RamblerModuleGammaPresenter.m */; };
@@ -29,10 +30,8 @@
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* RamblerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* RamblerAppDelegate.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
-		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
-		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
-		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		AC88E63AB969247C77037A18 /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */; };
 		C2C905018238A19115ED6AC6 /* Pods_ViperMcFlurry_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */; };
 		D24D49021BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */; };
 		D24D49051BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D49041BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.m */; };
@@ -40,16 +39,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6003F5B3195388D20070C39A /* PBXContainerItemProxy */ = {
+		12DD72F2227AEC3F003D1A2D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6003F582195388D10070C39A /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6003F589195388D20070C39A;
-			remoteInfo = ViperMcFlurry;
+			remoteInfo = ViperMcFlurry_Example;
+		};
+		12DD7300227AF15C003D1A2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6003F582195388D10070C39A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6003F589195388D20070C39A;
+			remoteInfo = ViperMcFlurry_Example;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12DD72E6227AEC0D003D1A2D /* ViperMcFlurry_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViperMcFlurry_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		12DD72ED227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		12DD72EF227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_ExampleTests.swift; sourceTree = "<group>"; };
+		12DD72F1227AEC3F003D1A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12DD72FB227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_ExampleTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_ExampleTests2.swift; sourceTree = "<group>"; };
+		12DD72FF227AF15C003D1A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12E15D7C2091D19500D33294 /* RamblerModuleBetaOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RamblerModuleBetaOutput.h; sourceTree = "<group>"; };
 		162C73161B789D6700226B47 /* RamblerModuleAlphaInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaInteractor.h; path = Viper/ModuleAlpha/RamblerModuleAlphaInteractor.h; sourceTree = "<group>"; };
 		162C73171B789D6700226B47 /* RamblerModuleAlphaInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamblerModuleAlphaInteractor.m; path = Viper/ModuleAlpha/RamblerModuleAlphaInteractor.m; sourceTree = "<group>"; };
@@ -102,6 +115,7 @@
 		429835301E2E835700DB54EC /* RamblerModuleGammaViewInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewInput.h; sourceTree = "<group>"; };
 		429835311E2E835700DB54EC /* RamblerModuleGammaViewOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewOutput.h; sourceTree = "<group>"; };
 		4298353B1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RamblerModuleGammaViewController.xib; sourceTree = "<group>"; };
+		4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViperMcFlurry_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -111,16 +125,17 @@
 		6003F59C195388D20070C39A /* RamblerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RamblerAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* RamblerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RamblerAppDelegate.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6003F5AE195388D20070C39A /* ViperMcFlurry_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurryX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViperMcFlurryX.podspec; path = ../ViperMcFlurryX.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		BCD36FC03A45A87A4597C0C7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAB36AAE88EAE4784F1616E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24D49001BD1049400C77475 /* RamblerModuleBetaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleBetaModuleAssembly.h; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.h; sourceTree = "<group>"; };
 		D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamblerModuleBetaModuleAssembly.m; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.m; sourceTree = "<group>"; };
 		D24D49031BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaModuleAssembly.h; path = Viper/ModuleAlpha/RamblerModuleAlphaModuleAssembly.h; sourceTree = "<group>"; };
@@ -130,6 +145,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		12DD72EA227AEC3F003D1A2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC88E63AB969247C77037A18 /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12DD72F8227AF15C003D1A2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F587195388D20070C39A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,19 +171,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6003F5AB195388D20070C39A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
-				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				2F8EC9FE21353262E6D3028E /* Pods_ViperMcFlurry_Tests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12DD72EE227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				12DD72EF227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift */,
+				12DD72F1227AEC3F003D1A2D /* Info.plist */,
+			);
+			path = ViperMcFlurry_ExampleTests;
+			sourceTree = "<group>";
+		};
+		12DD72FC227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2 */ = {
+			isa = PBXGroup;
+			children = (
+				12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.swift */,
+				12DD72FF227AF15C003D1A2D /* Info.plist */,
+			);
+			path = ViperMcFlurry_ExampleTests2;
+			sourceTree = "<group>";
+		};
 		162C73141B789B6800226B47 /* Viper */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +376,8 @@
 				29CC82345586C4F662E7C65C /* Pods-ViperMcFlurry_Example.release.xcconfig */,
 				9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */,
 				F7BF77682AD97D2B0DE14324 /* Pods-ViperMcFlurry_Tests.release.xcconfig */,
+				4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */,
+				7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -348,9 +388,12 @@
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for ViperMcFlurry */,
 				6003F5B5195388D20070C39A /* Tests */,
+				12DD72EE227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests */,
+				12DD72FC227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2 */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				4D62E5BDBFF12E6425C93A40 /* Pods */,
+				12DD72E6227AEC0D003D1A2D /* ViperMcFlurry_Example-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -358,7 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */,
-				6003F5AE195388D20070C39A /* ViperMcFlurry_Tests.xctest */,
+				12DD72ED227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.xctest */,
+				12DD72FB227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -373,6 +417,7 @@
 				BCD36FC03A45A87A4597C0C7 /* libPods.a */,
 				8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */,
 				3F6F5979FBF96E09EF139449 /* Pods_ViperMcFlurry_Tests.framework */,
+				C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -442,6 +487,44 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		12DD72EC227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12DD72F4227AEC3F003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests" */;
+			buildPhases = (
+				DE4B49BA11011512FBBC7205 /* [CP] Check Pods Manifest.lock */,
+				12DD72E9227AEC3F003D1A2D /* Sources */,
+				12DD72EA227AEC3F003D1A2D /* Frameworks */,
+				12DD72EB227AEC3F003D1A2D /* Resources */,
+				C929A3497A6F2048C6DDFB3C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12DD72F3227AEC3F003D1A2D /* PBXTargetDependency */,
+			);
+			name = ViperMcFlurry_ExampleTests;
+			productName = ViperMcFlurry_ExampleTests;
+			productReference = 12DD72ED227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		12DD72FA227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12DD7304227AF15C003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests2" */;
+			buildPhases = (
+				12DD72F7227AF15C003D1A2D /* Sources */,
+				12DD72F8227AF15C003D1A2D /* Frameworks */,
+				12DD72F9227AF15C003D1A2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12DD7301227AF15C003D1A2D /* PBXTargetDependency */,
+			);
+			name = ViperMcFlurry_ExampleTests2;
+			productName = ViperMcFlurry_ExampleTests2;
+			productReference = 12DD72FB227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6003F589195388D20070C39A /* ViperMcFlurry_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "ViperMcFlurry_Example" */;
@@ -450,7 +533,6 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				C6050BAFABC07C78254F390F /* [CP] Copy Pods Resources */,
 				01BC9CB6C6F4D26F423048A6 /* [CP] Embed Pods Frameworks */,
 				9E0EE8EC6CC5F15FDF605C15 /* Embed Pods Frameworks */,
 			);
@@ -463,28 +545,6 @@
 			productReference = 6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6003F5AD195388D20070C39A /* ViperMcFlurry_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "ViperMcFlurry_Tests" */;
-			buildPhases = (
-				BFF50882DD753EC3B7C13E59 /* [CP] Check Pods Manifest.lock */,
-				6003F5AA195388D20070C39A /* Sources */,
-				6003F5AB195388D20070C39A /* Frameworks */,
-				6003F5AC195388D20070C39A /* Resources */,
-				5FB186E48B14A2189DA1EA83 /* [CP] Copy Pods Resources */,
-				138D895A56E50306869154A6 /* [CP] Embed Pods Frameworks */,
-				29A94EBD936C47E4D47A9A6C /* Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6003F5B4195388D20070C39A /* PBXTargetDependency */,
-			);
-			name = ViperMcFlurry_Tests;
-			productName = ViperMcFlurryTests;
-			productReference = 6003F5AE195388D20070C39A /* ViperMcFlurry_Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -492,11 +552,22 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Rambler;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Egor Tolstoy";
 				TargetAttributes = {
-					6003F5AD195388D20070C39A = {
+					12DD72EC227AEC3F003D1A2D = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 6003F589195388D20070C39A;
+					};
+					12DD72FA227AF15C003D1A2D = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6003F589195388D20070C39A;
+					};
+					6003F589195388D20070C39A = {
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -515,12 +586,27 @@
 			projectRoot = "";
 			targets = (
 				6003F589195388D20070C39A /* ViperMcFlurry_Example */,
-				6003F5AD195388D20070C39A /* ViperMcFlurry_Tests */,
+				12DD72EC227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests */,
+				12DD72FA227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		12DD72EB227AEC3F003D1A2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12DD72F9227AF15C003D1A2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F588195388D20070C39A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -533,14 +619,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6003F5AC195388D20070C39A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -550,7 +628,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
 				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
 				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
@@ -565,61 +643,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		138D895A56E50306869154A6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
-				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
-				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
-				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		29A94EBD936C47E4D47A9A6C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5FB186E48B14A2189DA1EA83 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E0EE8EC6CC5F15FDF605C15 /* Embed Pods Frameworks */ = {
@@ -655,42 +679,75 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BFF50882DD753EC3B7C13E59 /* [CP] Check Pods Manifest.lock */ = {
+		C929A3497A6F2048C6DDFB3C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
+				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE4B49BA11011512FBBC7205 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_ExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C6050BAFABC07C78254F390F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		12DD72E9227AEC3F003D1A2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12DD72F0227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12DD72F7227AF15C003D1A2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12DD72FE227AF15C003D1A2D /* ViperMcFlurry_ExampleTests2.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F586195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -715,20 +772,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6003F5AA195388D20070C39A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6003F5B4195388D20070C39A /* PBXTargetDependency */ = {
+		12DD72F3227AEC3F003D1A2D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* ViperMcFlurry_Example */;
-			targetProxy = 6003F5B3195388D20070C39A /* PBXContainerItemProxy */;
+			targetProxy = 12DD72F2227AEC3F003D1A2D /* PBXContainerItemProxy */;
+		};
+		12DD7301227AF15C003D1A2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6003F589195388D20070C39A /* ViperMcFlurry_Example */;
+			targetProxy = 12DD7300227AF15C003D1A2D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -752,6 +807,124 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		12DD72F5227AEC3F003D1A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ViperMcFlurry_ExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ViperMcFlurry-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
+			};
+			name = Debug;
+		};
+		12DD72F6227AEC3F003D1A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ViperMcFlurry_ExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ViperMcFlurry-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
+			};
+			name = Release;
+		};
+		12DD7302227AF15C003D1A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ViperMcFlurry_ExampleTests2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ViperMcFlurry-ExampleTests2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
+			};
+			name = Debug;
+		};
+		12DD7303227AF15C003D1A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ViperMcFlurry_ExampleTests2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ViperMcFlurry-ExampleTests2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
+			};
+			name = Release;
+		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -858,17 +1031,22 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ViperMcFlurry/ViperMcFlurry-Prefix.pch";
 				INFOPLIST_FILE = "ViperMcFlurry/ViperMcFlurry-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ViperMcFlurry_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -880,70 +1058,46 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ViperMcFlurry/ViperMcFlurry-Prefix.pch";
 				INFOPLIST_FILE = "ViperMcFlurry/ViperMcFlurry-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ViperMcFlurry_Example-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		6003F5C3195388D20070C39A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		6003F5C4195388D20070C39A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7BF77682AD97D2B0DE14324 /* Pods-ViperMcFlurry_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		12DD72F4227AEC3F003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12DD72F5227AEC3F003D1A2D /* Debug */,
+				12DD72F6227AEC3F003D1A2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		12DD7304227AF15C003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12DD7302227AF15C003D1A2D /* Debug */,
+				12DD7303227AF15C003D1A2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "ViperMcFlurry" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -958,15 +1112,6 @@
 			buildConfigurations = (
 				6003F5C0195388D20070C39A /* Debug */,
 				6003F5C1195388D20070C39A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "ViperMcFlurry_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6003F5C3195388D20070C39A /* Debug */,
-				6003F5C4195388D20070C39A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

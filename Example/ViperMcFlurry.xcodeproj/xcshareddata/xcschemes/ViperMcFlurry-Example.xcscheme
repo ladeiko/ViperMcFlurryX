@@ -29,12 +29,22 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
+            skipped = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "12DD72EC227AEC3F003D1A2D"
+               BuildableName = "ViperMcFlurry_ExampleTests.xctest"
+               BlueprintName = "ViperMcFlurry_ExampleTests"
+               ReferencedContainer = "container:ViperMcFlurry.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "ViperMcFlurry_Tests.xctest"
-               BlueprintName = "ViperMcFlurry_Tests"
+               BlueprintIdentifier = "12DD72FA227AF15C003D1A2D"
+               BuildableName = "ViperMcFlurry_ExampleTests2.xctest"
+               BlueprintName = "ViperMcFlurry_ExampleTests2"
                ReferencedContainer = "container:ViperMcFlurry.xcodeproj">
             </BuildableReference>
          </TestableReference>

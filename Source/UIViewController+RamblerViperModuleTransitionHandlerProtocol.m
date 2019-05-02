@@ -200,59 +200,67 @@ static IMP originalPrepareForSegueMethodImp;
 - (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
     assert(!transitionHandler || [transitionHandler isKindOfClass:[UIViewController class]]);
     
-    BOOL isInNavigationStack = [self.parentViewController isKindOfClass:[UINavigationController class]];
-    BOOL hasManyControllersInStack = isInNavigationStack ? ((UINavigationController *)self.parentViewController).childViewControllers.count > 1 : NO;
+    UIViewController* controller = self;
+        
+    BOOL isInNavigationStack = [controller.parentViewController isKindOfClass:[UINavigationController class]];
+    BOOL hasManyControllersInStack = isInNavigationStack ? ((UINavigationController *)controller.parentViewController).childViewControllers.count > 1 : NO;
     
-    if (isInNavigationStack && hasManyControllersInStack) {
-        UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
-        UIViewController* popped = navigationController.viewControllers.lastObject;
-        
-        if (transitionHandler) {
-            [navigationController popToViewController:(UIViewController*)transitionHandler animated:animated];
-        }
-        else {
-            [navigationController popViewControllerAnimated:animated];
-        }
-        
-        if (completion) {
-            if (popped.transitionCoordinator) {
-                [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                    completion();
-                }];
+    if (isInNavigationStack) {
+        if (hasManyControllersInStack) {
+            UINavigationController *navigationController = (UINavigationController*)controller.parentViewController;
+            UIViewController* popped = navigationController.viewControllers.lastObject;
+            
+            if (transitionHandler) {
+                [navigationController popToViewController:(UIViewController*)transitionHandler animated:animated];
             }
             else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion();
-                });
+                [navigationController popViewControllerAnimated:animated];
+            }
+            
+            if (completion) {
+                if (popped.transitionCoordinator) {
+                    [popped.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                        completion();
+                    }];
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
             }
         }
+        else {
+            [controller.parentViewController closeModulesUntil:transitionHandler animated:animated completion:completion];
+            return;
+        }
     }
-    else if (self.presentingViewController.presentedViewController == self) {
+    else if (controller.presentingViewController.presentedViewController == controller) {
         assert(!transitionHandler && "not implemented");
-        [self dismissViewControllerAnimated:animated completion:completion];
+        [controller dismissViewControllerAnimated:animated completion:completion];
     }
-    else if (self.parentViewController){
+    else if (controller.parentViewController){
         assert(!transitionHandler && "not implemented");
-        [self willMoveToParentViewController:nil];
+        [controller willMoveToParentViewController:nil];
         if (animated) {
             [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
                                   delay:0
                                 options:UIViewAnimationOptionBeginFromCurrentState
                              animations:^{
-                                 self.view.alpha = 0;
+                                 controller.view.alpha = 0;
                              }
                              completion:^(BOOL finished) {
-                                 [self.view removeFromSuperview];
-                                 [self removeFromParentViewController];
+                                 [controller.view removeFromSuperview];
+                                 [controller removeFromParentViewController];
                                  if (completion) {
                                      completion();
                                  }
                              }];
         }
         else {
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
+            [controller.view removeFromSuperview];
+            [controller removeFromParentViewController];
             if (completion) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion();
