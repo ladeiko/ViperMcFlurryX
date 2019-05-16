@@ -17,6 +17,7 @@
 		162C73421B78A45F00226B47 /* RamblerModuleBetaPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C73381B78A45F00226B47 /* RamblerModuleBetaPresenter.m */; };
 		162C73431B78A45F00226B47 /* RamblerModuleBetaRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C733A1B78A45F00226B47 /* RamblerModuleBetaRouter.m */; };
 		162C73441B78A45F00226B47 /* RamblerModuleBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C733D1B78A45F00226B47 /* RamblerModuleBetaViewController.m */; };
+		3AAA62889EDACD8BF84E1BCF /* Pods_ViperMcFlurry_ExampleTests2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 053F45B745B073F36BB1C74B /* Pods_ViperMcFlurry_ExampleTests2.framework */; };
 		429835321E2E835700DB54EC /* RamblerModuleGammaInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 429835241E2E835700DB54EC /* RamblerModuleGammaInteractor.m */; };
 		429835331E2E835700DB54EC /* RamblerModuleGammaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 429835281E2E835700DB54EC /* RamblerModuleGammaModuleAssembly.m */; };
 		429835341E2E835700DB54EC /* RamblerModuleGammaPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298352A1E2E835700DB54EC /* RamblerModuleGammaPresenter.m */; };
@@ -31,7 +32,6 @@
 		6003F59E195388D20070C39A /* RamblerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* RamblerAppDelegate.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		AC88E63AB969247C77037A18 /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */; };
 		C2C905018238A19115ED6AC6 /* Pods_ViperMcFlurry_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */; };
 		D24D49021BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */; };
 		D24D49051BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D49041BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.m */; };
@@ -56,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		053F45B745B073F36BB1C74B /* Pods_ViperMcFlurry_ExampleTests2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_ExampleTests2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DD72E6227AEC0D003D1A2D /* ViperMcFlurry_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViperMcFlurry_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		12DD72ED227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DD72EF227AEC3F003D1A2D /* ViperMcFlurry_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_ExampleTests.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		169FC0D81B95C86E008547D7 /* ViperMcFlurry-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViperMcFlurry-Prefix.pch"; sourceTree = "<group>"; };
 		29585292F60D04C0C6BFE358 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		29CC82345586C4F662E7C65C /* Pods-ViperMcFlurry_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example.release.xcconfig"; sourceTree = "<group>"; };
+		3B165198AA9CE78A84AE9F07 /* Pods-ViperMcFlurry_ExampleTests2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests2/Pods-ViperMcFlurry_ExampleTests2.debug.xcconfig"; sourceTree = "<group>"; };
 		3E218B7F42124CFBDB835247 /* Pods-ViperMcFlurry_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		3F6F5979FBF96E09EF139449 /* Pods_ViperMcFlurry_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		429835221E2E835700DB54EC /* RamblerModuleGammaInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaInput.h; sourceTree = "<group>"; };
@@ -115,7 +117,6 @@
 		429835301E2E835700DB54EC /* RamblerModuleGammaViewInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewInput.h; sourceTree = "<group>"; };
 		429835311E2E835700DB54EC /* RamblerModuleGammaViewOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewOutput.h; sourceTree = "<group>"; };
 		4298353B1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RamblerModuleGammaViewController.xib; sourceTree = "<group>"; };
-		4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViperMcFlurry_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,14 +129,13 @@
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurryX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViperMcFlurryX.podspec; path = ../ViperMcFlurryX.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_Tests/Pods-ViperMcFlurry_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		9F3892FF0A301734C2B4D79E /* Pods-ViperMcFlurry_ExampleTests2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests2.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests2/Pods-ViperMcFlurry_ExampleTests2.release.xcconfig"; sourceTree = "<group>"; };
 		BCD36FC03A45A87A4597C0C7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAB36AAE88EAE4784F1616E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24D49001BD1049400C77475 /* RamblerModuleBetaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleBetaModuleAssembly.h; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.h; sourceTree = "<group>"; };
 		D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamblerModuleBetaModuleAssembly.m; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.m; sourceTree = "<group>"; };
 		D24D49031BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaModuleAssembly.h; path = Viper/ModuleAlpha/RamblerModuleAlphaModuleAssembly.h; sourceTree = "<group>"; };
@@ -149,7 +149,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC88E63AB969247C77037A18 /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAA62889EDACD8BF84E1BCF /* Pods_ViperMcFlurry_ExampleTests2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,8 +376,8 @@
 				29CC82345586C4F662E7C65C /* Pods-ViperMcFlurry_Example.release.xcconfig */,
 				9DB79ED922F73E404786FD30 /* Pods-ViperMcFlurry_Tests.debug.xcconfig */,
 				F7BF77682AD97D2B0DE14324 /* Pods-ViperMcFlurry_Tests.release.xcconfig */,
-				4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */,
-				7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */,
+				3B165198AA9CE78A84AE9F07 /* Pods-ViperMcFlurry_ExampleTests2.debug.xcconfig */,
+				9F3892FF0A301734C2B4D79E /* Pods-ViperMcFlurry_ExampleTests2.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -417,7 +417,7 @@
 				BCD36FC03A45A87A4597C0C7 /* libPods.a */,
 				8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */,
 				3F6F5979FBF96E09EF139449 /* Pods_ViperMcFlurry_Tests.framework */,
-				C91A1AE0F5CF4F023D813DFB /* Pods_ViperMcFlurry_ExampleTests.framework */,
+				053F45B745B073F36BB1C74B /* Pods_ViperMcFlurry_ExampleTests2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -491,11 +491,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 12DD72F4227AEC3F003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests" */;
 			buildPhases = (
-				DE4B49BA11011512FBBC7205 /* [CP] Check Pods Manifest.lock */,
 				12DD72E9227AEC3F003D1A2D /* Sources */,
 				12DD72EA227AEC3F003D1A2D /* Frameworks */,
 				12DD72EB227AEC3F003D1A2D /* Resources */,
-				C929A3497A6F2048C6DDFB3C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -511,9 +509,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 12DD7304227AF15C003D1A2D /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleTests2" */;
 			buildPhases = (
+				62603DC97BC2347148DE4E06 /* [CP] Check Pods Manifest.lock */,
 				12DD72F7227AF15C003D1A2D /* Sources */,
 				12DD72F8227AF15C003D1A2D /* Frameworks */,
 				12DD72F9227AF15C003D1A2D /* Resources */,
+				1B748CEEA8CDCBE6D58D477C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -553,7 +553,7 @@
 			attributes = {
 				CLASSPREFIX = Rambler;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Egor Tolstoy";
 				TargetAttributes = {
 					12DD72EC227AEC3F003D1A2D = {
@@ -646,6 +646,56 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_Example/Pods-ViperMcFlurry_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1B748CEEA8CDCBE6D58D477C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests2/Pods-ViperMcFlurry_ExampleTests2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
+				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests2/Pods-ViperMcFlurry_ExampleTests2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62603DC97BC2347148DE4E06 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_ExampleTests2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9E0EE8EC6CC5F15FDF605C15 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,56 +723,6 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C929A3497A6F2048C6DDFB3C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftSelfAware/SwiftSelfAware.framework",
-				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
-				"${BUILT_PRODUCTS_DIR}/ViperMcFlurrySwiftFix/ViperMcFlurrySwiftFix.framework",
-				"${BUILT_PRODUCTS_DIR}/ViperMcFlurryX/ViperMcFlurryX.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSelfAware.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurrySwiftFix.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurryX.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DE4B49BA11011512FBBC7205 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViperMcFlurry_ExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -809,7 +809,6 @@
 /* Begin XCBuildConfiguration section */
 		12DD72F5227AEC3F003D1A2D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AA8699E6A8D00EA314420F6 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -839,7 +838,6 @@
 		};
 		12DD72F6227AEC3F003D1A2D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D8D605870DB366E76C2BBB5 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -869,6 +867,7 @@
 		};
 		12DD7302227AF15C003D1A2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B165198AA9CE78A84AE9F07 /* Pods-ViperMcFlurry_ExampleTests2.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -898,6 +897,7 @@
 		};
 		12DD7303227AF15C003D1A2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F3892FF0A301734C2B4D79E /* Pods-ViperMcFlurry_ExampleTests2.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -929,6 +929,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -982,6 +983,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1019,6 +1021,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

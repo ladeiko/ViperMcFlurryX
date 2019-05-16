@@ -1,15 +1,20 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
-install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+osx_image: xcode10.2
+
+branches:
+  only:
+    - master
+
+env:
+  - LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8
+
+before_install:
+  - rvm install ruby-2.2.2
+  - gem install cocoapods
+  - gem install xcpretty -N
+
 script:
-- set -o pipefail && xcodebuild test -workspace Example/RamblerMcFlurry.xcworkspace -scheme RamblerMcFlurry-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
-- pod lib lint --quick
+  - set -o pipefail
+  - cd Example
+  - pod install 
+  - xcodebuild test -enableCodeCoverage YES -workspace ViperMcFlurry.xcworkspace -scheme ViperMcFlurry-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c

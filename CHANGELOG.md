@@ -1,9 +1,13 @@
 # CHANGELOG
 
+## 1.11.1
+### Changed
+* Update dismiss logic to support complex situations
+
 ## 1.8.3
 ### Fixed
 * Crash on adding constraints
-* 
+
 ## 1.8.2
 ### Fixed
 * Crash on constraint visual format

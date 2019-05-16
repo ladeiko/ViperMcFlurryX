@@ -1,6 +1,8 @@
 ### Overview
 
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/ladeiko/ViperMcFlurryX/blob/master/LICENSE)
 [![Pod version](https://badge.fury.io/co/ViperMcFlurryX.svg)](https://badge.fury.io/co/ViperMcFlurryX)
+[![Build Status](https://travis-ci.org/ladeiko/ViperMcFlurryX.svg?branch=master)](https://travis-ci.org/ladeiko/ViperMcFlurryX)
 
 **NOTE**: It is a fork of [Rambler VIPER McFlurry](https://github.com/rambler-digital-solutions/ViperMcFlurry)
 
