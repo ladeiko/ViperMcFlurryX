@@ -12,6 +12,7 @@
 
 static IMP originalPrepareForSegueMethodImp;
 static int treatMeAsRootTransitionHandlerKey = 0;
+static int passedKey = 0;
 
 @protocol TranditionalViperViewWithOutput <NSObject>
 - (id)output;
@@ -293,6 +294,11 @@ static int treatMeAsRootTransitionHandlerKey = 0;
     else if (self.presentingViewController.presentedViewController == self) {
         
         if (skip(self.presentingViewController)) {
+            return;
+        }
+        
+        if (self.skipOnDismiss) {
+            [self.presentingViewController dismissViewControllerAnimated:animated completion:completion];
             return;
         }
         

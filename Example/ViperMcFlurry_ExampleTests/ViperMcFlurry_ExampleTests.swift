@@ -70,6 +70,11 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         self.continueAfterFailure = false
     }
     
+    func testCompliation() {
+        let handler: RamblerViperModuleTransitionHandlerProtocol! = UIViewController()
+        handler!.skipOnDismiss = true
+    }
+    
     func testSimpleDismiss() {
         
         let oldRootViewController = UIApplication.shared.keyWindow!.rootViewController!
