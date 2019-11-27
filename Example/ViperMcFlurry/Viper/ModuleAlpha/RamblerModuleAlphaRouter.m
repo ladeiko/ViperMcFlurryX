@@ -57,7 +57,7 @@ static NSString* const RamblerAlphaToBetaSegue = @"RamblerAlphaToBetaSegue";
                                                                                          animated:YES];
                                     
                                 }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerModuleGammaInput> moduleInput) {
-                                    [moduleInput configureWithExampleString:exampleString];
+                                    [moduleInput configureWithExampleString:exampleString skip:NO];
                                     return nil;
                                 }];
 }

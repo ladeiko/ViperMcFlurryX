@@ -109,6 +109,12 @@ Module factory can be replaced with segues for most cases. Except you need to cr
 - In example above one module is pushed to navigation stack of another module.
 - Modules are linked with intermodule data transfer block.
 
+##### Passthrough dismiss
+
+For example, you have present module A, then present module B from A. Your task requires dismiss B and A at the same time directly to parent of A.
+In this case you can set ```self.transitionHandler.skipOnDismiss = true``` of A module, as result, when B call  ```closeCurrentModule```, then 
+B and A will be dismissed together, and presenter of B will be notified via ```moduleDidSkipOnDismiss``` (if implemented).
+
 ### Installation
 
 Add to podfile
@@ -129,5 +135,6 @@ MIT
 - Valery Popov / v.popov@rambler-co.ru
 - Egor Tolstoy / e.tolstoy@rambler-co.ru
 
-**ViperMcFlurryX** fork:
+**ViperMcFlurryX** fork:
+
 - Siarhei Ladzeika / sergey.ladeiko@gmail.com

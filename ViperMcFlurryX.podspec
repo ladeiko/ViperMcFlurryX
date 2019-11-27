@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ViperMcFlurryX"
-  s.version      = "1.11.1"
+  s.version      = "1.12.0"
   s.summary      = "ViperMcFlurryX - Fork of Rambler ViperMcFlurry framework."
 
   s.homepage         = "https://github.com/ladeiko/ViperMcFlurryX"
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/ladeiko/ViperMcFlurryX.git", :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
   s.requires_arc = true
-  s.swift_version = '4.0'
+  s.swift_versions = ['4.0', '4.2', '5.0', '5.1']
   
   s.source_files =  "Source/*.{h,m}"
   s.dependency 'ViperMcFlurrySwiftFix'

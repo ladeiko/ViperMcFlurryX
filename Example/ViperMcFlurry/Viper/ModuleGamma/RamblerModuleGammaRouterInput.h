@@ -10,6 +10,7 @@
 @protocol RamblerModuleGammaRouterInput <NSObject>
 
 - (void)removeModule;
+- (void)skip;
 
 @end
 

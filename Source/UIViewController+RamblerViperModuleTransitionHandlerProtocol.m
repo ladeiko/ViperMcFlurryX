@@ -11,6 +11,7 @@
 #import "RamblerViperModuleFactory.h"
 
 static IMP originalPrepareForSegueMethodImp;
+static int treatMeAsRootTransitionHandlerKey = 0;
 
 @protocol TranditionalViperViewWithOutput <NSObject>
 - (id)output;
@@ -42,6 +43,18 @@ static IMP originalPrepareForSegueMethodImp;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self performSegueWithIdentifier:segueIdentifier sender:nil];
     });
+}
+
+- (BOOL)skipOnDismiss {
+    NSNumber* const value = objc_getAssociatedObject(self, &treatMeAsRootTransitionHandlerKey);
+    if (![value isKindOfClass:[NSNumber class]]) {
+        return NO;
+    }
+    return [value boolValue];
+}
+
+- (void)setSkipOnDismiss:(BOOL)skipOnDismiss {
+    objc_setAssociatedObject(self, &treatMeAsRootTransitionHandlerKey, @(skipOnDismiss), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 // Method opens module using segue
@@ -200,16 +213,38 @@ static IMP originalPrepareForSegueMethodImp;
 - (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
     assert(!transitionHandler || [transitionHandler isKindOfClass:[UIViewController class]]);
     
-    if (transitionHandler && self == transitionHandler) {
-        if (completion) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion();
-            });
+    if (transitionHandler) {
+        if ( self == transitionHandler) {
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion();
+                });
+            }
+            return;
         }
-        return;
     }
     
+    BOOL (^skip)(UIViewController*) = ^BOOL(UIViewController* controller) {
+        
+        if (!controller.skipOnDismiss) {
+            return NO;
+        }
+
+        NSObject<RamblerViperModuleInput>* moduleInput = [self moduleInput];
+        if ([moduleInput conformsToProtocol:@protocol(RamblerViperModuleInput)]
+            && [moduleInput respondsToSelector:@selector(moduleDidSkipOnDismiss)]) {
+            [moduleInput performSelector:@selector(moduleDidSkipOnDismiss) withObject:nil afterDelay:0];
+        }
+        
+        [controller closeModulesUntil:transitionHandler animated:animated completion:completion];
+        return YES;
+    };
+    
     if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+        
+        if (skip(self.parentViewController)) {
+            return;
+        }
         
         UINavigationController* const navigationController = (UINavigationController*)self.parentViewController;
         
@@ -257,6 +292,10 @@ static IMP originalPrepareForSegueMethodImp;
     }
     else if (self.presentingViewController.presentedViewController == self) {
         
+        if (skip(self.presentingViewController)) {
+            return;
+        }
+        
         NSMutableArray<UIViewController*>* const topPresented = [NSMutableArray new];
         UIViewController* current = self;
         
@@ -291,6 +330,11 @@ static IMP originalPrepareForSegueMethodImp;
         }];
     }
     else if (self.parentViewController){
+        
+        if (skip(self.parentViewController)) {
+            return;
+        }
+        
         [self willMoveToParentViewController:nil];
         if (animated) {
             [UIView animateWithDuration:UINavigationControllerHideShowBarDuration

@@ -15,4 +15,8 @@
     [self.transitionHandler closeCurrentModule:NO];
 }
 
+- (void)skip{
+    self.transitionHandler.skipOnDismiss = YES;
+}
+
 @end

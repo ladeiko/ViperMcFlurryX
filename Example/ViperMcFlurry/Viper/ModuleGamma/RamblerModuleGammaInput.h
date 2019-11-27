@@ -10,6 +10,5 @@
 
 @protocol RamblerModuleGammaInput <RamblerViperModuleInput>
 
-- (void)configureWithExampleString:(NSString*)exampleString;
-
+- (void)configureWithExampleString:(NSString*)exampleString skip:(BOOL)skip;
 @end

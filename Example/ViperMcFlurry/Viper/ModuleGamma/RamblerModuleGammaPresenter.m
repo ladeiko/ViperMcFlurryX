@@ -20,8 +20,11 @@
 
 #pragma mark - RamblerModuleGammaInput
 
-- (void)configureWithExampleString:(NSString*)exampleString {
+- (void)configureWithExampleString:(NSString*)exampleString skip:(BOOL)skip {
     self.exampleString = exampleString;
+    if (skip) {
+        [self.router skip];
+    }
 }
 
 #pragma mark - RamblerModuleGammaViewOutput

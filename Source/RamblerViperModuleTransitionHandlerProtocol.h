@@ -70,6 +70,8 @@ typedef id<RamblerViperModuleOutput>_Nullable(^EmbeddedModuleConfigurationBlock)
 // Returns parent module if possible
 - (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler;
 
+@property (nonatomic, assign) BOOL skipOnDismiss;
+
 @end
 
 NS_ASSUME_NONNULL_END

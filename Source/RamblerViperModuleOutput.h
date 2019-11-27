@@ -8,5 +8,4 @@
 #import <Foundation/Foundation.h>
 
 @protocol RamblerViperModuleOutput <NSObject>
-
 @end

@@ -13,5 +13,5 @@
 
 @optional
 - (void)setModuleOutput:(id<RamblerViperModuleOutput>)moduleOutput;
-
+- (void)moduleDidSkipOnDismiss;
 @end
