@@ -4,7 +4,7 @@
 [![Pod version](https://badge.fury.io/co/ViperMcFlurryX.svg)](https://badge.fury.io/co/ViperMcFlurryX)
 [![Build Status](https://travis-ci.org/ladeiko/ViperMcFlurryX.svg?branch=master)](https://travis-ci.org/ladeiko/ViperMcFlurryX)
 
-**NOTE**: It is a fork of [Rambler VIPER McFlurry](https://github.com/rambler-digital-solutions/ViperMcFlurry)
+**NOTE**: Base code is a fork of [Rambler VIPER McFlurry](https://github.com/rambler-digital-solutions/ViperMcFlurry)
 
 **VIPER McFlurry** is a modern framework for implementing [VIPER architecture](https://github.com/rambler-digital-solutions/The-Book-of-VIPER) in iOS application. It offers several tools and components that help either start new projects with VIPER or move from MVC.
 
@@ -90,6 +90,8 @@ Module factory can be replaced with segues for most cases. Except you need to cr
 - Inject this Factory into router.
 - Call Transition Handler's method ``- openModuleUsingFactory:withTransitionBlock:``.
 - Second block is place where transition from one to another viewController/transitionHandler should be performed:
+
+###### Objective-C
 ```objective-c
     [[self.transitionHandler openModuleUsingFactory:self.betaModuleFactory
                                 withTransitionBlock:^(id <RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler,
@@ -105,6 +107,21 @@ Module factory can be replaced with segues for most cases. Except you need to cr
                                    [moduleInput configureWithExampleString:exampleString];
                                    return nil;
                                }];
+```
+
+###### Swift
+```swift
+transitionHandler.openModule!(usingFactory: SomeModuleConfigurator()) { (sourceModuleTransitionHandler, destinationModuleTransitionHandler) in
+
+            let sourceViewController = sourceModuleTransitionHandler as! UIViewController
+            let destinationViewController = destinationModuleTransitionHandler as! UIViewController
+
+            sourceViewController.present(destinationViewController, animated: true, completion: nil)
+
+        }.thenChain { (moduleInput) -> ViperModuleOutput? in
+            (moduleInput as! SomeModuleInput).configure()
+            return nil // or self.calleeOutput
+        }
 ```
 - In example above one module is pushed to navigation stack of another module.
 - Modules are linked with intermodule data transfer block.
@@ -129,12 +146,13 @@ MIT
 
 ## Authors
 
-**Rambler&Co** team:
+**ViperMcFlurryX**:
+
+- Siarhei Ladzeika / sergey.ladeiko@gmail.com
+- Cheslau Bachko / https://github.com/CheslauBachko
+
+Original code from **Rambler&Co** team:
 
 - Andrey Zarembo-Godzyatsky / a.zarembo-godyzatsky@rambler-co.ru
 - Valery Popov / v.popov@rambler-co.ru
 - Egor Tolstoy / e.tolstoy@rambler-co.ru
-
-**ViperMcFlurryX** fork:
-
-- Siarhei Ladzeika / sergey.ladeiko@gmail.com

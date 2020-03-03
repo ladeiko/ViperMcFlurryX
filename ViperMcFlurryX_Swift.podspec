@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
-  s.name                    = "ViperMcFlurryX"
-  s.module_name             = "ViperMcFlurryX"
+  s.name                    = "ViperMcFlurryX_Swift"
+  s.module_name             = "ViperMcFlurryX_Swift"
   s.version                 = "2.0.0"
   s.summary                 = "ViperMcFlurryX - Support for VIPER concept on iOS"
 
@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
   s.requires_arc            = true
   s.static_framework        = true
 
-  s.source_files            = "Source/*.{h,m}"
-  s.dependency              'ViperMcFlurrySwiftFix'
+  s.source_files            = "SourceSwift/**/*.{Swift}"
 
 end

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.0
+### Added
+* Swift only version (ViperMcFlurryX_Swift)
+
 ## 1.11.1
 ### Changed
 * Update dismiss logic to support complex situations
