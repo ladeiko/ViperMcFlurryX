@@ -17,7 +17,7 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
     }
     
-    public var moduleInput: ViperModuleInput? {
+    public var moduleInputInterface: ViperModuleInput? {
         get {
             if let moduleInput = UIViewController.moduleInputAssociation[self] as? ViperModuleInput {
                 return moduleInput
@@ -100,7 +100,7 @@ extension UIViewController: ViperModuleTransitionHandler {
     public func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock transitionHandler: ViperModuleTransitionHandler.ModuleTransitionBlock?) -> ViperOpenModulePromise {
         let openModulePromise = ViperOpenModulePromise()
         let destinationModuleTransitionHandler = moduleFactory.instantiateModuleTransitionHandler()
-        let moduleInput = destinationModuleTransitionHandler.moduleInput
+        let moduleInput = destinationModuleTransitionHandler.moduleInputInterface
         
         openModulePromise.moduleInput = moduleInput
         if let transitionHandler = transitionHandler {
@@ -237,7 +237,7 @@ extension UIViewController: ViperModuleTransitionHandler {
                 return false
             }
             
-            self.moduleInput?.moduleDidSkipOnDismiss()
+            self.moduleInputInterface?.moduleDidSkipOnDismiss()
             
             viewController.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
             return true
@@ -390,7 +390,7 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
         
         let targetModuleTransitionHandler: ViperModuleTransitionHandler? = destinationViewController
-        let moduleInput = targetModuleTransitionHandler?.moduleInput
+        let moduleInput = targetModuleTransitionHandler?.moduleInputInterface
         
         openModulePromise.moduleInput = moduleInput
     }

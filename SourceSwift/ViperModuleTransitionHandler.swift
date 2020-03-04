@@ -9,7 +9,7 @@ public protocol ViperModuleTransitionHandler: class {
     typealias EmbeddedModuleEmbedderBlock = ((_ containerView: UIView) -> EmbeddedModuleRemoverBlock)
     typealias EmbeddedModuleConfigurationBlock = ((_ moduleInput: ViperModuleInput) -> ViperModuleOutput)
 
-    var moduleInput: ViperModuleInput? { get set }
+    var moduleInputInterface: ViperModuleInput? { get set }
 
     var skipOnDismiss: Bool { get set }
 
