@@ -24,15 +24,13 @@ class SwiftViewController: UIViewController {
             return nil
         }
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func showColors() {
+        openModuleUsingFactory(ColorsModuleConfigurator()) { (source, destination) in
+            (source as! UIViewController).present(destination as! UIViewController, animated: true, completion: nil)
+        }.thenChainUsingBlock { (moduleInput) -> ViperModuleOutput? in
+            (moduleInput as! ColorsModuleInput).configure(withColors: [.red, .gray, .green, .blue, .cyan, .brown, .magenta, .orange, .purple])
+            return nil
+        }
     }
-    */
-
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3v-NH-x0P">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Color Preview View Controller-->
+        <scene sceneID="GJ4-Rs-Xfy">
+            <objects>
+                <viewController id="U3v-NH-x0P" customClass="ColorPreviewViewController" customModule="ViperMcFlurry_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qdr-hb-Bhg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKV-oT-T7b">
+                                <rect key="frame" x="20" y="64" width="374" height="778"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fKV-oT-T7b" firstAttribute="top" secondItem="V3C-9b-dfi" secondAttribute="top" constant="20" id="70a-zx-8Sq"/>
+                            <constraint firstItem="V3C-9b-dfi" firstAttribute="trailing" secondItem="fKV-oT-T7b" secondAttribute="trailing" constant="20" id="JyZ-Sp-TML"/>
+                            <constraint firstItem="fKV-oT-T7b" firstAttribute="leading" secondItem="V3C-9b-dfi" secondAttribute="leading" constant="20" id="q4Q-Zb-uxJ"/>
+                            <constraint firstItem="V3C-9b-dfi" firstAttribute="bottom" secondItem="fKV-oT-T7b" secondAttribute="bottom" constant="20" id="rSU-TZ-8Ki"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V3C-9b-dfi"/>
+                    </view>
+                    <connections>
+                        <outlet property="colorView" destination="fKV-oT-T7b" id="jJe-Dj-ZTl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="REC-2H-i9I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-209" y="-20"/>
+        </scene>
+    </scenes>
+</document>

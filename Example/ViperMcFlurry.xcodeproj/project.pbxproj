@@ -48,6 +48,27 @@
 		6003F59E195388D20070C39A /* RamblerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* RamblerAppDelegate.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		C0373C352443DD26007632C0 /* ColorsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C342443DD26007632C0 /* ColorsPresenter.swift */; };
+		C0373C372443DD30007632C0 /* ColorsModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C362443DD30007632C0 /* ColorsModuleInput.swift */; };
+		C0373C392443DD38007632C0 /* ColorsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C382443DD38007632C0 /* ColorsModuleOutput.swift */; };
+		C0373C3B2443DD7E007632C0 /* ColorsRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C3A2443DD7E007632C0 /* ColorsRouterInput.swift */; };
+		C0373C3D2443DD84007632C0 /* ColorsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C3C2443DD84007632C0 /* ColorsRouter.swift */; };
+		C0373C3F2443DDB2007632C0 /* ColorsInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C3E2443DDB2007632C0 /* ColorsInteractorInput.swift */; };
+		C0373C412443DDBA007632C0 /* ColorsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C402443DDBA007632C0 /* ColorsInteractor.swift */; };
+		C0373C432443DDD8007632C0 /* ColorsModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C422443DDD8007632C0 /* ColorsModuleConfigurator.swift */; };
+		C0373C452443DDFA007632C0 /* ColorsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C442443DDFA007632C0 /* ColorsViewInput.swift */; };
+		C0373C472443DE01007632C0 /* ColorsViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C462443DE01007632C0 /* ColorsViewOutput.swift */; };
+		C0373C492443DE0C007632C0 /* ColorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C482443DE0C007632C0 /* ColorsViewController.swift */; };
+		C0373C4C2443DE6E007632C0 /* Colors.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0373C4B2443DE6E007632C0 /* Colors.storyboard */; };
+		C0373C4F2443DEA2007632C0 /* ColorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C4E2443DEA2007632C0 /* ColorsTableViewCell.swift */; };
+		C0373C522443E123007632C0 /* ColorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C512443E123007632C0 /* ColorsViewModel.swift */; };
+		C0373C562443E2B9007632C0 /* ColorPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0373C552443E2B9007632C0 /* ColorPreview.storyboard */; };
+		C0373C582443E2C4007632C0 /* ColorPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C572443E2C4007632C0 /* ColorPreviewViewController.swift */; };
+		C0373C5A2443E329007632C0 /* ColorPreviewViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C592443E329007632C0 /* ColorPreviewViewInput.swift */; };
+		C0373C5C2443E35D007632C0 /* ColorPreviewViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C5B2443E35D007632C0 /* ColorPreviewViewOutput.swift */; };
+		C0373C5F2443E38C007632C0 /* ColorPreviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C5E2443E38C007632C0 /* ColorPreviewPresenter.swift */; };
+		C0373C612443E394007632C0 /* ColorPreviewModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C602443E394007632C0 /* ColorPreviewModuleInput.swift */; };
+		C0373C642443E428007632C0 /* ColorPreviewModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0373C632443E428007632C0 /* ColorPreviewModuleConfigurator.swift */; };
 		C2C905018238A19115ED6AC6 /* Pods_ViperMcFlurry_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */; };
 		C9BFC7A7F91159949CABC5FD /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD322451E0B42CA7879F4B1 /* Pods_ViperMcFlurry_ExampleTests.framework */; };
 		D24D49021BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */; };
@@ -163,6 +184,27 @@
 		A4B9638344E9D09528EC7024 /* Pods-ViperMcFlurry_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BCD36FC03A45A87A4597C0C7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAB36AAE88EAE4784F1616E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C0373C342443DD26007632C0 /* ColorsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsPresenter.swift; sourceTree = "<group>"; };
+		C0373C362443DD30007632C0 /* ColorsModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsModuleInput.swift; sourceTree = "<group>"; };
+		C0373C382443DD38007632C0 /* ColorsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsModuleOutput.swift; sourceTree = "<group>"; };
+		C0373C3A2443DD7E007632C0 /* ColorsRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsRouterInput.swift; sourceTree = "<group>"; };
+		C0373C3C2443DD84007632C0 /* ColorsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsRouter.swift; sourceTree = "<group>"; };
+		C0373C3E2443DDB2007632C0 /* ColorsInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsInteractorInput.swift; sourceTree = "<group>"; };
+		C0373C402443DDBA007632C0 /* ColorsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsInteractor.swift; sourceTree = "<group>"; };
+		C0373C422443DDD8007632C0 /* ColorsModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsModuleConfigurator.swift; sourceTree = "<group>"; };
+		C0373C442443DDFA007632C0 /* ColorsViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsViewInput.swift; sourceTree = "<group>"; };
+		C0373C462443DE01007632C0 /* ColorsViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsViewOutput.swift; sourceTree = "<group>"; };
+		C0373C482443DE0C007632C0 /* ColorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsViewController.swift; sourceTree = "<group>"; };
+		C0373C4B2443DE6E007632C0 /* Colors.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Colors.storyboard; sourceTree = "<group>"; };
+		C0373C4E2443DEA2007632C0 /* ColorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsTableViewCell.swift; sourceTree = "<group>"; };
+		C0373C512443E123007632C0 /* ColorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsViewModel.swift; sourceTree = "<group>"; };
+		C0373C552443E2B9007632C0 /* ColorPreview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorPreview.storyboard; sourceTree = "<group>"; };
+		C0373C572443E2C4007632C0 /* ColorPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewViewController.swift; sourceTree = "<group>"; };
+		C0373C592443E329007632C0 /* ColorPreviewViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewViewInput.swift; sourceTree = "<group>"; };
+		C0373C5B2443E35D007632C0 /* ColorPreviewViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewViewOutput.swift; sourceTree = "<group>"; };
+		C0373C5E2443E38C007632C0 /* ColorPreviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewPresenter.swift; sourceTree = "<group>"; };
+		C0373C602443E394007632C0 /* ColorPreviewModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewModuleInput.swift; sourceTree = "<group>"; };
+		C0373C632443E428007632C0 /* ColorPreviewModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewModuleConfigurator.swift; sourceTree = "<group>"; };
 		D24D49001BD1049400C77475 /* RamblerModuleBetaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleBetaModuleAssembly.h; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.h; sourceTree = "<group>"; };
 		D24D49011BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamblerModuleBetaModuleAssembly.m; path = Viper/ModuleBeta/RamblerModuleBetaModuleAssembly.m; sourceTree = "<group>"; };
 		D24D49031BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamblerModuleAlphaModuleAssembly.h; path = Viper/ModuleAlpha/RamblerModuleAlphaModuleAssembly.h; sourceTree = "<group>"; };
@@ -206,6 +248,8 @@
 		12E4BACD240E8A6F00BAA9B3 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				C0373C532443E29D007632C0 /* ColorPreview */,
+				C0373C2E2443DC7E007632C0 /* Colors */,
 				12E4BACE240E8A6F00BAA9B3 /* Shared.swift */,
 				12E4BACF240E8A6F00BAA9B3 /* Root */,
 			);
@@ -577,6 +621,121 @@
 			name = Testing;
 			sourceTree = "<group>";
 		};
+		C0373C2E2443DC7E007632C0 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C502443E117007632C0 /* Entities */,
+				C0373C332443DD1C007632C0 /* View */,
+				C0373C322443DD17007632C0 /* Configurator */,
+				C0373C312443DD0B007632C0 /* Interactor */,
+				C0373C302443DCF6007632C0 /* Router */,
+				C0373C2F2443DCF1007632C0 /* Presenter */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		C0373C2F2443DCF1007632C0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C342443DD26007632C0 /* ColorsPresenter.swift */,
+				C0373C362443DD30007632C0 /* ColorsModuleInput.swift */,
+				C0373C382443DD38007632C0 /* ColorsModuleOutput.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C0373C302443DCF6007632C0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C3A2443DD7E007632C0 /* ColorsRouterInput.swift */,
+				C0373C3C2443DD84007632C0 /* ColorsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		C0373C312443DD0B007632C0 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C3E2443DDB2007632C0 /* ColorsInteractorInput.swift */,
+				C0373C402443DDBA007632C0 /* ColorsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C0373C322443DD17007632C0 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C422443DDD8007632C0 /* ColorsModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		C0373C332443DD1C007632C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C4D2443DE95007632C0 /* Helpers */,
+				C0373C442443DDFA007632C0 /* ColorsViewInput.swift */,
+				C0373C462443DE01007632C0 /* ColorsViewOutput.swift */,
+				C0373C482443DE0C007632C0 /* ColorsViewController.swift */,
+				C0373C4B2443DE6E007632C0 /* Colors.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C0373C4D2443DE95007632C0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C4E2443DEA2007632C0 /* ColorsTableViewCell.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C0373C502443E117007632C0 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C512443E123007632C0 /* ColorsViewModel.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C0373C532443E29D007632C0 /* ColorPreview */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C622443E418007632C0 /* Configurator */,
+				C0373C5D2443E380007632C0 /* Presenter */,
+				C0373C542443E2A7007632C0 /* View */,
+			);
+			path = ColorPreview;
+			sourceTree = "<group>";
+		};
+		C0373C542443E2A7007632C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C552443E2B9007632C0 /* ColorPreview.storyboard */,
+				C0373C572443E2C4007632C0 /* ColorPreviewViewController.swift */,
+				C0373C592443E329007632C0 /* ColorPreviewViewInput.swift */,
+				C0373C5B2443E35D007632C0 /* ColorPreviewViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C0373C5D2443E380007632C0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C5E2443E38C007632C0 /* ColorPreviewPresenter.swift */,
+				C0373C602443E394007632C0 /* ColorPreviewModuleInput.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C0373C622443E418007632C0 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				C0373C632443E428007632C0 /* ColorPreviewModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -673,8 +832,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0373C4C2443DE6E007632C0 /* Colors.storyboard in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				4298353C1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib in Resources */,
+				C0373C562443E2B9007632C0 /* ColorPreview.storyboard in Resources */,
 				D24D49071BD4C9ED00C77475 /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -805,23 +966,34 @@
 				162C73421B78A45F00226B47 /* RamblerModuleBetaPresenter.m in Sources */,
 				429835341E2E835700DB54EC /* RamblerModuleGammaPresenter.m in Sources */,
 				162C73291B789D6700226B47 /* RamblerModuleAlphaViewController.m in Sources */,
+				C0373C582443E2C4007632C0 /* ColorPreviewViewController.swift in Sources */,
 				162C73251B789D6700226B47 /* RamblerModuleAlphaInteractor.m in Sources */,
 				162C73271B789D6700226B47 /* RamblerModuleAlphaPresenter.m in Sources */,
+				C0373C5A2443E329007632C0 /* ColorPreviewViewInput.swift in Sources */,
+				C0373C612443E394007632C0 /* ColorPreviewModuleInput.swift in Sources */,
 				12E4BAF4240E8A6F00BAA9B3 /* RootInteractorOutput.swift in Sources */,
+				C0373C472443DE01007632C0 /* ColorsViewOutput.swift in Sources */,
+				C0373C352443DD26007632C0 /* ColorsPresenter.swift in Sources */,
 				D24D49051BD1049E00C77475 /* RamblerModuleAlphaModuleAssembly.m in Sources */,
 				12E4BAE9240E8A6F00BAA9B3 /* RootPresenter.swift in Sources */,
 				12E4BAF6240E8A6F00BAA9B3 /* RootRouter.swift in Sources */,
+				C0373C412443DDBA007632C0 /* ColorsInteractor.swift in Sources */,
 				12E4BAEF240E8A6F00BAA9B3 /* RootRootViewDelegate.swift in Sources */,
 				12E4BAE6240E8A6F00BAA9B3 /* Shared.swift in Sources */,
+				C0373C522443E123007632C0 /* ColorsViewModel.swift in Sources */,
+				C0373C372443DD30007632C0 /* ColorsModuleInput.swift in Sources */,
 				429835331E2E835700DB54EC /* RamblerModuleGammaModuleAssembly.m in Sources */,
 				429835321E2E835700DB54EC /* RamblerModuleGammaInteractor.m in Sources */,
 				12E4BAF8240E9F5B00BAA9B3 /* SwiftViewController.swift in Sources */,
+				C0373C3D2443DD84007632C0 /* ColorsRouter.swift in Sources */,
 				162C73431B78A45F00226B47 /* RamblerModuleBetaRouter.m in Sources */,
+				C0373C5F2443E38C007632C0 /* ColorPreviewPresenter.swift in Sources */,
 				12E4BAF5240E8A6F00BAA9B3 /* RootRouterInput.swift in Sources */,
 				12E4BAED240E8A6F00BAA9B3 /* RootRootView.swift in Sources */,
 				162C73441B78A45F00226B47 /* RamblerModuleBetaViewController.m in Sources */,
 				12E4BAEB240E8A6F00BAA9B3 /* RootViewController.swift in Sources */,
 				429835361E2E835700DB54EC /* RamblerModuleGammaViewController.m in Sources */,
+				C0373C392443DD38007632C0 /* ColorsModuleOutput.swift in Sources */,
 				12E4BAEA240E8A6F00BAA9B3 /* RootModuleConfig.swift in Sources */,
 				12E4BAEC240E8A6F00BAA9B3 /* RootViewOutput.swift in Sources */,
 				12E4BAE8240E8A6F00BAA9B3 /* RootModuleOutput.swift in Sources */,
@@ -830,13 +1002,21 @@
 				12E4BAF3240E8A6F00BAA9B3 /* RootInteractor.swift in Sources */,
 				6003F59E195388D20070C39A /* RamblerAppDelegate.m in Sources */,
 				12E4BAE7240E8A6F00BAA9B3 /* RootModuleInput.swift in Sources */,
+				C0373C452443DDFA007632C0 /* ColorsViewInput.swift in Sources */,
 				162C73401B78A45F00226B47 /* RamblerModuleBetaInteractor.m in Sources */,
 				12E4BAF1240E8A6F00BAA9B3 /* RootConfigurator.swift in Sources */,
+				C0373C3F2443DDB2007632C0 /* ColorsInteractorInput.swift in Sources */,
+				C0373C3B2443DD7E007632C0 /* ColorsRouterInput.swift in Sources */,
+				C0373C432443DDD8007632C0 /* ColorsModuleConfigurator.swift in Sources */,
+				C0373C5C2443E35D007632C0 /* ColorPreviewViewOutput.swift in Sources */,
+				C0373C492443DE0C007632C0 /* ColorsViewController.swift in Sources */,
 				429835351E2E835700DB54EC /* RamblerModuleGammaRouter.m in Sources */,
 				D24D49021BD1049400C77475 /* RamblerModuleBetaModuleAssembly.m in Sources */,
+				C0373C4F2443DEA2007632C0 /* ColorsTableViewCell.swift in Sources */,
 				12E4BAF0240E8A6F00BAA9B3 /* RootViewInput.swift in Sources */,
 				162C73281B789D6700226B47 /* RamblerModuleAlphaRouter.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				C0373C642443E428007632C0 /* ColorPreviewModuleConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

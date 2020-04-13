@@ -195,9 +195,21 @@
                                     <action selector="show:" destination="ZC1-U3-TYt" eventType="touchUpInside" id="L4y-zU-wEX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owc-YR-yi1">
+                                <rect key="frame" x="74.5" y="376" width="226" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Z67-hF-iYC"/>
+                                </constraints>
+                                <state key="normal" title="EmbeddableModule in table view"/>
+                                <connections>
+                                    <action selector="showColors" destination="ZC1-U3-TYt" eventType="touchUpInside" id="9MG-9v-yYQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Owc-YR-yi1" firstAttribute="centerX" secondItem="rhh-ha-ysc" secondAttribute="centerX" id="7ge-00-bQs"/>
+                            <constraint firstItem="Owc-YR-yi1" firstAttribute="top" secondItem="Szk-3u-tA7" secondAttribute="bottom" constant="27.5" id="YcE-pc-MY5"/>
                             <constraint firstItem="Szk-3u-tA7" firstAttribute="centerX" secondItem="rhh-ha-ysc" secondAttribute="centerX" id="aAq-WL-3WK"/>
                             <constraint firstItem="Szk-3u-tA7" firstAttribute="centerY" secondItem="rhh-ha-ysc" secondAttribute="centerY" id="lD9-uj-6m4"/>
                         </constraints>
