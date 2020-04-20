@@ -8,6 +8,7 @@ platform :ios, '10.0'
 def appPods
     pod "ViperMcFlurryX", :path => "../ViperMcFlurryX.podspec"
     pod "ViperMcFlurryX_Swift", :path => "../ViperMcFlurryX_Swift.podspec"
+    pod "ViperMcFlurryX_Swift/EmbeddableModule", :path => "../ViperMcFlurryX_Swift.podspec"
     pod "OnDeallocateX"
     pod "Typhoon", '~> 4.0.0'
 end

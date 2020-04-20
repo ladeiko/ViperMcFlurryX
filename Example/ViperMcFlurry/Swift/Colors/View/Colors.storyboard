@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RQS-Ly-uZC">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Colors View Controller-->
+        <scene sceneID="8rQ-bM-SrI">
+            <objects>
+                <viewController id="RQS-Ly-uZC" customClass="ColorsViewController" customModule="ViperMcFlurry_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lMv-LN-Oam">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="TmQ-DQ-Iyl">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Default" rowHeight="207" id="G4w-QX-PDp" customClass="ColorsTableViewCell" customModule="ViperMcFlurry_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="207"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G4w-QX-PDp" id="PYJ-M5-evz">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RQS-Ly-uZC" id="uCm-hG-5Wx"/>
+                                    <outlet property="delegate" destination="RQS-Ly-uZC" id="INT-g3-746"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TmQ-DQ-Iyl" firstAttribute="top" secondItem="pCE-bK-1TH" secondAttribute="top" id="FET-sV-kiw"/>
+                            <constraint firstItem="pCE-bK-1TH" firstAttribute="trailing" secondItem="TmQ-DQ-Iyl" secondAttribute="trailing" id="GJq-F5-osY"/>
+                            <constraint firstItem="pCE-bK-1TH" firstAttribute="bottom" secondItem="TmQ-DQ-Iyl" secondAttribute="bottom" id="TJj-OC-rHk"/>
+                            <constraint firstItem="TmQ-DQ-Iyl" firstAttribute="leading" secondItem="pCE-bK-1TH" secondAttribute="leading" id="ces-F6-qCE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pCE-bK-1TH"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Djs-64-nn9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-542.02898550724638" y="79.6875"/>
+        </scene>
+    </scenes>
+</document>
