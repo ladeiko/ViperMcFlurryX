@@ -77,8 +77,13 @@ public class EmbeddableModuleBuilder<T> {
     
     private func createAttacher(sourceViewController: UIViewController,
                                       destinationViewController: UIViewController) -> EmbeddableModuleAttacher {
-        return { view in
+        // Source module hold the Attacher. Attacher hold the UIViewController of source module.
+        // And for true deallocate SourceViewController and his Module we need to use 'weak' reference for sourceViewController in Attacher block.
+        return { [weak sourceViewController] view in
+            assert(sourceViewController != nil)
             assert(!destinationViewController.isViewLoaded || (destinationViewController.view.superview == nil))
+            guard let sourceViewController = sourceViewController else { return }
+
             sourceViewController.addChild(destinationViewController)
             destinationViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             destinationViewController.view.frame = view.bounds
@@ -88,8 +93,11 @@ public class EmbeddableModuleBuilder<T> {
     }
     
     private func createDetacher(destinationViewController: UIViewController) -> EmbeddableModuleDetacher {
-        return {
+        return { [weak destinationViewController] in
+            assert(destinationViewController != nil)
+            guard let destinationViewController = destinationViewController else { return }
             assert(destinationViewController.isViewLoaded && (destinationViewController.view.superview != nil))
+
             destinationViewController.willMove(toParent: nil)
             destinationViewController.view.removeFromSuperview()
             destinationViewController.removeFromParent()
