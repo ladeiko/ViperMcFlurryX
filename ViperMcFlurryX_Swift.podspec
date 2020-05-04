@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name                    = "ViperMcFlurryX_Swift"
   s.module_name             = "ViperMcFlurryX_Swift"
-  s.version                 = "2.0.1"
+  s.version                 = "2.0.2"
   s.summary                 = "ViperMcFlurryX - Support for VIPER concept on iOS"
 
   s.homepage                = "https://github.com/ladeiko/ViperMcFlurryX"
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.authors                 = { "Siarhei Ladzeika" => "sergey.ladeiko@gmail.com",
                                 "Cheslau Bachko" => "cheslau.bachko@gmail.com" }
   
-  s.source                  = { :git => "https://github.com/ladeiko/ViperMcFlurryX.git", :tag => s.version.to_s }
+  s.source                  = { :git => "https://github.com/ladeiko/ViperMcFlurryX.git", :tag => "swift_#{s.version.to_s}" }
   
   s.ios.deployment_target   = '10.0'
   s.swift_versions          = ['4.0', '4.2', '5.0', '5.1']
