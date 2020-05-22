@@ -327,7 +327,7 @@ extension UIViewController: ViperModuleTransitionHandler {
                 }
             }
         } else {
-            fatalError("not applicable")
+            assertionFailure("not applicable")
         }
         
     }
