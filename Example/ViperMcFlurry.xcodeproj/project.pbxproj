@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12DD72FE227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift */; };
+		1200CF7924AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1200CF7824AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift */; };
+		1200CF7A24AB7450008B65C4 /* ViperMcFlurry_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift */; };
 		12E4BAE6240E8A6F00BAA9B3 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BACE240E8A6F00BAA9B3 /* Shared.swift */; };
 		12E4BAE7240E8A6F00BAA9B3 /* RootModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BAD1240E8A6F00BAA9B3 /* RootModuleInput.swift */; };
 		12E4BAE8240E8A6F00BAA9B3 /* RootModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BAD2240E8A6F00BAA9B3 /* RootModuleOutput.swift */; };
@@ -88,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		0CD322451E0B42CA7879F4B1 /* Pods_ViperMcFlurry_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1200CF7824AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_Swift_ExampleTests.swift; sourceTree = "<group>"; };
 		12DD72E6227AEC0D003D1A2D /* ViperMcFlurry_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViperMcFlurry_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		12DD72FB227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_ExampleTests.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift */,
+				1200CF7824AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift */,
 				12DD72FF227AF15C003D1A2D /* Info.plist */,
 			);
 			path = ViperMcFlurry_ExampleTests;
@@ -955,7 +958,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12DD72FE227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift in Sources */,
+				1200CF7A24AB7450008B65C4 /* ViperMcFlurry_ExampleTests.swift in Sources */,
+				1200CF7924AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

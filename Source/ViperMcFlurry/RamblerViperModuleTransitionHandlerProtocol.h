@@ -59,19 +59,28 @@ typedef id<RamblerViperModuleOutput>_Nullable(^EmbeddedModuleConfigurationBlock)
 - (EmbeddedModuleEmbedderBlock)createEmbeddableModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory
                                                configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock;
 
-// Method removes/closes module
-- (void)closeCurrentModule:(BOOL)animated;
+// Simply closes current module ignoring any 'skipOnDismiss' values
+- (void)closeCurrentModuleIgnoringSkipping:(BOOL)animated completion:(void(^)(void))completion;
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
+// Method removes/closes module
+- (void)closeCurrentModule:(BOOL)animated;
 // Method removes/closes module until specified transitionHandler becomes top
 - (void)closeModulesUntil:(_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
 // Method removes/closes module. Uses self as transitionHandler in 'closeModulesUntil'
 - (void)closeTopModules:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
-// Returns parent module if possible
-- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler;
+// Returns closes modules beginning from current until module with specified identifier found, if not, then simply closes current module
+- (void)closeToModuleWithIdentifier:(NSString*)moduleIdentifier animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion;
+// Returns closes modules beginning from current until module with specified identifier found, if not, then simply closes current module
+- (void)closeToModuleWithIdentifier:(NSString*)moduleIdentifier animated:(BOOL)animated;
+
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)previousTransitionHandler;
 
 @required
+
+// If set to YES, then module will be skipped when its child is dismissed and also will be dimissed
 @property (nonatomic, assign, readwrite) BOOL skipOnDismiss;
+@property (nonatomic, copy) NSString* moduleIdentifier;
 
 @end
 

@@ -12,7 +12,7 @@
 @protocol RamblerViperModuleConfiguratorProtocol;
 @protocol RamblerModuleGammaViewOutput;
 
-@interface RamblerModuleGammaViewController : UIViewController <RamblerModuleGammaViewInput,RamblerViperModuleTransitionHandlerProtocol>
+@interface RamblerModuleGammaViewController : UIViewController <RamblerModuleGammaViewInput>
 
 @property (nonatomic, strong) id<RamblerModuleGammaViewOutput> output;
 @property (nonatomic, weak)   id<RamblerViperModuleConfiguratorProtocol> moduleConfigurator;

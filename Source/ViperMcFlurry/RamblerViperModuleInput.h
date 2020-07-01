@@ -13,5 +13,6 @@
 
 @optional
 - (void)setModuleOutput:(id<RamblerViperModuleOutput>)moduleOutput;
+// is called when skipOnDismiss is YES and child controller is being dismissed
 - (void)moduleDidSkipOnDismiss;
 @end

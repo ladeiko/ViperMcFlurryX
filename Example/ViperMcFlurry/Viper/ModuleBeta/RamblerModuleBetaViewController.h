@@ -12,7 +12,7 @@
 @protocol RamblerViperModuleConfiguratorProtocol;
 @protocol RamblerModuleBetaViewOutput;
 
-@interface RamblerModuleBetaViewController : UIViewController <RamblerModuleBetaViewInput,RamblerViperModuleTransitionHandlerProtocol>
+@interface RamblerModuleBetaViewController : UIViewController <RamblerModuleBetaViewInput>
 
 @property (nonatomic, strong) id<RamblerModuleBetaViewOutput> output;
 @property (nonatomic, weak)   id<RamblerViperModuleConfiguratorProtocol> moduleConfigurator;

@@ -7,17 +7,15 @@
 //
 
 import XCTest
-import ViperMcFlurryX
+import ViperMcFlurryX_Swift
 
-@objcMembers
-fileprivate class Presenter: NSObject, RamblerViperModuleInput {
+fileprivate class Presenter: ViperModuleInput {
     var moduleDidSkipOnDismissCalledCounter = 0
     func moduleDidSkipOnDismiss() {
         moduleDidSkipOnDismissCalledCounter += 1
     }
 }
 
-@objcMembers
 fileprivate class TestController: UIViewController {
     
     let output = Presenter()
@@ -78,14 +76,14 @@ extension XCTestCase {
     }
 }
 
-class ViperMcFlurry_ExampleTests: XCTestCase {
+class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
     
     override func setUp() {
         self.continueAfterFailure = false
     }
     
     func testCompliation() {
-        let handler: RamblerViperModuleTransitionHandlerProtocol! = UIViewController()
+        let handler: ViperModuleTransitionHandler! = UIViewController()
         handler!.skipOnDismiss = true
     }
     
@@ -272,7 +270,7 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         UIApplication.shared.keyWindow!.rootViewController!.moduleIdentifier = "root"
 
         UIApplication.shared.keyWindow!.rootViewController!.present(nc, animated: true, completion: {
-            controller.closeToModule(withIdentifier: "root", animated: true) {
+            controller.closeToModuleWithIdentifier("root", animated: true) {
                 closedExpectation.fulfill()
             }
         })
@@ -305,7 +303,7 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         nc.viewControllers.first!.moduleIdentifier = "first"
 
         UIApplication.shared.keyWindow!.rootViewController!.present(nc, animated: true, completion: {
-            controller.closeToModule(withIdentifier: "first", animated: true) {
+            controller.closeToModuleWithIdentifier("first", animated: true) {
                 closedExpectation.fulfill()
             }
         })
@@ -339,7 +337,7 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
             controller1.present(controller2, animated: false) {
                 controller2.present(controller3, animated: false) {
                     controller3.present(controller4, animated: false) {
-                        controller4.closeToModule(withIdentifier: "2", animated: true) {
+                        controller4.closeToModuleWithIdentifier("2", animated: true) {
                             closedExpectation.fulfill()
                         }
                     }

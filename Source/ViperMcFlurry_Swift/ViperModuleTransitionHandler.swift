@@ -9,9 +9,11 @@ public protocol ViperModuleTransitionHandler: class {
     typealias EmbeddedModuleEmbedderBlock = ((_ containerView: UIView) -> EmbeddedModuleRemoverBlock)
     typealias EmbeddedModuleConfigurationBlock = ((_ moduleInput: ViperModuleInput) -> ViperModuleOutput)
 
-    var moduleInputInterface: ViperModuleInput? { get set }
+    var moduleInput: ViperModuleInput? { get set } // alias for moduleInputInterface
+    var moduleInputInterface: ViperModuleInput? { get set } // alias for moduleInput
 
     var skipOnDismiss: Bool { get set }
+    var moduleIdentifier: String { get set }
 
     // Performs segue without any actions, useful for unwind segues
     func performSegue(_ segueIdentifier: String)
@@ -48,6 +50,13 @@ public protocol ViperModuleTransitionHandler: class {
     func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool)
     func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool, completion: ModuleCloseCompletionBlock?)
 
-    // Returns parent module if possible
-    func parentTransitionHandler() -> ViperModuleTransitionHandler?
+    // Simply closes current module ignoring any 'skipOnDismiss' values
+    func closeCurrentModuleIgnoringSkipping(_ animated: Bool, completion: ModuleCloseCompletionBlock?);
+
+    // Returns closes modules beginning from current until module with specified identifier found, if not, then simply closes current module
+    func closeToModuleWithIdentifier(_ moduleIdentifier: String, animated:Bool, completion: ModuleCloseCompletionBlock?)
+    // Returns closes modules beginning from current until module with specified identifier found, if not, then simply closes current module
+    func closeToModuleWithIdentifier(_ moduleIdentifier: String, animated:Bool)
+
+    func previousTransitionHandler() -> ViperModuleTransitionHandler?
 }

@@ -11,20 +11,112 @@
 #import "RamblerViperModuleFactory.h"
 
 static IMP originalPrepareForSegueMethodImp;
-static int treatMeAsRootTransitionHandlerKey = 0;
-static int passedKey = 0;
+static int skipOnDismissKey = 0;
+static int moduleIdentifierKey = 0;
+
+@implementation UIViewController(ViperMcFlurryHelpers)
+
+- (void)vipermcflurry_helper_waitForAnimationCompleted:(void(^)(void))completion {
+
+    if ([self isBeingPresented] || [self isBeingDismissed] || [self isMovingFromParentViewController] || [self isMovingToParentViewController]) {
+        [self performSelector:_cmd withObject:completion afterDelay:1/60 * NSEC_PER_SEC];
+        return;
+    }
+
+    completion();
+}
+
+- (UIViewController* _Nullable)vipermcflurry_helper_findModuleBeforeModuleWithIdentifier:(NSString*)identifier previous:(UIViewController*)previous {
+
+    if ([self respondsToSelector:@selector(moduleIdentifier)] && [[self moduleIdentifier] isEqualToString:identifier]) {
+        return previous;
+    }
+
+    return [(UIViewController*)[self previousTransitionHandler] vipermcflurry_helper_findModuleBeforeModuleWithIdentifier:identifier previous:self];
+}
+
+- (UIViewController* _Nullable)vipermcflurry_helper_findControllerBeforeNextNotSkippableController:(NSMutableArray*)skipped {
+    UIViewController* parent = [self previousTransitionHandler];
+    if (parent.skipOnDismiss) {
+        [skipped addObject:parent];
+    }
+    return parent.skipOnDismiss ? [parent vipermcflurry_helper_findControllerBeforeNextNotSkippableController:skipped] : self;
+}
+
+- (void)vipermcflurry_helper_notifyAboutSkip
+{
+    NSObject<RamblerViperModuleInput>* moduleInput = [self moduleInput];
+    if ([moduleInput conformsToProtocol:@protocol(RamblerViperModuleInput)]
+        && [moduleInput respondsToSelector:@selector(moduleDidSkipOnDismiss)])
+    {
+        [moduleInput performSelector:@selector(moduleDidSkipOnDismiss) withObject:nil];
+    }
+
+    if ([self respondsToSelector:@selector(swift_bridge_moduleDidSkipOnDismiss)]) {
+        [self performSelector:@selector(swift_bridge_moduleDidSkipOnDismiss) withObject:nil];
+    }
+}
+
+@end
+
+@implementation UIViewController(ViperMcFlurrySwiftBridge)
+
+- (void)swift_bridge_closeCurrentModule:(NSDictionary*)info {
+    const BOOL animated = [info[@"animated"] boolValue];
+    const ModuleCloseCompletionBlock completion = info[@"completion"];
+    [self closeCurrentModule:animated completion:completion];
+}
+
+- (void)swift_bridge_closeModulesUntil:(NSDictionary*)info {
+    id<RamblerViperModuleTransitionHandlerProtocol> transitionHandler = info[@"transitionHandler"];
+    const BOOL animated = [info[@"animated"] boolValue];
+    const ModuleCloseCompletionBlock completion = info[@"completion"];
+    [self closeModulesUntil:transitionHandler animated:animated completion:completion];
+}
+
+- (void)swift_bridge_closeToModuleWithIdentifier:(NSDictionary*)info {
+    NSString* const moduleIdentifier = info[@"moduleIdentifier"];
+    const BOOL animated = [info[@"animated"] boolValue];
+    const ModuleCloseCompletionBlock completion = info[@"completion"];
+    [self closeToModuleWithIdentifier:moduleIdentifier animated:animated completion:completion];
+}
+
+- (void)swift_bridge_closeCurrentModuleIgnoringSkipping:(NSDictionary*)info {
+    const BOOL animated = [info[@"animated"] boolValue];
+    const ModuleCloseCompletionBlock completion = info[@"completion"];
+    [self closeCurrentModuleIgnoringSkipping:animated completion:completion];
+}
+
+- (void)swift_bridge_closeTopModules:(NSDictionary*)info {
+    const BOOL animated = [info[@"animated"] boolValue];
+    const ModuleCloseCompletionBlock completion = info[@"completion"];
+    [self closeTopModules:animated completion:completion];
+}
+
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)swift_bridge_previousTransitionHandler {
+    return [self previousTransitionHandler];
+}
+
+- (NSNumber*)swift_bridge_skipOnDismiss {
+    return [NSNumber numberWithBool:[self skipOnDismiss]];
+}
+
+- (void)swift_bridge_setSkipOnDismiss:(NSNumber*)skipOnDismiss {
+    [self setSkipOnDismiss:[skipOnDismiss boolValue]];
+}
+
+@end
 
 @protocol TranditionalViperViewWithOutput <NSObject>
 - (id)output;
 @end
-
 
 @implementation UIViewController (RamblerViperModuleTransitionHandlerProtocol)
 
 #pragma mark - RamblerViperModuleTransitionHandlerProtocol
 
 + (void)initialize {
-    [self swizzlePrepareForSegue];
+    [self vipermcflurry_helper_swizzlePrepareForSegue];
 }
 
 - (id)moduleInput {
@@ -46,8 +138,16 @@ static int passedKey = 0;
     });
 }
 
+- (NSString*)moduleIdentifier {
+    return objc_getAssociatedObject(self, &moduleIdentifierKey);
+}
+
+- (void)setModuleIdentifier:(NSString *)moduleIdentifier {
+    objc_setAssociatedObject(self, &moduleIdentifierKey, moduleIdentifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 - (BOOL)skipOnDismiss {
-    NSNumber* const value = objc_getAssociatedObject(self, &treatMeAsRootTransitionHandlerKey);
+    NSNumber* const value = objc_getAssociatedObject(self, &skipOnDismissKey);
     if (![value isKindOfClass:[NSNumber class]]) {
         return NO;
     }
@@ -55,7 +155,7 @@ static int passedKey = 0;
 }
 
 - (void)setSkipOnDismiss:(BOOL)skipOnDismiss {
-    objc_setAssociatedObject(self, &treatMeAsRootTransitionHandlerKey, @(skipOnDismiss), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &skipOnDismissKey, @(skipOnDismiss), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 // Method opens module using segue
@@ -123,7 +223,7 @@ static int passedKey = 0;
     };
     
     const EmbeddedModuleEmbedderBlock embedder  = ^EmbeddedModuleRemoverBlock(UIView* containerView) {
-        
+
         if (lazyAllocation && destinationViewController == nil) {
             allocate();
         }
@@ -138,6 +238,7 @@ static int passedKey = 0;
         };
         
         const void (^setupConstraints)(void) = ^{
+
             UIView* const embeddedView = destinationViewController.view;
             embeddedView.translatesAutoresizingMaskIntoConstraints = NO;
             [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[embeddedView]-0-|"
@@ -200,64 +301,90 @@ static int passedKey = 0;
     return openModulePromise;
 }
 
+- (void)closeToModuleWithIdentifier:(NSString*)moduleIdentifier animated:(BOOL)animated completion:(_Nullable ModuleCloseCompletionBlock)completion {
+    UIViewController* const target = [(UIViewController*)[self previousTransitionHandler] vipermcflurry_helper_findModuleBeforeModuleWithIdentifier:moduleIdentifier previous:self];
+    if (target) {
+        [target closeCurrentModuleIgnoringSkipping:animated completion:completion];
+    }
+    else {
+        [self closeCurrentModule:animated completion:completion];
+    }
+}
+
+- (void)closeToModuleWithIdentifier:(NSString*)moduleIdentifier animated:(BOOL)animated {
+    [self closeToModuleWithIdentifier:moduleIdentifier animated:animated completion:nil];
+}
+
+// Method removes/closes module
+- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+    NSMutableArray* skipped = [NSMutableArray new];
+    UIViewController* target = [self vipermcflurry_helper_findControllerBeforeNextNotSkippableController:skipped];
+    if (target) {
+
+        [skipped enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj vipermcflurry_helper_notifyAboutSkip];
+        }];
+
+        [target closeCurrentModuleIgnoringSkipping:animated completion:completion];
+    }
+    else {
+        [self closeCurrentModule:animated completion:completion];
+    }
+}
+
 // Method removes/closes module
 - (void)closeCurrentModule:(BOOL)animated {
     [self closeCurrentModule:animated completion:nil];
 }
 
-// Method removes/closes module
-- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
-    [self closeModulesUntil:nil animated:animated completion:completion];
+- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+
+    if (!transitionHandler) {
+        [self closeCurrentModule:animated completion:completion];
+        return;
+    }
+
+    UIViewController* parent = (UIViewController*)[self previousTransitionHandler];
+    if (!parent || parent == transitionHandler) {
+        [self closeCurrentModule:animated completion:completion];
+        return;
+    }
+
+    [parent closeModulesUntil:transitionHandler animated:animated completion:completion];
 }
 
-// Method removes/closes module
-- (void)closeModulesUntil:(id<RamblerViperModuleTransitionHandlerProtocol>)transitionHandler animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
-    assert(!transitionHandler || [transitionHandler isKindOfClass:[UIViewController class]]);
-    
-    if (transitionHandler) {
-        if ( self == transitionHandler) {
-            if (completion) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion();
-                });
-            }
-            return;
-        }
-    }
-    
-    BOOL (^skip)(UIViewController*) = ^BOOL(UIViewController* controller) {
-        
-        if (!controller.skipOnDismiss) {
-            return NO;
-        }
+- (void)closeCurrentModuleIgnoringSkipping:(BOOL)animated completion:(void(^)(void))completion {
+    [self vipermcflurry_helper_waitForAnimationCompleted:^{
+        if ([self.parentViewController isKindOfClass:[UITabBarController class]]) {
 
-        NSObject<RamblerViperModuleInput>* moduleInput = [self moduleInput];
-        if ([moduleInput conformsToProtocol:@protocol(RamblerViperModuleInput)]
-            && [moduleInput respondsToSelector:@selector(moduleDidSkipOnDismiss)]) {
-            [moduleInput performSelector:@selector(moduleDidSkipOnDismiss) withObject:nil afterDelay:0];
-        }
-        
-        [controller closeModulesUntil:transitionHandler animated:animated completion:completion];
-        return YES;
-    };
-    
-    if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
-        
-        if (skip(self.parentViewController)) {
-            return;
-        }
-        
-        UINavigationController* const navigationController = (UINavigationController*)self.parentViewController;
-        
-        if (navigationController.viewControllers.count > 1) {
-            
-            if (transitionHandler) {
-                [navigationController popToViewController:(UIViewController*)transitionHandler animated:animated];
+            UITabBarController* const tc = (UITabBarController*)self.parentViewController;
+
+            NSArray<UIViewController*>* const controllers = [tc.viewControllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+                return evaluatedObject != self;
+            }]];
+
+            [tc setViewControllers:controllers animated:animated];
+
+            if (completion) {
+                if (tc.transitionCoordinator) {
+                    [tc.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
+                                                              completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) { completion(); }];
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                    return;
+                }
             }
-            else {
-                
-                NSArray<UIViewController*>* const viewControllers = navigationController.viewControllers;
-                
+        }
+        else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+
+            UINavigationController* const navigationController = (UINavigationController*)self.parentViewController;
+            NSArray<UIViewController*>* const viewControllers = navigationController.viewControllers;
+
+            if (viewControllers.count > 1) {
+
                 if (viewControllers.lastObject == self) {
                     [navigationController popViewControllerAnimated:animated];
                 }
@@ -266,21 +393,60 @@ static int passedKey = 0;
                     if (index > 0) {
                         [navigationController popToViewController:viewControllers[index - 1] animated:animated];
                     }
+                    else if (index == 0) {
+                        [navigationController closeCurrentModuleIgnoringSkipping:animated completion:completion];
+                        return;
+                    }
                     else {
-                        [navigationController closeModulesUntil:transitionHandler animated:animated completion:completion];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion();
+                        });
                         return;
                     }
                 }
-            }
-            
-            if (completion) {
-                if (navigationController.transitionCoordinator) {
-                    [navigationController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
-                                                                  completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                                                                      completion();
-                                                                  }];
+
+                if (completion) {
+                    if (navigationController.transitionCoordinator) {
+                        [navigationController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
+                                                                                    completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) { completion(); }];
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion();
+                        });
+                    }
                 }
-                else {
+            }
+            else {
+                [navigationController closeCurrentModuleIgnoringSkipping:animated completion:completion];
+                return;
+            }
+        }
+        else if (self.presentingViewController.presentedViewController == self) {
+            [self.presentingViewController dismissViewControllerAnimated:animated completion:completion];
+        }
+        else if (self.parentViewController){
+
+            [self willMoveToParentViewController:nil];
+            if (animated) {
+                [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
+                                      delay:0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:^{
+                                     self.view.alpha = 0;
+                                 }
+                                 completion:^(BOOL finished) {
+                                     [self.view removeFromSuperview];
+                                     [self removeFromParentViewController];
+                                     if (completion) {
+                                         completion();
+                                     }
+                                 }];
+            }
+            else {
+                [self.view removeFromSuperview];
+                [self removeFromParentViewController];
+                if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         completion();
                     });
@@ -288,78 +454,35 @@ static int passedKey = 0;
             }
         }
         else {
-            [self.parentViewController closeModulesUntil:transitionHandler animated:animated completion:completion];
-        }
-    }
-    else if (self.presentingViewController.presentedViewController == self) {
-        
-        if (skip(self.presentingViewController)) {
-            return;
-        }
-        
-        if (self.skipOnDismiss) {
-            [self.presentingViewController dismissViewControllerAnimated:animated completion:completion];
-            return;
-        }
-        
-        NSMutableArray<UIViewController*>* const topPresented = [NSMutableArray new];
-        UIViewController* current = self;
-        
-        while (current.presentedViewController) {
-            [topPresented addObject:current.presentedViewController];
-            current = current.presentedViewController;
-        }
-        
-        if ([topPresented count] == 0) {
-            [self dismissViewControllerAnimated:animated completion:completion];
-            return;
-        }
-        
-        __block BOOL inProgress = NO;
-        
-        [topPresented enumerateObjectsUsingBlock:^(UIViewController*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isBeingPresented] || [obj isBeingDismissed] || [obj isMovingFromParentViewController] || [obj isMovingToParentViewController]) {
-                *stop = YES;
-                inProgress = YES;
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion();
+                });
             }
-        }];
-        
-        if (inProgress) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1/60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self closeModulesUntil:transitionHandler animated:animated completion:completion];
-            });
-            return;
         }
-        
-        [[topPresented lastObject] dismissViewControllerAnimated:animated completion:^{
-            [self closeModulesUntil:transitionHandler animated:animated completion:completion];
-        }];
+    }];
+}
+
+- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:animated completion:completion];
     }
-    else if (self.parentViewController){
-        
-        if (skip(self.parentViewController)) {
-            return;
-        }
-        
-        [self willMoveToParentViewController:nil];
-        if (animated) {
-            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
-                                  delay:0
-                                options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:^{
-                                 self.view.alpha = 0;
-                             }
-                             completion:^(BOOL finished) {
-                                 [self.view removeFromSuperview];
-                                 [self removeFromParentViewController];
-                                 if (completion) {
-                                     completion();
-                                 }
-                             }];
+    else if (self.navigationController) {
+        const NSInteger index = [self.navigationController.viewControllers indexOfObject:self];
+        if (index >= 0) {
+            if (index < [self.navigationController.viewControllers count] - 1) {
+                UIViewController* const next = [self.navigationController.viewControllers objectAtIndex:index + 1];
+                [next closeCurrentModuleIgnoringSkipping:animated completion:completion];
+            }
+            else {
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
+            }
         }
         else {
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
             if (completion) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion();
@@ -368,58 +491,254 @@ static int passedKey = 0;
         }
     }
     else {
-        assert("not applicable");
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
 }
 
-- (void)closeTopModules:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
-    [self closeModulesUntil:self animated:animated completion:completion];
-}
+//// Method removes/closes module
+//- (void)closeModulesUntilMatch:(BOOL(^)(id<RamblerViperModuleTransitionHandlerProtocol> transitionHandler))compare animated:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion {
+//
+//    if (compare && compare(self)) {
+//        if (completion) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completion();
+//            });
+//        }
+//        return;
+//    }
+//
+//    BOOL (^skip)(UIViewController*) = ^BOOL(UIViewController* controller) {
+//
+//        if (!controller.skipOnDismiss) {
+//            return NO;
+//        }
+//
+//        [controller vipermcflurry_helper_notifyAboutSkip];
+//        [controller closeModulesUntilMatch:compare animated:animated completion:completion];
+//        return YES;
+//    };
+//
+//    if ([self.parentViewController isKindOfClass:[UITabBarController class]]) {
+//
+//        UITabBarController* const tc = (UITabBarController*)self.parentViewController;
+//
+//        NSArray<UIViewController*>* const controllers = [tc.viewControllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+//            return evaluatedObject != self;
+//        }]];
+//
+//        [tc setViewControllers:controllers animated:animated];
+//
+//        if (tc.transitionCoordinator) {
+//            [tc.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
+//                                                      completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+//                if (compare) {
+//                    [self closeModulesUntilMatch:compare animated:animated completion:completion];
+//                }
+//                else {
+//                    if (completion) {
+//                        completion();
+//                    }
+//                }
+//            }];
+//        }
+//        else {
+//            if (compare) {
+//                [self closeModulesUntilMatch:compare animated:animated completion:completion];
+//            }
+//            else {
+//                if (completion) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completion();
+//                    });
+//                }
+//            }
+//        }
+//    }
+//    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+//
+//        if (skip(self.parentViewController)) {
+//            return;
+//        }
+//
+//        UINavigationController* const navigationController = (UINavigationController*)self.parentViewController;
+//
+//        if (navigationController.viewControllers.count > 1) {
+//
+//            if (compare) {
+//
+//                const NSArray<UIViewController*>* const match = [navigationController.viewControllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+//                    return compare(evaluatedObject);
+//                }]];
+//
+//                if ([match count] > 0) {
+//                    [navigationController popToViewController:[match lastObject] animated:animated];
+//                }
+//                else {
+//                    [navigationController closeModulesUntilMatch:compare animated:animated completion:completion];
+//                    return;
+//                }
+//            }
+//            else {
+//
+//                NSArray<UIViewController*>* const viewControllers = navigationController.viewControllers;
+//
+//                if (viewControllers.lastObject == self) {
+//                    [navigationController popViewControllerAnimated:animated];
+//                }
+//                else {
+//                    const NSUInteger index = [viewControllers indexOfObject:self];
+//                    if (index > 0) {
+//                        [navigationController popToViewController:viewControllers[index - 1] animated:animated];
+//                    }
+//                    else {
+//                        [navigationController closeModulesUntilMatch:compare animated:animated completion:completion];
+//                        return;
+//                    }
+//                }
+//            }
+//
+//            if (completion) {
+//                if (navigationController.transitionCoordinator) {
+//                    [navigationController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
+//                                                                  completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+//                                                                      completion();
+//                                                                  }];
+//                }
+//                else {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completion();
+//                    });
+//                }
+//            }
+//        }
+//        else if (navigationController.viewControllers.count == 1) {
+//            [self.parentViewController closeModulesUntilMatch:compare animated:animated completion:completion];
+//        }
+//        else {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completion();
+//            });
+//        }
+//    }
+//    else if (self.presentingViewController.presentedViewController == self) {
+//
+//        if (skip(self.presentingViewController)) {
+//            return;
+//        }
+//
+//        if (self.skipOnDismiss) {
+//            [self.presentingViewController dismissViewControllerAnimated:animated completion:completion];
+//            return;
+//        }
+//
+//        NSMutableArray<UIViewController*>* const topPresented = [NSMutableArray new];
+//        UIViewController* current = self;
+//
+//        while (current.presentedViewController) {
+//            [topPresented addObject:current.presentedViewController];
+//            current = current.presentedViewController;
+//        }
+//
+//        if ([topPresented count] == 0) {
+//
+//            if (compare) {
+//                [self.presentingViewController closeModulesUntilMatch:compare animated:animated completion:completion];
+//                return;
+//            }
+//
+//            [self dismissViewControllerAnimated:animated completion:completion];
+//            return;
+//        }
+//
+//        __block BOOL inProgress = NO;
+//
+//        [topPresented enumerateObjectsUsingBlock:^(UIViewController*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if ([obj isBeingPresented] || [obj isBeingDismissed] || [obj isMovingFromParentViewController] || [obj isMovingToParentViewController]) {
+//                *stop = YES;
+//                inProgress = YES;
+//            }
+//        }];
+//
+//        if (inProgress) {
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1/60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self closeModulesUntilMatch:compare animated:animated completion:completion];
+//            });
+//            return;
+//        }
+//
+//        [[topPresented lastObject] dismissViewControllerAnimated:animated completion:^{
+//            [self closeModulesUntilMatch:compare animated:animated completion:completion];
+//        }];
+//    }
+//    else if (self.parentViewController){
+//
+//        if (skip(self.parentViewController)) {
+//            return;
+//        }
+//
+//        [self willMoveToParentViewController:nil];
+//        if (animated) {
+//            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
+//                                  delay:0
+//                                options:UIViewAnimationOptionBeginFromCurrentState
+//                             animations:^{
+//                                 self.view.alpha = 0;
+//                             }
+//                             completion:^(BOOL finished) {
+//                                 [self.view removeFromSuperview];
+//                                 [self removeFromParentViewController];
+//                                 if (completion) {
+//                                     completion();
+//                                 }
+//                             }];
+//        }
+//        else {
+//            [self.view removeFromSuperview];
+//            [self removeFromParentViewController];
+//            if (completion) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completion();
+//                });
+//            }
+//        }
+//    }
+//    else {
+//        if (completion) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completion();
+//            });
+//        }
+//    }
+//}
 
-- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)parentTransitionHandler {
-    BOOL isInNavigationStack = [self.parentViewController isKindOfClass:[UINavigationController class]];
-    
-    if (isInNavigationStack) {
+- (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)previousTransitionHandler {
+
+    if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
         
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
-        if (navigationController.viewControllers.count == 1) {
-            return nil;
-        }
-        
         const NSInteger idx = [navigationController.viewControllers indexOfObject:self];
-        if (idx == 0 || idx == NSNotFound) {
-            return nil;
+
+        if (idx == 0) {
+            return navigationController;
         }
         
-        UIViewController* candidate = [navigationController.viewControllers objectAtIndex:idx - 1];
-        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
-            return nil;
-        }
-        
-        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+        return [navigationController.viewControllers objectAtIndex:idx - 1];
     }
     else if (self.presentingViewController.presentedViewController == self) {
-        UIViewController* candidate = self.presentingViewController;
-        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
-            return nil;
-        }
-        
-        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+        return self.presentingViewController;
     }
     else {
-        UIViewController* candidate = self.parentViewController;
-        if (![candidate conformsToProtocol:@protocol(RamblerViperModuleTransitionHandlerProtocol)]) {
-            return nil;
-        }
-        
-        return (id<RamblerViperModuleTransitionHandlerProtocol>)candidate;
+        return self.parentViewController;
     }
-    return nil;
 }
 
 #pragma mark - PrepareForSegue swizzling
 
-+ (void)swizzlePrepareForSegue {
++ (void)vipermcflurry_helper_swizzlePrepareForSegue {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         IMP reamplerPrepareForSegueImp = (IMP)RamblerViperPrepareForSegueSender;

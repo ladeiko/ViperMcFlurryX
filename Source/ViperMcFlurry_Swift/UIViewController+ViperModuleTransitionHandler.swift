@@ -1,22 +1,45 @@
 import UIKit
 
+fileprivate func makeObjCBLock(_ block: @escaping (() -> Void)) -> @convention(block) () -> () {
+    return {
+        block()
+    }
+}
+
 extension UIViewController: ViperModuleTransitionHandler {
-    
-    private static let skipOnDismissAssociation = ObjectAssociation<NSNumber>()
+
     private static let moduleInputAssociation = ObjectAssociation<AnyObject>()
     private static let openModuleUsingSegueKeyAssociation = ObjectAssociation<NSNumber>()
     
     // MARK: - Properties
     
-    public var skipOnDismiss: Bool {
+    @nonobjc public var skipOnDismiss: Bool {
         get {
-            return UIViewController.skipOnDismissAssociation[self]?.boolValue ?? false
+            return ((perform(NSSelectorFromString("swift_bridge_skipOnDismiss")) as? NSNumber) ?? NSNumber(booleanLiteral: false)).boolValue
         }
         set {
-            UIViewController.skipOnDismissAssociation[self] = NSNumber(value: newValue)
+            perform(NSSelectorFromString("swift_bridge_setSkipOnDismiss:"), with: NSNumber(booleanLiteral: newValue))
         }
     }
-    
+
+    @nonobjc public var moduleIdentifier: String {
+        get {
+            return perform(NSSelectorFromString("moduleIdentifier")) as? String ?? ""
+        }
+        set {
+            perform(NSSelectorFromString("setModuleIdentifier:"), with: newValue)
+        }
+    }
+
+    public var moduleInput: ViperModuleInput? {
+        get {
+            return moduleInputInterface
+        }
+        set {
+            moduleInputInterface = newValue
+        }
+    }
+
     public var moduleInputInterface: ViperModuleInput? {
         get {
             if let moduleInput = UIViewController.moduleInputAssociation[self] as? ViperModuleInput {
@@ -32,22 +55,9 @@ extension UIViewController: ViperModuleTransitionHandler {
             UIViewController.moduleInputAssociation[self] = newValue
         }
     }
-    
-    private func findValue(for propertyName: String, in mirror: Mirror) -> Any? {
-        for property in mirror.children {
-            if property.label! == propertyName {
-                return property.value
-            }
-        }
-        
-        if let superclassMirror = mirror.superclassMirror {
-            return findValue(for: propertyName, in: superclassMirror)
-        }
-        
-        return nil
-    }
-    
+
     // MARK - Navigation
+
     public func performSegue(_ segueIdentifier: String) {
         swizzlePrepareForSegue()
         DispatchQueue.main.async {
@@ -115,7 +125,7 @@ extension UIViewController: ViperModuleTransitionHandler {
     public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping (ViperModuleInput) -> ViperModuleOutput) -> EmbeddedModuleEmbedderBlock {
         return self.createEmbeddableModuleUsingFactory(moduleFactory, configurationBlock: configurationBlock, lazyAllocation: false)
     }
-    
+
     public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping (ViperModuleInput) -> ViperModuleOutput, lazyAllocation: Bool) -> EmbeddedModuleEmbedderBlock {
         
         var sourceViewController: UIViewController!
@@ -215,13 +225,29 @@ extension UIViewController: ViperModuleTransitionHandler {
     public func closeCurrentModule(_ animated: Bool) {
         self.closeCurrentModule(animated, completion: nil)
     }
-    
+
     public func closeCurrentModule(_ animated: Bool, completion: ModuleCloseCompletionBlock?) {
-        self.closeModulesUntil(nil, animated: animated, completion: completion)
+
+        let info = NSMutableDictionary()
+        info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
+
+        if let completion = completion {
+            info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
+        }
+
+        perform(NSSelectorFromString("swift_bridge_closeCurrentModule:"), with: info)
     }
     
     public func closeTopModules(_ animated: Bool, completion: ModuleCloseCompletionBlock?) {
-        self.closeModulesUntil(self, animated: animated, completion: completion)
+
+        let info = NSMutableDictionary()
+        info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
+
+        if let completion = completion {
+            info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
+        }
+
+        perform(NSSelectorFromString("swift_bridge_closeTopModules:"), with: info)
     }
     
     public func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool) {
@@ -229,136 +255,57 @@ extension UIViewController: ViperModuleTransitionHandler {
     }
     
     public func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool, completion: ModuleCloseCompletionBlock?) {
-        assert(transitionHandler == nil || transitionHandler is UIViewController)
-        
-        func skip(_ viewController: UIViewController) -> Bool {
-            
-            guard viewController.skipOnDismiss else {
-                return false
-            }
-            
-            self.moduleInputInterface?.moduleDidSkipOnDismiss()
-            
-            viewController.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
-            return true
+
+        let info = NSMutableDictionary()
+        if let transitionHandler = transitionHandler {
+            info.setObject(transitionHandler, forKey: "transitionHandler" as NSString)
         }
-        
-        if let parentNavigationController = self.parent as? UINavigationController {
-            if skip(parentNavigationController) { return }
-            if parentNavigationController.viewControllers.count > 1 {
-                if let transitionHandler = transitionHandler as? UIViewController {
-                    parentNavigationController.popToViewController(transitionHandler, animated: animated)
-                }
-                else {
-                    let viewControllers = parentNavigationController.viewControllers
-                    if viewControllers.last == self {
-                        parentNavigationController.popViewController(animated: animated)
-                    } else {
-                        let index = viewControllers.firstIndex(of: self)!
-                        if index > 0 {
-                            parentNavigationController.popToViewController(viewControllers[index - 1], animated: animated)
-                        } else {
-                            parentNavigationController.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
-                            return
-                        }
-                    }
-                }
-                if let completion = completion {
-                    if let transitionCoordinator = parentNavigationController.transitionCoordinator {
-                        transitionCoordinator.animate(alongsideTransition: { _ in }, completion: { _ in completion() })
-                    } else {
-                        DispatchQueue.main.async {
-                            completion()
-                        }
-                    }
-                }
-            } else {
-                self.parent?.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
-            }
-        } else if self.presentingViewController?.presentedViewController == self {
-            if skip(self.presentingViewController!) { return }
-            var topPresented = [UIViewController]()
-            var current = self
-            
-            while let currentPresentedViewController = current.presentedViewController {
-                topPresented.append(currentPresentedViewController)
-                current = currentPresentedViewController
-            }
-            if topPresented.count == 0 {
-                self.dismiss(animated: animated, completion: completion)
-                return
-            }
-            
-            var inProgress = false
-            for obj in topPresented {
-                if obj.isBeingPresented || obj.isBeingDismissed || obj.isMovingFromParent || obj.isMovingToParent {
-                    inProgress = true
-                    break
-                }
-            }
-            if inProgress {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1/60) {
-                    self.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
-                }
-                return
-            }
-            topPresented.last?.dismiss(animated: animated) {
-                self.closeModulesUntil(transitionHandler, animated: animated, completion: completion)
-            }
-        } else if self.parent != nil {
-            if skip(self.parent!) { return }
-            self.willMove(toParent: nil)
-            if animated {
-                UIView.animate(withDuration: TimeInterval(UINavigationController.hideShowBarDuration), delay: 0,
-                               options: .beginFromCurrentState,
-                               animations: { self.view.alpha = 0 },
-                               completion: { _ in
-                                self.view.removeFromSuperview()
-                                self.removeFromParent()
-                                if let completion = completion { completion() }
-                })
-            } else {
-                self.view.removeFromSuperview()
-                self.removeFromParent()
-                if let completion = completion {
-                    DispatchQueue.main.async {
-                        completion()
-                    }
-                }
-            }
-        } else {
-            assertionFailure("not applicable")
+
+        info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
+
+        if let completion = completion {
+            info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
         }
-        
+
+        perform(NSSelectorFromString("swift_bridge_closeModulesUntil:"), with: info)
+    }
+
+    public func closeCurrentModuleIgnoringSkipping(_ animated: Bool, completion: ModuleCloseCompletionBlock?) {
+
+        let info = NSMutableDictionary()
+        info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
+
+        if let completion = completion {
+            info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
+        }
+
+        perform(NSSelectorFromString("swift_bridge_closeCurrentModuleIgnoringSkipping:"), with: info)
+    }
+
+    public func closeToModuleWithIdentifier(_ moduleIdentifier: String, animated:Bool, completion: ModuleCloseCompletionBlock?) {
+
+        let info = NSMutableDictionary()
+        info.setObject(moduleIdentifier as NSString, forKey: "moduleIdentifier" as NSString)
+        info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
+
+        if let completion = completion {
+            info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
+        }
+
+        perform(NSSelectorFromString("swift_bridge_closeToModuleWithIdentifier:"), with: info)
+    }
+
+    public func closeToModuleWithIdentifier(_ moduleIdentifier: String, animated: Bool) {
+        closeToModuleWithIdentifier(moduleIdentifier, animated:animated, completion: nil)
     }
     
-    
-    public func parentTransitionHandler() -> ViperModuleTransitionHandler? {
-        if let parentNavigationController = self.parent as? UINavigationController {
-            if parentNavigationController.viewControllers.count == 1 {
-                return nil
-            }
-            
-            if let currentIndexInNavigationStack = parentNavigationController.viewControllers.firstIndex(of: self) {
-                if currentIndexInNavigationStack == 0 || currentIndexInNavigationStack == NSNotFound {
-                    return nil
-                }
-                
-                let candidate = parentNavigationController.viewControllers[currentIndexInNavigationStack - 1]
-                return candidate
-            }
-            return nil
-        } else if self.presentingViewController?.presentedViewController == self {
-            guard let candidate = self.presentingViewController else { return nil }
-            return candidate
-        } else {
-            guard let candidate = self.parent else { return nil }
-            return candidate
-        }
+    public func previousTransitionHandler() -> ViperModuleTransitionHandler? {
+        return perform(NSSelectorFromString("swift_bridge_previousTransitionHandler"), with: nil) as? ViperModuleTransitionHandler
     }
     
     // MARK - Swizzled methods
-    func swizzlePrepareForSegue() {
+
+    private func swizzlePrepareForSegue() {
         DispatchQueue.once(token: "viperinfrastructure.swizzle.prepareForSegue") {
             let originalSelector = #selector(UIViewController.prepare(for: sender:))
             let swizzledSelector = #selector(UIViewController.swizzledPrepare(for: sender:))
@@ -379,7 +326,8 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
     }
     
-    @objc func swizzledPrepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @objc
+    private func swizzledPrepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.swizzledPrepare(for: segue, sender: sender)
         
         guard let openModulePromise = sender as? ViperOpenModulePromise else { return }
@@ -393,5 +341,24 @@ extension UIViewController: ViperModuleTransitionHandler {
         let moduleInput = targetModuleTransitionHandler?.moduleInputInterface
         
         openModulePromise.moduleInput = moduleInput
+    }
+
+    @objc
+    private func swift_bridge_moduleDidSkipOnDismiss() {
+        moduleInputInterface?.moduleDidSkipOnDismiss()
+    }
+
+    private func findValue(for propertyName: String, in mirror: Mirror) -> Any? {
+        for property in mirror.children {
+            if property.label! == propertyName {
+                return property.value
+            }
+        }
+
+        if let superclassMirror = mirror.superclassMirror {
+            return findValue(for: propertyName, in: superclassMirror)
+        }
+
+        return nil
     }
 }
