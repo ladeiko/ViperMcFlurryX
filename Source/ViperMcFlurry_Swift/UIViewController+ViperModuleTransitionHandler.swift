@@ -107,7 +107,7 @@ extension UIViewController: ViperModuleTransitionHandler {
         return openModulePromise
     }
     
-    public func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock transitionHandler: ViperModuleTransitionHandler.ModuleTransitionBlock?) -> ViperOpenModulePromise {
+    public func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock transitionHandler: ModuleTransitionBlock?) -> ViperOpenModulePromise {
         let openModulePromise = ViperOpenModulePromise()
         let destinationModuleTransitionHandler = moduleFactory.instantiateModuleTransitionHandler()
         let moduleInput = destinationModuleTransitionHandler.moduleInputInterface
@@ -122,11 +122,11 @@ extension UIViewController: ViperModuleTransitionHandler {
     }
     
     
-    public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping (ViperModuleInput) -> ViperModuleOutput) -> EmbeddedModuleEmbedderBlock {
+    public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping EmbeddedModuleConfigurationBlock) -> EmbeddedModuleEmbedderBlock {
         return self.createEmbeddableModuleUsingFactory(moduleFactory, configurationBlock: configurationBlock, lazyAllocation: false)
     }
 
-    public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping (ViperModuleInput) -> ViperModuleOutput, lazyAllocation: Bool) -> EmbeddedModuleEmbedderBlock {
+    public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping EmbeddedModuleConfigurationBlock, lazyAllocation: Bool) -> EmbeddedModuleEmbedderBlock {
         
         var sourceViewController: UIViewController!
         var destinationViewController: UIViewController!

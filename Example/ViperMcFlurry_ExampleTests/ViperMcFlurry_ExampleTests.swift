@@ -591,4 +591,48 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         XCTAssertEqual(UIApplication.shared.keyWindow!.rootViewController!.presentedViewController, controller1)
         XCTAssertNil(controller1.presentedViewController)
     }
+
+//    func testDeepUnwind() {
+//
+//        let oldRootViewController = UIApplication.shared.keyWindow!.rootViewController!
+//        defer {
+//            UIApplication.shared.keyWindow!.rootViewController = oldRootViewController
+//        }
+//
+//        let tb = UITabBarController()
+//
+//        let rootViewController = UIViewController()
+//        rootViewController.moduleIdentifier = "stop"
+//        let nc1 = UINavigationController(rootViewController: rootViewController)
+//        tb.viewControllers = [nc1]
+//
+//        UIApplication.shared.keyWindow!.rootViewController = tb
+//
+//        nc1.pushViewController(UIViewController(), animated: false)
+//        nc1.pushViewController(UIViewController(), animated: false)
+//
+//        let sub = UIViewController()
+//        nc1.pushViewController(sub, animated: false)
+//
+//
+//        let nc2 = UINavigationController(rootViewController: UIViewController())
+//        sub.present(nc2, animated: false, completion: nil)
+//
+//        nc2.pushViewController(UIViewController(), animated: false)
+//
+//        let expectation = XCTestExpectation(description: "")
+//
+//        nc2.topViewController?.closeToModule(withIdentifier: "stop", animated: true, completion: {
+////        tb.dismiss(animated: true, completion: {
+////            expectation.fulfill()
+////        })
+//            expectation.fulfill()
+//        })
+//
+//        wait(for: [expectation], timeout: 10)
+//
+//        XCTAssert(UIApplication.shared.keyWindow!.rootViewController === tb)
+//        XCTAssertEqual(tb.viewControllers, [nc1])
+//        XCTAssertEqual(nc1.viewControllers, [rootViewController])
+//    }
 }

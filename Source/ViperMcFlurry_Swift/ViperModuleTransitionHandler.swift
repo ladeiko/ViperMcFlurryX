@@ -1,13 +1,13 @@
 import UIKit
 
-public protocol ViperModuleTransitionHandler: class {
-    
-    typealias ModuleTransitionBlock = (_ sourceModuleTransitionHandler: ViperModuleTransitionHandler, _ destinationModuleTransitionHandler: ViperModuleTransitionHandler) -> Void
-    typealias ModuleCloseCompletionBlock = (() -> Void)
+public typealias ModuleTransitionBlock = (_ sourceModuleTransitionHandler: ViperModuleTransitionHandler, _ destinationModuleTransitionHandler: ViperModuleTransitionHandler) -> Void
+public typealias ModuleCloseCompletionBlock = (() -> Void)
 
-    typealias EmbeddedModuleRemoverBlock = (() -> Void)
-    typealias EmbeddedModuleEmbedderBlock = ((_ containerView: UIView) -> EmbeddedModuleRemoverBlock)
-    typealias EmbeddedModuleConfigurationBlock = ((_ moduleInput: ViperModuleInput) -> ViperModuleOutput)
+public typealias EmbeddedModuleRemoverBlock = (() -> Void)
+public typealias EmbeddedModuleEmbedderBlock = ((_ containerView: UIView) -> EmbeddedModuleRemoverBlock)
+public typealias EmbeddedModuleConfigurationBlock = ((_ moduleInput: ViperModuleInput) -> ViperModuleOutput?)
+
+public protocol ViperModuleTransitionHandler: class {
 
     var moduleInput: ViperModuleInput? { get set } // alias for moduleInputInterface
     var moduleInputInterface: ViperModuleInput? { get set } // alias for moduleInput

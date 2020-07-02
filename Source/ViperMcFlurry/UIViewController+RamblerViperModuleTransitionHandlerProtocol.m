@@ -14,6 +14,19 @@ static IMP originalPrepareForSegueMethodImp;
 static int skipOnDismissKey = 0;
 static int moduleIdentifierKey = 0;
 
+static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
+
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+
+    if (class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
+        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+
+}
+
 @implementation UIViewController(ViperMcFlurryHelpers)
 
 - (void)vipermcflurry_helper_waitForAnimationCompleted:(void(^)(void))completion {
@@ -111,12 +124,52 @@ static int moduleIdentifierKey = 0;
 - (id)output;
 @end
 
+//static int parentKey = 0;
+//
+//@interface ParentKeeper : NSObject
+//@property (nonatomic, weak) UIViewController* previousConroller;
+//@end
+//
+//@implementation ParentKeeper
+//@end
+
 @implementation UIViewController (RamblerViperModuleTransitionHandlerProtocol)
+
+//- (ParentKeeper*)vipermcflurry_helper_parentKeeper {
+//    ParentKeeper* keeper = objc_getAssociatedObject(self, &parentKey);
+//    if (!keeper) {
+//        keeper = [ParentKeeper new];
+//        objc_setAssociatedObject(self, &parentKey, keeper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    }
+//    return keeper;
+//}
+//
+//- (void)vipermcflurry_helper_didMoveToParentViewController:(nullable UIViewController *)parent {
+//
+//    [self vipermcflurry_helper_didMoveToParentViewController:parent];
+//
+//    if (parent) {
+//        if (![[self vipermcflurry_helper_parentKeeper] previousConroller]) {
+//            [[self vipermcflurry_helper_parentKeeper] setPreviousConroller:parent];
+//        }
+//    }
+//    else {
+//        [[self vipermcflurry_helper_parentKeeper] setPreviousConroller:nil];
+//    }
+//}
+//
+//- (void)vipermcflurry_helper_presentViewController:(nonnull UIViewController *)controller animated:(BOOL)animated completion:(nullable void(^)(void))completion {
+//    [[controller vipermcflurry_helper_parentKeeper] setPreviousConroller:self];
+//    [self vipermcflurry_helper_presentViewController:controller animated:animated completion:completion];
+//}
 
 #pragma mark - RamblerViperModuleTransitionHandlerProtocol
 
 + (void)initialize {
     [self vipermcflurry_helper_swizzlePrepareForSegue];
+
+//    swizzle(self, @selector(didMoveToParentViewController:), @selector(vipermcflurry_helper_didMoveToParentViewController:));
+//    swizzle(self, @selector(presentViewController:animated:completion:), @selector(vipermcflurry_helper_presentViewController:animated:completion:));
 }
 
 - (id)moduleInput {
@@ -716,16 +769,16 @@ static int moduleIdentifierKey = 0;
 //}
 
 - (_Nullable id<RamblerViperModuleTransitionHandlerProtocol>)previousTransitionHandler {
-
+//    return [[self vipermcflurry_helper_parentKeeper] previousConroller];
     if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
-        
+
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
         const NSInteger idx = [navigationController.viewControllers indexOfObject:self];
 
         if (idx == 0) {
             return navigationController;
         }
-        
+
         return [navigationController.viewControllers objectAtIndex:idx - 1];
     }
     else if (self.presentingViewController.presentedViewController == self) {

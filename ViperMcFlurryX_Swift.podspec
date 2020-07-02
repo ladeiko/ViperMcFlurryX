@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name                    = "ViperMcFlurryX_Swift"
   s.module_name             = "ViperMcFlurryX_Swift"
-  s.version                 = "3.0.0"
+  s.version                 = "3.0.1"
   s.summary                 = "ViperMcFlurryX - Support for VIPER concept on iOS"
 
   s.homepage                = "https://github.com/ladeiko/ViperMcFlurryX"
