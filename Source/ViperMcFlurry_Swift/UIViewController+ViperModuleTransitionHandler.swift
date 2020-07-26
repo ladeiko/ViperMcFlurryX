@@ -15,7 +15,13 @@ extension UIViewController: ViperModuleTransitionHandler {
     
     @nonobjc public var skipOnDismiss: Bool {
         get {
-            return ((perform(NSSelectorFromString("swift_bridge_skipOnDismiss")) as? NSNumber) ?? NSNumber(booleanLiteral: false)).boolValue
+            
+            if let unmanaged = perform(NSSelectorFromString("swift_bridge_skipOnDismiss")),
+                let nsBool = unmanaged.takeUnretainedValue() as? NSNumber {
+                return nsBool.boolValue
+            }
+            
+            return false
         }
         set {
             perform(NSSelectorFromString("swift_bridge_setSkipOnDismiss:"), with: NSNumber(booleanLiteral: newValue))
@@ -24,10 +30,16 @@ extension UIViewController: ViperModuleTransitionHandler {
 
     @nonobjc public var moduleIdentifier: String {
         get {
-            return perform(NSSelectorFromString("moduleIdentifier")) as? String ?? ""
+            
+            if let unmanaged = perform(NSSelectorFromString("moduleIdentifier")),
+                let nsString = unmanaged.takeUnretainedValue() as? NSString {
+                return nsString as String
+            }
+            
+            return ""
         }
         set {
-            perform(NSSelectorFromString("setModuleIdentifier:"), with: newValue)
+            perform(NSSelectorFromString("setModuleIdentifier:"), with: newValue as NSString)
         }
     }
 

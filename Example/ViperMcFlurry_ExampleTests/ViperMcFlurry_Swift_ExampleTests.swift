@@ -87,6 +87,30 @@ class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
         handler!.skipOnDismiss = true
     }
     
+    func test_skipOnDismiss_set_get() {
+        let controller = UIViewController() as ViperModuleTransitionHandler
+        
+        XCTAssertFalse(controller.skipOnDismiss)
+        
+        controller.skipOnDismiss = true
+        XCTAssertTrue(controller.skipOnDismiss)
+        
+        controller.skipOnDismiss = false
+        XCTAssertFalse(controller.skipOnDismiss)
+    }
+    
+    func test_moduleIdentifier_set_get() {
+        let controller = UIViewController() as ViperModuleTransitionHandler
+        
+        XCTAssertEqual(controller.moduleIdentifier, "")
+        
+        controller.moduleIdentifier = "29348902384"
+        XCTAssertEqual(controller.moduleIdentifier, "29348902384")
+        
+        controller.moduleIdentifier = ""
+        XCTAssertEqual(controller.moduleIdentifier, "")
+    }
+    
     func testSimpleDismiss() {
         
         let oldRootViewController = UIApplication.shared.keyWindow!.rootViewController!
