@@ -10,17 +10,17 @@ extension UIViewController: ViperModuleTransitionHandler {
 
     private static let moduleInputAssociation = ObjectAssociation<AnyObject>()
     private static let openModuleUsingSegueKeyAssociation = ObjectAssociation<NSNumber>()
-    
+
     // MARK: - Properties
-    
+
     @nonobjc public var skipOnDismiss: Bool {
         get {
-            
+
             if let unmanaged = perform(NSSelectorFromString("swift_bridge_skipOnDismiss")),
                 let nsBool = unmanaged.takeUnretainedValue() as? NSNumber {
                 return nsBool.boolValue
             }
-            
+
             return false
         }
         set {
@@ -30,12 +30,12 @@ extension UIViewController: ViperModuleTransitionHandler {
 
     @nonobjc public var moduleIdentifier: String {
         get {
-            
+
             if let unmanaged = perform(NSSelectorFromString("moduleIdentifier")),
                 let nsString = unmanaged.takeUnretainedValue() as? NSString {
                 return nsString as String
             }
-            
+
             return ""
         }
         set {
@@ -76,21 +76,21 @@ extension UIViewController: ViperModuleTransitionHandler {
             self.performSegue(withIdentifier: segueIdentifier, sender: nil)
         }
     }
-    
+
     public func openModuleUsingSegue(_ segueIdentifier: String) -> ViperOpenModulePromise {
         swizzlePrepareForSegue()
         let openModulePromise = ViperOpenModulePromise()
-        
+
         UIViewController.openModuleUsingSegueKeyAssociation[self] = nil
-        
+
         let perform = {
             if UIViewController.openModuleUsingSegueKeyAssociation[self] == nil {
                 UIViewController.openModuleUsingSegueKeyAssociation[self] = NSNumber(booleanLiteral: true)
                 self.performSegue(withIdentifier: segueIdentifier, sender: openModulePromise)
             }
         }
-        
-        
+
+
         //
         // defined this to try execute segue if thenChainUsingBlock was called just after current
         // openModuleUsingSegue call (when you should call some input method of module):
@@ -104,7 +104,7 @@ extension UIViewController: ViperModuleTransitionHandler {
         openModulePromise.postChainActionBlock = {
             perform()
         }
-        
+
         //
         // Also try to call segue if postChainActionBlock was not called in current runloop cycle,
         // for example, thenChainUsingBlock was not called just after openModuleUsingSegue:
@@ -118,12 +118,12 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
         return openModulePromise
     }
-    
+
     public func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock transitionHandler: ModuleTransitionBlock?) -> ViperOpenModulePromise {
         let openModulePromise = ViperOpenModulePromise()
         let destinationModuleTransitionHandler = moduleFactory.instantiateModuleTransitionHandler()
         let moduleInput = destinationModuleTransitionHandler.moduleInputInterface
-        
+
         openModulePromise.moduleInput = moduleInput
         if let transitionHandler = transitionHandler {
             openModulePromise.postLinkActionBlock = {
@@ -132,108 +132,109 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
         return openModulePromise
     }
-    
-    
+
+
     public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping EmbeddedModuleConfigurationBlock) -> EmbeddedModuleEmbedderBlock {
         return self.createEmbeddableModuleUsingFactory(moduleFactory, configurationBlock: configurationBlock, lazyAllocation: false)
     }
 
     public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping EmbeddedModuleConfigurationBlock, lazyAllocation: Bool) -> EmbeddedModuleEmbedderBlock {
-        
-        var sourceViewController: UIViewController!
+
+        weak var sourceViewController: UIViewController! = self
         var destinationViewController: UIViewController!
-        
+
         let allocate = {
-            
-            precondition(sourceViewController == nil)
+
+            precondition(sourceViewController != nil)
             precondition(destinationViewController == nil)
-            
-            self.openModuleUsingFactory(moduleFactory) { (sourceModuleTransitionHandler, destinationModuleTransitionHandler) in
-                sourceViewController = sourceModuleTransitionHandler as! UIViewController
+
+            sourceViewController.openModuleUsingFactory(moduleFactory) { (sourceModuleTransitionHandler, destinationModuleTransitionHandler) in
+                //sourceViewController = sourceModuleTransitionHandler as! UIViewController
                 destinationViewController = destinationModuleTransitionHandler as! UIViewController
             }.thenChainUsingBlock { (moduleInput) -> ViperModuleOutput? in
                 return configurationBlock(moduleInput)
             }
-            
+
             assert(sourceViewController != nil, "code above should be called synchronously")
             assert(destinationViewController != nil, "code above should be called synchronously")
         };
-        
-        let embedder: EmbeddedModuleEmbedderBlock  = { containerView -> EmbeddedModuleRemoverBlock in
-            
-            if lazyAllocation && destinationViewController == nil {
+
+        let embedder: EmbeddedModuleEmbedderBlock  = { [weak sourceViewController] containerView -> EmbeddedModuleRemoverBlock in
+
+            if destinationViewController == nil {
                 allocate();
             }
-            
-            let remover: EmbeddedModuleRemoverBlock = { [weak destinationViewController] in
-                
-                guard let destinationViewController = destinationViewController else {
+
+            let remover: EmbeddedModuleRemoverBlock = { [weak sourceViewController] in
+
+                guard let strongDestinationViewController = destinationViewController else {
                     return
                 }
-                
-                if !destinationViewController.isViewLoaded || (destinationViewController.view.superview !== containerView) {
+
+                if !strongDestinationViewController.isViewLoaded || (strongDestinationViewController.view.superview !== containerView) {
                     return;
                 }
-                
-                destinationViewController.willMove(toParent: nil)
-                destinationViewController.view.removeFromSuperview()
-                destinationViewController.removeFromParent()
+
+                strongDestinationViewController.willMove(toParent: nil)
+                strongDestinationViewController.view.removeFromSuperview()
+                strongDestinationViewController.removeFromParent()
             };
-            
-            let setupConstraints = { [weak destinationViewController] in
-                
-                guard let destinationViewController = destinationViewController else {
+
+            let setupConstraints = { [weak sourceViewController] in
+
+                guard let strongDestinationViewController = destinationViewController else {
                     return
                 }
-                
-                let embeddedView = destinationViewController.view
+
+                let embeddedView = strongDestinationViewController.view
                 embeddedView!.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[embeddedView]-0-|",
                                                                             options: [],
                                                                             metrics: nil,
                                                                             views: ["embeddedView" : embeddedView]))
-                
+
                 containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[embeddedView]-0-|",
                                                                             options: [],
                                                                             metrics: nil,
                                                                             views: ["embeddedView" : embeddedView]))
             };
-            
-            if (destinationViewController.isViewLoaded && destinationViewController.view.superview != nil) {
-                
-                if destinationViewController.parent === sourceViewController { // parent controller is the same
-                    
-                    if destinationViewController.view.superview === containerView { // and view is the same
+
+            if destinationViewController.isViewLoaded && destinationViewController.view.superview != nil {
+
+                if destinationViewController!.parent === sourceViewController { // parent controller is the same
+
+                    if destinationViewController!.view.superview === containerView { // and view is the same
                         return remover
                     }
-                    
+
                     // Does not need 'removeFromSuperview' because
                     // it is automatically called whill addSubview
-                    containerView.addSubview(destinationViewController.view)
+                    containerView.addSubview(destinationViewController!.view)
                     setupConstraints()
                     return remover
                 }
                 else {
-                    destinationViewController?.willMove(toParent: nil)
-                    destinationViewController.removeFromParent()
+                    destinationViewController!.willMove(toParent: nil)
+                    destinationViewController!.view.removeFromSuperview()
+                    destinationViewController!.removeFromParent()
                 }
             }
-            
-            sourceViewController.addChild(destinationViewController)
-            containerView.addSubview(destinationViewController.view)
-            destinationViewController.didMove(toParent: sourceViewController)
+
+            sourceViewController!.addChild(destinationViewController)
+            containerView.addSubview(destinationViewController!.view)
+            destinationViewController!.didMove(toParent: sourceViewController)
             setupConstraints()
             return remover
         };
-        
+
         if !lazyAllocation {
             allocate()
         }
-        
+
         return embedder
     }
-    
+
     public func closeCurrentModule(_ animated: Bool) {
         self.closeCurrentModule(animated, completion: nil)
     }
@@ -249,7 +250,7 @@ extension UIViewController: ViperModuleTransitionHandler {
 
         perform(NSSelectorFromString("swift_bridge_closeCurrentModule:"), with: info)
     }
-    
+
     public func closeTopModules(_ animated: Bool, completion: ModuleCloseCompletionBlock?) {
 
         let info = NSMutableDictionary()
@@ -261,11 +262,11 @@ extension UIViewController: ViperModuleTransitionHandler {
 
         perform(NSSelectorFromString("swift_bridge_closeTopModules:"), with: info)
     }
-    
+
     public func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool) {
         self.closeModulesUntil(transitionHandler, animated: animated, completion: nil)
     }
-    
+
     public func closeModulesUntil(_ transitionHandler: ViperModuleTransitionHandler?, animated: Bool, completion: ModuleCloseCompletionBlock?) {
 
         let info = NSMutableDictionary()
@@ -310,25 +311,25 @@ extension UIViewController: ViperModuleTransitionHandler {
     public func closeToModuleWithIdentifier(_ moduleIdentifier: String, animated: Bool) {
         closeToModuleWithIdentifier(moduleIdentifier, animated:animated, completion: nil)
     }
-    
+
     public func previousTransitionHandler() -> ViperModuleTransitionHandler? {
         return perform(NSSelectorFromString("swift_bridge_previousTransitionHandler"), with: nil) as? ViperModuleTransitionHandler
     }
-    
+
     // MARK - Swizzled methods
 
     private func swizzlePrepareForSegue() {
         DispatchQueue.once(token: "viperinfrastructure.swizzle.prepareForSegue") {
             let originalSelector = #selector(UIViewController.prepare(for: sender:))
             let swizzledSelector = #selector(UIViewController.swizzledPrepare(for: sender:))
-            
+
             let instanceClass = UIViewController.self
             let originalMethod = class_getInstanceMethod(instanceClass, originalSelector)
             let swizzledMethod = class_getInstanceMethod(instanceClass, swizzledSelector)
-            
+
             let didAddMethod = class_addMethod(instanceClass, originalSelector,
                                                method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!))
-            
+
             if didAddMethod {
                 class_replaceMethod(instanceClass, swizzledSelector,
                                     method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
@@ -337,21 +338,21 @@ extension UIViewController: ViperModuleTransitionHandler {
             }
         }
     }
-    
+
     @objc
     private func swizzledPrepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.swizzledPrepare(for: segue, sender: sender)
-        
+
         guard let openModulePromise = sender as? ViperOpenModulePromise else { return }
-        
+
         var destinationViewController: UIViewController? = segue.destination
         if let navigationViewController = segue.destination as? UINavigationController {
             destinationViewController = navigationViewController.topViewController
         }
-        
+
         let targetModuleTransitionHandler: ViperModuleTransitionHandler? = destinationViewController
         let moduleInput = targetModuleTransitionHandler?.moduleInputInterface
-        
+
         openModulePromise.moduleInput = moduleInput
     }
 

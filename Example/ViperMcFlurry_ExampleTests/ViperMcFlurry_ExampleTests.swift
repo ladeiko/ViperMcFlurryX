@@ -84,7 +84,7 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         self.continueAfterFailure = false
     }
     
-    func testCompliation() {
+    func testCompilation() {
         let handler: RamblerViperModuleTransitionHandlerProtocol! = UIViewController()
         handler!.skipOnDismiss = true
     }

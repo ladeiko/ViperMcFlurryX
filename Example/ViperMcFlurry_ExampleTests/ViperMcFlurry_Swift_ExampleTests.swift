@@ -82,7 +82,7 @@ class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
         self.continueAfterFailure = false
     }
     
-    func testCompliation() {
+    func testCompilation() {
         let handler: ViperModuleTransitionHandler! = UIViewController()
         handler!.skipOnDismiss = true
     }
@@ -613,4 +613,5 @@ class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
         XCTAssertEqual(UIApplication.shared.keyWindow!.rootViewController!.presentedViewController, controller1)
         XCTAssertNil(controller1.presentedViewController)
     }
+
 }

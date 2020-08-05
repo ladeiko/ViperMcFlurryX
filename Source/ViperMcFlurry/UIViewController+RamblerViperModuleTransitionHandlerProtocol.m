@@ -261,23 +261,28 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                                                configurationBlock:(EmbeddedModuleConfigurationBlock)configurationBlock
                                                    lazyAllocation:(BOOL)lazyAllocation
 {
-    __block UIViewController* sourceViewController;
+    __weak __block UIViewController* sourceViewController = self;
     __block UIViewController* destinationViewController;
     
     const void(^allocate)(void) = ^{
-        [[self openModuleUsingFactory:moduleFactory withTransitionBlock:^(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler, id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler) {
+
+        NSAssert(sourceViewController, @"");
+        NSAssert(!destinationViewController, @"");
+
+        [[sourceViewController openModuleUsingFactory:moduleFactory withTransitionBlock:^(id<RamblerViperModuleTransitionHandlerProtocol> sourceModuleTransitionHandler, id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler) {
             sourceViewController = (UIViewController*)sourceModuleTransitionHandler;
             destinationViewController = (UIViewController*)destinationModuleTransitionHandler;
         }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerViperModuleInput> moduleInput) {
             return configurationBlock(moduleInput);
         }];
+
         NSAssert(sourceViewController, @"code above should be called synchronously");
         NSAssert(destinationViewController, @"code above should be called synchronously");
     };
     
     const EmbeddedModuleEmbedderBlock embedder  = ^EmbeddedModuleRemoverBlock(UIView* containerView) {
 
-        if (lazyAllocation && destinationViewController == nil) {
+        if (destinationViewController == nil) {
             allocate();
         }
         

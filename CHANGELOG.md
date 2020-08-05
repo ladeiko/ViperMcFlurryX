@@ -42,3 +42,8 @@
 
 * *openModuleUsingSegue* will be called synchronously if *thenChainUsingBlock* was called on promise just after main call. In another case segue will be executed on next runloop cycle. Sync version ensures that after call to * openModuleUsingSegue* segue was executed.
 * Updated code of *- (void)closeCurrentModule:(BOOL)animated completion:(ModuleCloseCompletionBlock)completion* for navigation controller case when completion call is required. Also added *[self willMoveToParentViewController:nil]* before *removeFromParentViewController*.
+
+## v3.1.0
+### Fixed
+
+* Some leaks of embeddables
