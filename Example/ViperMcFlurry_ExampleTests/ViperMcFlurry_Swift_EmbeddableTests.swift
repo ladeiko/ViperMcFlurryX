@@ -21,7 +21,16 @@ fileprivate protocol RouterInput: class {
     func embed() -> EmbeddableEmbedBlock
 }
 fileprivate protocol ModuleInput: class {}
+fileprivate protocol EmbeddedModuleInput: class {
+    func configure()
+    func didBecomeVisible()
+    func didBecomeInvisible()
+}
 fileprivate protocol ModuleOutput: class {}
+fileprivate protocol EmbeddedModuleOutput: class {
+    func iamCreated(_ input: EmbeddedModuleInput)
+}
+
 fileprivate protocol InteractorInput: class {}
 fileprivate protocol InteractorOutput: class {}
 
@@ -77,14 +86,14 @@ fileprivate class Main {
 
         func embed() -> EmbeddableEmbedBlock {
 
-            weak var embeddedInput: ModuleInput!
+            weak var embeddedInput: EmbeddedModuleInput!
 
             let factory = Embedded.Configurator()
             let configurationBlock: EmbeddedModuleConfigurationBlock = { [weak self] (moduleInput) -> ViperModuleOutput? in
-                let moduleInput = moduleInput as! ModuleInput
+                let moduleInput = moduleInput as! EmbeddedModuleInput
                 embeddedInput = moduleInput
-                //                moduleInput.configure(with: .init(services: services, model: model))
-                return nil //self?.calleeOutput
+                moduleInput.configure()
+                return self?.calleeOutput
             }
 
             let nativeEmbedder = transitionHandler.createEmbeddableModuleUsingFactory(factory, configurationBlock: configurationBlock, lazyAllocation: false)
@@ -98,7 +107,7 @@ fileprivate class Main {
                 let nativeRemover = nativeEmbedder(containerView)
                 embedBalanceCounter += 1
                 if embedBalanceCounter == 1 {
-                    //                        embeddedInput?.didBecomeVisible()
+                    embeddedInput?.didBecomeVisible()
                 }
                 let  remover: EmbeddableRemoveBlock = { [weak embeddedInput] in
                     embedBalanceCounter -= 1
@@ -106,7 +115,7 @@ fileprivate class Main {
                     if embedBalanceCounter == 0 {
                         let embeddedInput = embeddedInput
                         nativeRemover()
-                        //                            embeddedInput?.didBecomeInvisible()
+                        embeddedInput?.didBecomeInvisible()
                     }
                 }
                 return remover
@@ -137,12 +146,14 @@ fileprivate class Main {
         }
     }
 
-    class MainPresenter: ViperModuleInput, ViperModuleOutput, ViewOutput, InteractorOutput, ModuleInput {
+    class MainPresenter: ViperModuleInput, ViperModuleOutput, ViewOutput, InteractorOutput, ModuleInput, EmbeddedModuleOutput {
 
         weak var view: ViewInput!
         var interactor: InteractorInput!
         var router: RouterInput!
         weak var output: ModuleOutput?
+
+        weak var embedded: EmbeddedModuleInput?
 
         // MARK: - ViperModuleInput
 
@@ -167,6 +178,9 @@ fileprivate class Main {
             type(of: self).count -= 1
         }
 
+        func iamCreated(_ input: EmbeddedModuleInput) {
+            self.embedded = input
+        }
     }
 
     class MainConfigurator:  ViperModuleFactory {
@@ -273,12 +287,12 @@ fileprivate class Embedded {
         }
     }
 
-    class Presenter: ViperModuleInput, ViperModuleOutput, ViewOutput, InteractorOutput, ModuleInput {
+    class Presenter: ViperModuleInput, ViperModuleOutput, ViewOutput, InteractorOutput, EmbeddedModuleInput {
 
         weak var view: ViewInput!
         var interactor: InteractorInput!
         var router: RouterInput!
-        weak var output: ModuleOutput?
+        weak var output: EmbeddedModuleOutput?
 
         static var count = 0
         init() {
@@ -291,17 +305,30 @@ fileprivate class Embedded {
         // MARK: - ViperModuleInput
 
         func setModuleOutput(_ moduleOutput: ViperModuleOutput) {
-            output = moduleOutput as? ModuleOutput
+            output = moduleOutput as? EmbeddedModuleOutput
+        }
+
+        func configure() {
+
         }
 
         func viewIsReady() {
-
+            output?.iamCreated(self)
         }
 
         func remove() {
 
         }
 
+        var visibilityCounter = 0
+
+        func didBecomeVisible() {
+            visibilityCounter += 1
+        }
+
+        func didBecomeInvisible() {
+            visibilityCounter -= 1
+        }
     }
 
     class Configurator:  ViperModuleFactory {
@@ -361,11 +388,19 @@ class ViperMcFlurry_Swift_EmbeddableTests: XCTestCase {
         autoreleasepool {
 
             var mainController: Main.MainViewController! = Main.MainConfigurator().create()
+            XCTAssertNil((mainController.output as! Main.MainPresenter).embedded)
+
             let view = mainController.view // force load
+
+            XCTAssertNotNil((mainController.output as! Main.MainPresenter).embedded)
 
             XCTAssertEqual(view?.subviews.count, 1)
 
+            let ePresenter = (mainController.output as! Main.MainPresenter).embedded as! Embedded.Presenter
+            XCTAssertEqual(ePresenter.visibilityCounter, 1)
+
             (mainController.output as! Main.MainPresenter).remove()
+            XCTAssertEqual(ePresenter.visibilityCounter, 0)
 
             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { timer in
                 if Main.MainViewController.count == 0
