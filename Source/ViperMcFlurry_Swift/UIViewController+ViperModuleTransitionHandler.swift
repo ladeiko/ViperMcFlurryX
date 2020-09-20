@@ -6,6 +6,12 @@ fileprivate func makeObjCBLock(_ block: @escaping (() -> Void)) -> @convention(b
     }
 }
 
+fileprivate func makeObjCBLock2(_ block: @escaping ((_ animated: Bool, _ completion: (() -> Void)?) -> Void)) -> @convention(block) (_ animated: Bool, _ completion: (() -> Void)?) -> () {
+    return { animated, completion in
+        block(animated, completion)
+    }
+}
+
 extension UIViewController: ViperModuleTransitionHandler {
 
     private static let moduleInputAssociation = ObjectAssociation<AnyObject>()
@@ -132,6 +138,21 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
         return openModulePromise
     }
+    
+    public func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory) -> ViperOpenModulePromise {
+        let openModulePromise = ViperOpenModulePromise()
+        let destinationModuleTransitionHandler = moduleFactory.instantiateModuleTransitionHandler()
+        let moduleInput = destinationModuleTransitionHandler.moduleInputInterface
+
+        openModulePromise.moduleInput = moduleInput
+        if let presenter = destinationModuleTransitionHandler as? ViperModuleViewControllerPresenter,
+            presenter.viperModuleViewControllerShouldPresent(in: self) {
+            openModulePromise.postLinkActionBlock = {
+                presenter.viperModuleViewControllerPresent(in: self)
+            }
+        }
+        return openModulePromise
+    }
 
 
     public func createEmbeddableModuleUsingFactory(_ moduleFactory: ViperModuleFactory, configurationBlock: @escaping EmbeddedModuleConfigurationBlock) -> EmbeddedModuleEmbedderBlock {
@@ -238,16 +259,16 @@ extension UIViewController: ViperModuleTransitionHandler {
     public func closeCurrentModule(_ animated: Bool) {
         self.closeCurrentModule(animated, completion: nil)
     }
-
+    
     public func closeCurrentModule(_ animated: Bool, completion: ModuleCloseCompletionBlock?) {
-
+        
         let info = NSMutableDictionary()
         info.setObject(NSNumber(booleanLiteral: animated), forKey: "animated" as NSString)
 
         if let completion = completion {
             info.setObject(makeObjCBLock { completion() }, forKey: "completion" as NSString)
         }
-
+        
         perform(NSSelectorFromString("swift_bridge_closeCurrentModule:"), with: info)
     }
 
@@ -374,4 +395,23 @@ extension UIViewController: ViperModuleTransitionHandler {
 
         return nil
     }
+}
+
+extension UIViewController {
+    
+    @objc(hasViperModuleDismisser)
+    private func hasViperModuleDismisser() -> NSNumber {
+        return NSNumber(value: self as? ViperModuleViewControllerDismisser != nil)
+    }
+    
+    @objc(vipermoduleDismisser)
+    private func vipermoduleDismisser() -> @convention(block) (_ animated: Bool, _ completion: (() -> Void)?) -> () {
+        guard let dismisser = self as? ViperModuleViewControllerDismisser else {
+            fatalError()
+        }
+        return makeObjCBLock2 { [weak dismisser] animated, completion in
+            dismisser?.viperModuleViewControllerDismiss(animated: animated, completion)
+        }
+    }
+    
 }

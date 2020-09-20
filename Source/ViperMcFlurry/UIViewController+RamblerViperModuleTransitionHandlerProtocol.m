@@ -9,6 +9,8 @@
 #import <objc/runtime.h>
 #import "RamblerViperOpenModulePromise.h"
 #import "RamblerViperModuleFactory.h"
+#import "RamblerViperModuleViewControllerDismisser.h"
+#import "RamblerViperModuleViewControllerPresenter.h"
 
 static IMP originalPrepareForSegueMethodImp;
 static int skipOnDismissKey = 0;
@@ -341,6 +343,32 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
     return embedder;
 }
 
+- (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory {
+    
+    RamblerViperOpenModulePromise *openModulePromise = [[RamblerViperOpenModulePromise alloc] init];
+    id<RamblerViperModuleTransitionHandlerProtocol> destinationModuleTransitionHandler = [moduleFactory instantiateModuleTransitionHandler];
+    id<RamblerViperModuleInput> moduleInput = nil;
+    if ([destinationModuleTransitionHandler respondsToSelector:@selector(moduleInput)]) {
+        moduleInput = [destinationModuleTransitionHandler moduleInput];
+    }
+
+    openModulePromise.moduleInput = moduleInput;
+    
+    if ([destinationModuleTransitionHandler conformsToProtocol:@protocol(RamblerViperModuleViewControllerPresenter)]
+        && [destinationModuleTransitionHandler respondsToSelector:@selector(viperModuleViewControllerPresentIn:)]
+        &&
+        (![destinationModuleTransitionHandler respondsToSelector:@selector(viperModuleViewControllerShouldPresentIn:)]
+         || [(id<RamblerViperModuleViewControllerPresenter>)destinationModuleTransitionHandler viperModuleViewControllerShouldPresentIn:self])
+        ) {
+        id<RamblerViperModuleViewControllerPresenter> const presenter = (id<RamblerViperModuleViewControllerPresenter>)destinationModuleTransitionHandler;
+        
+        openModulePromise.postLinkActionBlock = ^{
+            [presenter viperModuleViewControllerPresentIn:self];
+        };
+    }
+    return openModulePromise;
+}
+
 // Method opens module using module factory
 - (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory withTransitionBlock:(ModuleTransitionBlock)transitionBlock {
     RamblerViperOpenModulePromise *openModulePromise = [[RamblerViperOpenModulePromise alloc] init];
@@ -411,8 +439,42 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
     [parent closeModulesUntil:transitionHandler animated:animated completion:completion];
 }
 
+- (BOOL)tryCustomDismiss:(BOOL)animated completion:(void(^)(void))completion {
+    
+    if ([self conformsToProtocol:@protocol(RamblerViperModuleViewControllerDismisser)]
+        && [self respondsToSelector:@selector(viperModuleViewControllerDismiss:completion:)]) {
+        id<RamblerViperModuleViewControllerDismisser> dismisser = (id<RamblerViperModuleViewControllerDismisser>)self;
+        [dismisser viperModuleViewControllerDismiss:animated completion:completion];
+        return YES;
+    }
+    
+    if (![self respondsToSelector:NSSelectorFromString(@"hasViperModuleDismisser")]) {
+        return NO;
+    }
+    
+    const id hasViperModuleDismisser = [self performSelector:NSSelectorFromString(@"hasViperModuleDismisser") withObject:nil];
+    
+    if (![hasViperModuleDismisser boolValue]) {
+        return NO;
+    }
+    
+    if (!completion) {
+        completion = ^{};
+    }
+    
+    void (^vipermoduleDismisser)(BOOL,void(^)(void)) = [self performSelector:NSSelectorFromString(@"hasViperModuleDismisser") withObject:nil];
+    
+    vipermoduleDismisser(animated, completion);
+    return YES;
+}
+
 - (void)closeCurrentModuleIgnoringSkipping:(BOOL)animated completion:(void(^)(void))completion {
     [self vipermcflurry_helper_waitForAnimationCompleted:^{
+        
+        if ([self tryCustomDismiss: animated completion:completion]) {
+            return;
+        }
+        
         if ([self.parentViewController isKindOfClass:[UITabBarController class]]) {
 
             UITabBarController* const tc = (UITabBarController*)self.parentViewController;

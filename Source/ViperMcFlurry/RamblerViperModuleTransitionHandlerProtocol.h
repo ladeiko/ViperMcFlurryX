@@ -40,6 +40,8 @@ typedef id<RamblerViperModuleOutput>_Nullable(^EmbeddedModuleConfigurationBlock)
 // Method opens module using module factory
 - (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory withTransitionBlock:(ModuleTransitionBlock)transitionBlock;
 
+- (RamblerViperOpenModulePromise*)openModuleUsingFactory:(id <RamblerViperModuleFactoryProtocol>)moduleFactory;
+
 // Method returns block accepting sinlge container view as parameter,
 // if block is called then module is embedded to the specified view,
 // andblock returns another block which can be used to detach embedded

@@ -47,3 +47,11 @@
 ### Fixed
 
 * Some leaks of embeddables
+
+## v3.2.0
+### Added
+
+* ViperModuleViewControllerDismisser
+* ViperModuleViewControllerPresenter
+* RamblerViperModuleViewControllerDismisser
+* RamblerViperModuleViewControllerPresenter

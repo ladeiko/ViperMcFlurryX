@@ -111,18 +111,44 @@ Module factory can be replaced with segues for most cases. Except you need to cr
 
 ###### Swift
 ```swift
+import ViperMcFlurryX
+
 transitionHandler.openModule!(usingFactory: SomeModuleConfigurator()) { (sourceModuleTransitionHandler, destinationModuleTransitionHandler) in
 
-            let sourceViewController = sourceModuleTransitionHandler as! UIViewController
-            let destinationViewController = destinationModuleTransitionHandler as! UIViewController
+    let sourceViewController = sourceModuleTransitionHandler as! UIViewController
+    let destinationViewController = destinationModuleTransitionHandler as! UIViewController
 
-            sourceViewController.present(destinationViewController, animated: true, completion: nil)
+    sourceViewController.present(destinationViewController, animated: true, completion: nil)
 
-        }.thenChain { (moduleInput) -> ViperModuleOutput? in
-            (moduleInput as! SomeModuleInput).configure()
-            return nil // or self.calleeOutput
-        }
+}.thenChain { (moduleInput) -> ViperModuleOutput? in
+    (moduleInput as! SomeModuleInput).configure()
+    return nil // or self.calleeOutput
+}
 ```
+
+```swift
+import ViperMcFlurryX_Swift
+
+transitionHandler.openModuleUsingFactory(SomeModuleConfigurator()) { (sourceModuleTransitionHandler, destinationModuleTransitionHandler) in
+
+    let sourceViewController = sourceModuleTransitionHandler as! UIViewController
+    let destinationViewController = destinationModuleTransitionHandler as! UIViewController
+
+    sourceViewController.present(destinationViewController, animated: true, completion: nil)
+
+}.thenChainUsingBlock { (moduleInput) -> ViperModuleOutput? in
+    (moduleInput as! SomeModuleInput).configure()
+    return nil // or self.calleeOutput
+}
+        
+// will use ViperModuleViewControllerPresenter        
+transitionHandler.openModuleUsingFactory(SomeModuleConfigurator()).thenChainUsingBlock { (moduleInput) -> ViperModuleOutput? in
+    (moduleInput as! SomeModuleInput).configure()
+    return nil // or self.calleeOutput
+}
+
+```
+
 - In example above one module is pushed to navigation stack of another module.
 - Modules are linked with intermodule data transfer block.
 
@@ -134,10 +160,15 @@ B and A will be dismissed together, and presenter of B will be notified via ```m
 
 ### Installation
 
-Add to podfile
+Add to podfile:
 
 ```ruby
 pod "ViperMcFlurryX"
+```
+For swift version:
+
+```ruby
+pod "ViperMcFlurryX_Swift"
 ```
 
 ### License
