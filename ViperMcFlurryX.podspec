@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name                    = "ViperMcFlurryX"
   s.module_name             = "ViperMcFlurryX"
-  s.version                 = "3.2.0"
+  s.version                 = "3.2.1"
   s.summary                 = "ViperMcFlurryX - Support for VIPER concept on iOS"
 
   s.homepage                = "https://github.com/ladeiko/ViperMcFlurryX"
@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   s.static_framework        = true
 
   s.source_files            = "Source/ViperMcFlurry/*.{h,m}"
-  s.dependency              'ViperMcFlurrySwiftFix'
+  s.dependency              'ViperMcFlurrySwiftFix', '>=1.0.2'
 
 end
