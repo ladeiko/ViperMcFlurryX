@@ -20,6 +20,9 @@ public protocol ViperModuleTransitionHandler: class {
     
     // Method opens module using segue
     func openModuleUsingSegue(_ segueIdentifier: String) -> ViperOpenModulePromise
+
+    // Method tries to embed module using factory
+    func embedModuleUsing(_ moduleFactory: ViperModuleFactory, into containerIdentifier: String) -> ViperOpenModulePromise
     
     // Method opens module using module factory
     func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock: ModuleTransitionBlock?) -> ViperOpenModulePromise

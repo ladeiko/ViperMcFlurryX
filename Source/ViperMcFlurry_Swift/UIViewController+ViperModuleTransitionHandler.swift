@@ -83,6 +83,58 @@ extension UIViewController: ViperModuleTransitionHandler {
         }
     }
 
+    public func embedModuleUsing(_ moduleFactory: ViperModuleFactory, into containerIdentifier: String) -> ViperOpenModulePromise {
+        let openModulePromise = ViperOpenModulePromise()
+        let destinationModuleTransitionHandler = moduleFactory.instantiateModuleTransitionHandler()
+        let moduleInput = destinationModuleTransitionHandler.moduleInputInterface
+
+        var done = false
+        let perform = {
+
+            guard !done  else {
+                return
+            }
+
+            done = true
+
+            guard let containerProvider = self as? EmbedSegueContainerViewProvider else {
+                fatalError()
+            }
+
+            guard let containerView = containerProvider.containerViewForSegue(containerIdentifier) else {
+                fatalError()
+            }
+
+            let destinationController = destinationModuleTransitionHandler as! UIViewController
+            let moduleView = destinationController.view!
+
+            self.addChild(destinationController)
+            moduleView.frame = self.view.bounds
+            containerView.addSubview(moduleView)
+            destinationController.didMove(toParent: self)
+
+            moduleView.translatesAutoresizingMaskIntoConstraints = false
+
+            let top = NSLayoutConstraint(item: moduleView, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
+            let bot = NSLayoutConstraint(item: moduleView, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
+            let left = NSLayoutConstraint(item: moduleView, attribute: .left, relatedBy: .equal, toItem: containerView, attribute: .left, multiplier: 1, constant: 0)
+            let right = NSLayoutConstraint(item: moduleView, attribute: .right, relatedBy: .equal, toItem: containerView, attribute: .right, multiplier: 1, constant: 0)
+
+            containerView.addConstraints([top, bot, left, right])
+        }
+
+        openModulePromise.moduleInput = moduleInput
+        openModulePromise.postLinkActionBlock = {
+            perform()
+        }
+
+        DispatchQueue.main.async { // last chance
+            perform()
+        }
+
+        return openModulePromise
+    }
+
     public func openModuleUsingSegue(_ segueIdentifier: String) -> ViperOpenModulePromise {
         swizzlePrepareForSegue()
         let openModulePromise = ViperOpenModulePromise()
