@@ -19,7 +19,9 @@ public class EmbedSegue: UIStoryboardSegue {
               let moduleView = embedViewController.view else { return }
         
         parentViewController.addChild(embedViewController)
+        embedViewController.beginAppearanceTransition(true, animated: false)
         containerView.addSubview(moduleView)
+        embedViewController.endAppearanceTransition()
         embedViewController.didMove(toParent: parentViewController)
 
         moduleView.translatesAutoresizingMaskIntoConstraints = false
