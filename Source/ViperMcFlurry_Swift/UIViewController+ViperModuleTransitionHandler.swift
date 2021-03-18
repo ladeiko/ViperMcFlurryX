@@ -109,8 +109,10 @@ extension UIViewController: ViperModuleTransitionHandler {
             let moduleView = destinationController.view!
 
             self.addChild(destinationController)
+            destinationController.beginAppearanceTransition(true, animated: false)
             moduleView.frame = self.view.bounds
             containerView.addSubview(moduleView)
+            destinationController.endAppearanceTransition()
             destinationController.didMove(toParent: self)
 
             moduleView.translatesAutoresizingMaskIntoConstraints = false
@@ -249,7 +251,9 @@ extension UIViewController: ViperModuleTransitionHandler {
                 }
 
                 strongDestinationViewController.willMove(toParent: nil)
+                strongDestinationViewController.beginAppearanceTransition(false, animated: false)
                 strongDestinationViewController.view.removeFromSuperview()
+                strongDestinationViewController.endAppearanceTransition()
                 strongDestinationViewController.removeFromParent()
             };
 
@@ -289,13 +293,17 @@ extension UIViewController: ViperModuleTransitionHandler {
                 }
                 else {
                     destinationViewController!.willMove(toParent: nil)
+                    destinationViewController!.beginAppearanceTransition(false, animated: false)
                     destinationViewController!.view.removeFromSuperview()
+                    destinationViewController!.endAppearanceTransition()
                     destinationViewController!.removeFromParent()
                 }
             }
 
             sourceViewController!.addChild(destinationViewController)
+            destinationViewController.beginAppearanceTransition(true, animated: false)
             containerView.addSubview(destinationViewController!.view)
+            destinationViewController.endAppearanceTransition()
             destinationViewController!.didMove(toParent: sourceViewController)
             setupConstraints()
             return remover

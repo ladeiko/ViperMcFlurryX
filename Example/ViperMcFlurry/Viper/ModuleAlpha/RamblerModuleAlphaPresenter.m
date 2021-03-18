@@ -57,5 +57,9 @@
     NSLog(@"betaModuleDidChangeSomething did called");
 }
 
+- (void)configureWithExampleString:(NSString *)exampleString {
+    
+}
+
 @end
 

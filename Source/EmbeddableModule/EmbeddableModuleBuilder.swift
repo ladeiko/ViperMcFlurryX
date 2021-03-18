@@ -85,9 +85,11 @@ public class EmbeddableModuleBuilder<T> {
             guard let sourceViewController = sourceViewController else { return }
 
             sourceViewController.addChild(destinationViewController)
+            destinationViewController.beginAppearanceTransition(true, animated: false)
             destinationViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             destinationViewController.view.frame = view.bounds
             view.addSubview(destinationViewController.view)
+            destinationViewController.endAppearanceTransition()
             destinationViewController.didMove(toParent: sourceViewController)
         }
     }
@@ -99,7 +101,9 @@ public class EmbeddableModuleBuilder<T> {
             assert(destinationViewController.isViewLoaded && (destinationViewController.view.superview != nil))
 
             destinationViewController.willMove(toParent: nil)
+            destinationViewController.beginAppearanceTransition(false, animated: false)
             destinationViewController.view.removeFromSuperview()
+            destinationViewController.endAppearanceTransition()
             destinationViewController.removeFromParent()
         }
     }

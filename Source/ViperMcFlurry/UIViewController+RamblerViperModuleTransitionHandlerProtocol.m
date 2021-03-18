@@ -293,7 +293,9 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                 return;
             }
             [destinationViewController willMoveToParentViewController:nil];
+            [destinationViewController beginAppearanceTransition:NO animated:NO];
             [destinationViewController.view removeFromSuperview];
+            [destinationViewController endAppearanceTransition];
             [destinationViewController removeFromParentViewController];
         };
         
@@ -324,13 +326,17 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
             }
             else {
                 [destinationViewController willMoveToParentViewController:nil];
+                [destinationViewController beginAppearanceTransition:NO animated:NO];
                 [destinationViewController.view removeFromSuperview];
+                [destinationViewController endAppearanceTransition];
                 [destinationViewController removeFromParentViewController];
             }
         }
         
         [sourceViewController addChildViewController:destinationViewController];
+        [destinationViewController beginAppearanceTransition:YES animated:NO];
         [containerView addSubview:destinationViewController.view];
+        [destinationViewController endAppearanceTransition];
         [destinationViewController didMoveToParentViewController:sourceViewController];
         setupConstraints();
         return remover;
@@ -549,6 +555,7 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
 
             [self willMoveToParentViewController:nil];
             if (animated) {
+                [self beginAppearanceTransition:NO animated:YES];
                 [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
                                       delay:0
                                     options:UIViewAnimationOptionBeginFromCurrentState
@@ -557,6 +564,7 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                                  }
                                  completion:^(BOOL finished) {
                                      [self.view removeFromSuperview];
+                                     [self endAppearanceTransition];
                                      [self removeFromParentViewController];
                                      if (completion) {
                                          completion();
@@ -564,7 +572,9 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                                  }];
             }
             else {
+                [self beginAppearanceTransition:NO animated:NO];
                 [self.view removeFromSuperview];
+                [self endAppearanceTransition];
                 [self removeFromParentViewController];
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{

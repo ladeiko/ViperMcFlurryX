@@ -541,7 +541,9 @@ class ViperMcFlurry_ExampleTests: XCTestCase {
         controller2.view.frame = controller2.view.bounds
         
         controller1.addChild(controller2)
+        controller2.beginAppearanceTransition(true, animated: false)
         controller1.view.addSubview(controller2.view)
+        controller2.endAppearanceTransition()
         controller2.didMove(toParent: controller1)
         
         controller1.skipOnDismiss = true

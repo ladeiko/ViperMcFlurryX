@@ -20,10 +20,9 @@ static NSString* const RamblerAlphaToBetaSegue = @"RamblerAlphaToBetaSegue";
 #pragma mark - RamblerModuleAlphaRouterInput
 
 - (void)openBetaModuleWithExampleString:(NSString*)exampleString {
-    
     [[self.transitionHandler openModuleUsingSegue:RamblerAlphaToBetaSegue]
-     thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerModuleBetaInput> moduleInput) {
-         [moduleInput configureWithExampleString:exampleString];
+     thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerViperModuleInput> moduleInput) {
+         [(id<RamblerModuleBetaInput>)moduleInput configureWithExampleString:exampleString];
          return self.thisModule;
      }];
 }
@@ -39,8 +38,8 @@ static NSString* const RamblerAlphaToBetaSegue = @"RamblerAlphaToBetaSegue";
                                     [sourceViewController.navigationController pushViewController:destinationViewController
                                                                                          animated:YES];
 
-                                }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerModuleBetaInput> moduleInput) {
-                                   [moduleInput configureWithExampleString:exampleString];
+    }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerViperModuleInput> moduleInput) {
+                                   [(id<RamblerModuleBetaInput>)moduleInput configureWithExampleString:exampleString];
                                    return nil;
                                }];
 }
@@ -56,8 +55,8 @@ static NSString* const RamblerAlphaToBetaSegue = @"RamblerAlphaToBetaSegue";
                                     [sourceViewController.navigationController pushViewController:destinationViewController
                                                                                          animated:YES];
                                     
-                                }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerModuleGammaInput> moduleInput) {
-                                    [moduleInput configureWithExampleString:exampleString skip:NO];
+    }] thenChainUsingBlock:^id<RamblerViperModuleOutput>(id<RamblerViperModuleInput> moduleInput) {
+                                    [(id<RamblerModuleGammaInput>)moduleInput configureWithExampleString:exampleString skip:NO];
                                     return nil;
                                 }];
 }
