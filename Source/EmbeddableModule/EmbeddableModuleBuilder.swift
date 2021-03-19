@@ -85,9 +85,9 @@ public class EmbeddableModuleBuilder<T> {
             guard let sourceViewController = sourceViewController else { return }
 
             sourceViewController.addChild(destinationViewController)
-            destinationViewController.beginAppearanceTransition(true, animated: false)
             destinationViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             destinationViewController.view.frame = view.bounds
+            destinationViewController.beginAppearanceTransition(true, animated: false)
             view.addSubview(destinationViewController.view)
             destinationViewController.endAppearanceTransition()
             destinationViewController.didMove(toParent: sourceViewController)

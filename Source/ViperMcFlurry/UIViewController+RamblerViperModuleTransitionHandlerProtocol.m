@@ -320,6 +320,7 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                 
                 // Does not need 'removeFromSuperview' because
                 // it is automatically called whill addSubview
+                [destinationViewController.view setFrame:containerView.bounds];
                 [containerView addSubview:destinationViewController.view];
                 setupConstraints();
                 return remover;
@@ -334,6 +335,7 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
         }
         
         [sourceViewController addChildViewController:destinationViewController];
+        [destinationViewController.view setFrame:containerView.bounds];
         [destinationViewController beginAppearanceTransition:YES animated:NO];
         [containerView addSubview:destinationViewController.view];
         [destinationViewController endAppearanceTransition];

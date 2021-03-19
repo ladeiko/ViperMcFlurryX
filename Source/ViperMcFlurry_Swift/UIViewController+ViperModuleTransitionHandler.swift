@@ -109,8 +109,8 @@ extension UIViewController: ViperModuleTransitionHandler {
             let moduleView = destinationController.view!
 
             self.addChild(destinationController)
+            moduleView.frame = containerView.bounds
             destinationController.beginAppearanceTransition(true, animated: false)
-            moduleView.frame = self.view.bounds
             containerView.addSubview(moduleView)
             destinationController.endAppearanceTransition()
             destinationController.didMove(toParent: self)
@@ -287,6 +287,7 @@ extension UIViewController: ViperModuleTransitionHandler {
 
                     // Does not need 'removeFromSuperview' because
                     // it is automatically called whill addSubview
+                    destinationViewController!.view.frame = containerView.bounds
                     containerView.addSubview(destinationViewController!.view)
                     setupConstraints()
                     return remover
@@ -301,6 +302,7 @@ extension UIViewController: ViperModuleTransitionHandler {
             }
 
             sourceViewController!.addChild(destinationViewController)
+            destinationViewController!.view.frame = containerView.bounds
             destinationViewController.beginAppearanceTransition(true, animated: false)
             containerView.addSubview(destinationViewController!.view)
             destinationViewController.endAppearanceTransition()
