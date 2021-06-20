@@ -526,9 +526,11 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
                         return;
                     }
                     else {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completion();
-                        });
+                        if (completion) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completion();
+                            });
+                        }
                         return;
                     }
                 }
@@ -853,6 +855,10 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
 
         UINavigationController *navigationController = (UINavigationController*)self.parentViewController;
         const NSInteger idx = [navigationController.viewControllers indexOfObject:self];
+
+        if (idx == NSNotFound) {
+            return navigationController;
+        }
 
         if (idx == 0) {
             return navigationController;
