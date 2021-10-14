@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ViperModuleViewControllerPresenter: class {
+public protocol ViperModuleViewControllerPresenter: AnyObject {
     func viperModuleViewControllerShouldPresent(in viewController: UIViewController) -> Bool
     func viperModuleViewControllerPresent(in viewController: UIViewController)
 }

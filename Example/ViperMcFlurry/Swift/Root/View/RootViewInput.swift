@@ -6,6 +6,6 @@
 //  Copyright © 2020-present Sergey Ladeiko. All rights reserved.
 //
 
-protocol RootViewInput: class {
+protocol RootViewInput: AnyObject {
 
 }

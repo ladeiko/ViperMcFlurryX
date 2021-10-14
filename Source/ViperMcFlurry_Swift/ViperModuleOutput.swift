@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ViperModuleOutput: class {
+public protocol ViperModuleOutput: AnyObject {
     
 }
 

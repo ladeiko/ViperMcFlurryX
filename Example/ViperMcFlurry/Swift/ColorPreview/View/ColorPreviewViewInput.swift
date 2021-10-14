@@ -1,5 +1,5 @@
 import UIKit
 
-protocol ColorPreviewViewInput: class {
+protocol ColorPreviewViewInput: AnyObject {
     func setColor(_ color: UIColor)
 }

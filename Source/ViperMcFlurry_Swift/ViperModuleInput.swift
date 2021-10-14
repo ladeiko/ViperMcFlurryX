@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ViperModuleInput: class {
+public protocol ViperModuleInput: AnyObject {
     func setModuleOutput(_ moduleOutput: ViperModuleOutput)
     func moduleDidSkipOnDismiss()
 }

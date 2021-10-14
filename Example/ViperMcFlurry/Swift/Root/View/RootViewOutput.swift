@@ -6,7 +6,7 @@
 //  Copyright © 2020-present Sergey Ladeiko. All rights reserved.
 //
 
-protocol RootViewOutput: class {
+protocol RootViewOutput: AnyObject {
 
     func viewIsReady()
     func didTapOnClose()

@@ -10,29 +10,29 @@ import Foundation
 import XCTest
 import ViperMcFlurryX_Swift
 
-fileprivate protocol ViewInput: class {
+fileprivate protocol ViewInput: AnyObject {
     func embed(_ embedder: EmbeddableEmbedBlock)
     func remove()
 }
-fileprivate protocol ViewOutput: class {
+fileprivate protocol ViewOutput: AnyObject {
     func viewIsReady()
 }
-fileprivate protocol RouterInput: class {
+fileprivate protocol RouterInput: AnyObject {
     func embed() -> EmbeddableEmbedBlock
 }
-fileprivate protocol ModuleInput: class {}
-fileprivate protocol EmbeddedModuleInput: class {
+fileprivate protocol ModuleInput: AnyObject {}
+fileprivate protocol EmbeddedModuleInput: AnyObject {
     func configure()
     func didBecomeVisible()
     func didBecomeInvisible()
 }
-fileprivate protocol ModuleOutput: class {}
-fileprivate protocol EmbeddedModuleOutput: class {
+fileprivate protocol ModuleOutput: AnyObject {}
+fileprivate protocol EmbeddedModuleOutput: AnyObject {
     func iamCreated(_ input: EmbeddedModuleInput)
 }
 
-fileprivate protocol InteractorInput: class {}
-fileprivate protocol InteractorOutput: class {}
+fileprivate protocol InteractorInput: AnyObject {}
+fileprivate protocol InteractorOutput: AnyObject {}
 
 
 fileprivate typealias EmbeddableRemoveBlock = () -> Void

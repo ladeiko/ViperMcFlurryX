@@ -11,23 +11,26 @@
 #import "RamblerViperModuleFactory.h"
 #import "RamblerViperModuleViewControllerDismisser.h"
 #import "RamblerViperModuleViewControllerPresenter.h"
+#import <objc/message.h>
 
 static IMP originalPrepareForSegueMethodImp;
 static int skipOnDismissKey = 0;
 static int moduleIdentifierKey = 0;
 
-static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
+typedef void (^DISMISSER)(BOOL,void(^)(void));
 
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-
-    if (class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
-        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
-
-}
+//static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
+//
+//    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+//    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+//
+//    if (class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
+//        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+//    } else {
+//        method_exchangeImplementations(originalMethod, swizzledMethod);
+//    }
+//
+//}
 
 @implementation UIViewController(ViperMcFlurryHelpers)
 
@@ -459,19 +462,20 @@ static void swizzle(Class class, SEL originalSelector, SEL swizzledSelector) {
     if (![self respondsToSelector:NSSelectorFromString(@"hasViperModuleDismisser")]) {
         return NO;
     }
+
+    NSNumber* const (*hasViperModuleDismisserFunc)(id, SEL) = (NSNumber* (*)(id, SEL))objc_msgSend;
+    NSNumber* const hasViperModuleDismisser = hasViperModuleDismisserFunc(self, NSSelectorFromString(@"hasViperModuleDismisser"));
     
-    const id hasViperModuleDismisser = [self performSelector:NSSelectorFromString(@"hasViperModuleDismisser") withObject:nil];
-    
-    if (![hasViperModuleDismisser boolValue]) {
+    if (![hasViperModuleDismisser isKindOfClass:[NSNumber class]] || ![hasViperModuleDismisser boolValue]) {
         return NO;
     }
     
     if (!completion) {
         completion = ^{};
     }
-    
-    void (^vipermoduleDismisser)(BOOL,void(^)(void)) = [self performSelector:NSSelectorFromString(@"hasViperModuleDismisser") withObject:nil];
-    
+
+    DISMISSER const (*vipermoduleDismisserFunc)(id, SEL) = (DISMISSER (*)(id, SEL))objc_msgSend;
+    const DISMISSER vipermoduleDismisser = vipermoduleDismisserFunc(self, NSSelectorFromString(@"vipermoduleDismisser"));
     vipermoduleDismisser(animated, completion);
     return YES;
 }

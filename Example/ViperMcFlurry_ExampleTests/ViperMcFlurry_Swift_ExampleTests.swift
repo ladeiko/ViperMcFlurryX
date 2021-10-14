@@ -38,6 +38,23 @@ fileprivate class TestController: UIViewController {
     }
 }
 
+//extension TestController: ViperModuleViewControllerPresenter {
+//    func viperModuleViewControllerShouldPresent(in viewController: UIViewController) -> Bool {
+//        return true
+//    }
+//
+//    func viperModuleViewControllerPresent(in viewController: UIViewController) {
+//        viewController.present(self, animated: true, completion: nil)
+//    }
+//}
+//
+//
+//extension TestController: ViperModuleViewControllerDismisser {
+//    func viperModuleViewControllerDismiss(animated: Bool, _ completion: (() -> Void)?) {
+//        dismiss(animated: animated, completion: completion)
+//    }
+//}
+
 extension UIViewController {
     fileprivate var isInProgress: Bool {
         return isBeingDismissed || isBeingPresented || isMovingToParent || isMovingFromParent

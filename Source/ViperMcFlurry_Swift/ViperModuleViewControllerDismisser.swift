@@ -1,5 +1,5 @@
 import Foundation
 
-protocol ViperModuleViewControllerDismisser: class {
+public protocol ViperModuleViewControllerDismisser: AnyObject {
     func viperModuleViewControllerDismiss(animated: Bool, _ completion: (() -> Void)?)
 }

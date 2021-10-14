@@ -6,7 +6,7 @@
 //  Copyright © 2020-present Sergey Ladeiko. All rights reserved.
 //
 
-protocol RootRootViewDelegate: class {
+protocol RootRootViewDelegate: AnyObject {
     
     func didTapOnSampleButton()
     func didTapOnClose()

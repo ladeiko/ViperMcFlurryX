@@ -1,5 +1,5 @@
 import Foundation
 
-protocol ColorsViewInput: class {
+protocol ColorsViewInput: AnyObject {
     func setItems(_ items: [ColorsViewModel])
 }

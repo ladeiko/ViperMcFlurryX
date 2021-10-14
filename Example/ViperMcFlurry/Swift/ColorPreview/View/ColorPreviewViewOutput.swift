@@ -1,5 +1,5 @@
 import Foundation
 
-protocol ColorPreviewViewOutput: class {
+protocol ColorPreviewViewOutput: AnyObject {
     func viewIsReady()
 }

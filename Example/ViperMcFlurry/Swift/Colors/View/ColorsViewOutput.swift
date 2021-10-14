@@ -1,5 +1,5 @@
 import Foundation
 
-protocol ColorsViewOutput: class {
+protocol ColorsViewOutput: AnyObject {
     func viewIsReady()
 }
