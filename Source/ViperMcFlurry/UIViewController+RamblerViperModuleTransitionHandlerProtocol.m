@@ -170,7 +170,7 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
 
 #pragma mark - RamblerViperModuleTransitionHandlerProtocol
 
-+ (void)initialize {
++ (void)load {
     [self vipermcflurry_helper_swizzlePrepareForSegue];
 
 //    swizzle(self, @selector(didMoveToParentViewController:), @selector(vipermcflurry_helper_didMoveToParentViewController:));
