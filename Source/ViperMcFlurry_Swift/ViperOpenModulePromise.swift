@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 public class ViperOpenModulePromise {
     typealias PostLinkActionBlock = () -> Void
     typealias PostChainActionBlock = () -> Void

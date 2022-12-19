@@ -7,6 +7,7 @@ public enum EmbeddableModuleBuilderError: Error {
     case transitionHanderOpenModuleFailed
 }
 
+@MainActor
 public class EmbeddableModuleBuilder<T> {
     public typealias ModuleConfigurationClosure = (_ moduleInput: T) -> ViperModuleOutput?
     

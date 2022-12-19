@@ -8,14 +8,17 @@
 
 import Foundation
 
+@MainActor
 protocol Presenter {
     
 }
 
+@MainActor
 protocol Router {
     
 }
 
+@MainActor
 protocol Interactor {
     
 }

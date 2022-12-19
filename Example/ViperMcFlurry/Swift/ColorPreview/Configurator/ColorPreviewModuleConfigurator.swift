@@ -1,5 +1,6 @@
 import ViperMcFlurryX_Swift
 
+@MainActor
 class ColorPreviewModuleConfigurator: ViperModuleFactory {
 
     func configureModuleForViewInput<UIViewController>(viewInput: UIViewController) {

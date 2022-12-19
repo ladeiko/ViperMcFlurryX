@@ -7,6 +7,7 @@ public typealias EmbeddedModuleRemoverBlock = (() -> Void)
 public typealias EmbeddedModuleEmbedderBlock = ((_ containerView: UIView) -> EmbeddedModuleRemoverBlock)
 public typealias EmbeddedModuleConfigurationBlock = ((_ moduleInput: ViperModuleInput) -> ViperModuleOutput?)
 
+@MainActor
 public protocol ViperModuleTransitionHandler: AnyObject {
 
     var moduleInput: ViperModuleInput? { get set } // alias for moduleInputInterface
