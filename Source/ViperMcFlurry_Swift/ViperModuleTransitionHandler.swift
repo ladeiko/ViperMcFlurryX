@@ -27,6 +27,7 @@ public protocol ViperModuleTransitionHandler: AnyObject {
     
     // Method opens module using module factory
     func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory, withTransitionBlock: ModuleTransitionBlock?) -> ViperOpenModulePromise
+    func openModuleUsingFactory(_ moduleFactory: ViperModuleFactory) -> ViperOpenModulePromise
 
 
     // Method returns block accepting sinlge container view as parameter,
