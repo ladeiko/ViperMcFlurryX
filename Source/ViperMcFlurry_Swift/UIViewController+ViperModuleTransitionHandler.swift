@@ -105,15 +105,22 @@ extension UIViewController: ViperModuleTransitionHandler {
                 fatalError()
             }
 
+            let sourceController: UIViewController = {
+                if let p = self as? EmbedSegueContainerControllerProvider {
+                    return p.controllerForContainerViewForSegue(containerIdentifier) ?? self
+                }
+                return self
+            }()
+
             let destinationController = destinationModuleTransitionHandler as! UIViewController
             let moduleView = destinationController.view!
 
-            self.addChild(destinationController)
-            moduleView.frame = containerView.bounds
+            sourceController.addChild(destinationController)
+            moduleView.frame = .init(origin: .zero, size: containerView.bounds.size)
             destinationController.beginAppearanceTransition(true, animated: false)
             containerView.addSubview(moduleView)
             destinationController.endAppearanceTransition()
-            destinationController.didMove(toParent: self)
+            destinationController.didMove(toParent: sourceController)
 
             moduleView.translatesAutoresizingMaskIntoConstraints = false
 
