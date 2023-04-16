@@ -487,7 +487,8 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
             return;
         }
         
-        if ([self.parentViewController isKindOfClass:[UITabBarController class]]) {
+        if ([self.parentViewController isKindOfClass:[UITabBarController class]]
+            && [((UITabBarController*)self.parentViewController).viewControllers indexOfObject:self] != NSNotFound) {
 
             UITabBarController* const tc = (UITabBarController*)self.parentViewController;
 
@@ -510,7 +511,8 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
                 }
             }
         }
-        else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+        else if ([self.parentViewController isKindOfClass:[UINavigationController class]]
+                 && [((UINavigationController*)self.parentViewController).viewControllers indexOfObject:self] != NSNotFound) {
 
             UINavigationController* const navigationController = (UINavigationController*)self.parentViewController;
             NSArray<UIViewController*>* const viewControllers = navigationController.viewControllers;
