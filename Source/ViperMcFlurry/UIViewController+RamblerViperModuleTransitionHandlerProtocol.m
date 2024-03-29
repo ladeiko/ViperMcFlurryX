@@ -463,7 +463,7 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
         return NO;
     }
 
-    NSNumber* const (*hasViperModuleDismisserFunc)(id, SEL) = (NSNumber* (*)(id, SEL))objc_msgSend;
+    NSNumber* const (*hasViperModuleDismisserFunc)(id, SEL) = (NSNumber* const (*)(id, SEL))objc_msgSend;
     NSNumber* const hasViperModuleDismisser = hasViperModuleDismisserFunc(self, NSSelectorFromString(@"hasViperModuleDismisser"));
     
     if (![hasViperModuleDismisser isKindOfClass:[NSNumber class]] || ![hasViperModuleDismisser boolValue]) {
@@ -474,7 +474,7 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
         completion = ^{};
     }
 
-    DISMISSER const (*vipermoduleDismisserFunc)(id, SEL) = (DISMISSER (*)(id, SEL))objc_msgSend;
+    DISMISSER const (*vipermoduleDismisserFunc)(id, SEL) = (DISMISSER const (*)(id, SEL))objc_msgSend;
     const DISMISSER vipermoduleDismisser = vipermoduleDismisserFunc(self, NSSelectorFromString(@"vipermoduleDismisser"));
     vipermoduleDismisser(animated, completion);
     return YES;
