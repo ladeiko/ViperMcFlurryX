@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = "ViperMcFlurryX_Swift"
   s.module_name = "ViperMcFlurryX_Swift"
-  s.version = "3.4.0"
+  s.version = "3.4.2"
   s.summary = "ViperMcFlurryX - Support for VIPER concept on iOS"
 
   s.homepage = "https://github.com/ladeiko/ViperMcFlurryX"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |core|
     core.source_files = "Source/ViperMcFlurry_Swift/**/*.{Swift}"
-    core.dependency "ViperMcFlurryX", ">= 3.2.8"
+    core.dependency "ViperMcFlurryX", ">= 3.3.2"
   end
 
   s.subspec "EmbeddableModule" do |embeddable_module|
