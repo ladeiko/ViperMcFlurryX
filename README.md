@@ -160,6 +160,8 @@ B and A will be dismissed together, and presenter of B will be notified via ```m
 
 ### Installation
 
+#### CocoaPods
+
 Add to podfile:
 
 ```ruby
@@ -170,6 +172,40 @@ For swift version:
 ```ruby
 pod "ViperMcFlurryX_Swift"
 ```
+
+#### Swift Package Manager
+
+Add the package dependency:
+
+```swift
+.package(url: "https://github.com/ladeiko/ViperMcFlurryX.git", from: "3.5.0")
+```
+
+Then add the product(s) you need to your target:
+
+```swift
+.target(
+    name: "YourApp",
+    dependencies: [
+        .product(name: "ViperMcFlurryX_Swift", package: "ViperMcFlurryX"),
+        // Optional, for the embeddable-module helper:
+        // .product(name: "ViperMcFlurryXEmbeddableModule", package: "ViperMcFlurryX"),
+    ]
+)
+```
+
+Available products:
+
+- `ViperMcFlurryX` — Objective-C core.
+- `ViperMcFlurryX_Swift` — Swift API (depends on the Objective-C core).
+- `ViperMcFlurryXEmbeddableModule` — Swift embeddable-module helper.
+
+> **Important:** add `-ObjC` to your app target's **Other Linker Flags**
+> (`OTHER_LDFLAGS`). The Swift API drives the Objective-C core at runtime
+> through a `UIViewController` category that installs its `prepareForSegue:`
+> swizzle in `+load`. Under SPM static linking the linker may otherwise strip
+> that category, and runtime APIs such as `closeCurrentModule` /
+> `openModuleUsingSegue` will silently fail.
 
 ### License
 
