@@ -37,7 +37,7 @@ typedef void (^DISMISSER)(BOOL,void(^)(void));
 - (void)vipermcflurry_helper_waitForAnimationCompleted:(void(^)(void))completion {
 
     if ([self isBeingPresented] || [self isBeingDismissed] || [self isMovingFromParentViewController] || [self isMovingToParentViewController]) {
-        [self performSelector:_cmd withObject:completion afterDelay:1/60 * NSEC_PER_SEC];
+        [self performSelector:_cmd withObject:completion afterDelay:1.0 / 60.0];
         return;
     }
 
@@ -896,25 +896,36 @@ void RamblerViperPrepareForSegueSender(id self, SEL selector, UIStoryboardSegue 
 
     ((void(*)(id,SEL,UIStoryboardSegue*,id))originalPrepareForSegueMethodImp)(self,selector,segue,sender);
 
-    if (![sender isKindOfClass:[RamblerViperOpenModulePromise class]]) {
-        return;
-    }
-
-    id<RamblerViperModuleInput> moduleInput = nil;
-
     UIViewController *destinationViewController = segue.destinationViewController;
     if ([destinationViewController isKindOfClass:[UINavigationController class]]) {
       UINavigationController *navigationController = segue.destinationViewController;
       destinationViewController = navigationController.topViewController;
     }
 
-    id<RamblerViperModuleTransitionHandlerProtocol> targetModuleTransitionHandler = destinationViewController;
-    if ([targetModuleTransitionHandler respondsToSelector:@selector(moduleInput)]) {
-        moduleInput = [targetModuleTransitionHandler moduleInput];
+    if ([sender isKindOfClass:[RamblerViperOpenModulePromise class]]) {
+        id<RamblerViperModuleInput> moduleInput = nil;
+        id<RamblerViperModuleTransitionHandlerProtocol> targetModuleTransitionHandler = destinationViewController;
+        if ([targetModuleTransitionHandler respondsToSelector:@selector(moduleInput)]) {
+            moduleInput = [targetModuleTransitionHandler moduleInput];
+        }
+
+        RamblerViperOpenModulePromise *openModulePromise = sender;
+        openModulePromise.moduleInput = moduleInput;
+        return;
     }
 
-    RamblerViperOpenModulePromise *openModulePromise = sender;
-    openModulePromise.moduleInput = moduleInput;
+    // Bridge for the Swift ViperOpenModulePromise: it reads moduleInput from
+    // its own (Swift) store, so we hand it the (already nav-unwrapped)
+    // destination and let it populate itself. This lets the single Obj-C
+    // swizzle serve both promise types, so the Swift layer no longer needs
+    // to swizzle prepareForSegue: a second time.
+    SEL const swiftBridge = NSSelectorFromString(@"swift_bridge_prepareForSegueWithDestination:");
+    if (destinationViewController != nil && [sender respondsToSelector:swiftBridge]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [sender performSelector:swiftBridge withObject:destinationViewController];
+#pragma clang diagnostic pop
+    }
 }
 
 @end

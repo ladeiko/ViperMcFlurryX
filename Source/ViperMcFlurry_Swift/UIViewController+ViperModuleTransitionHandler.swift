@@ -77,7 +77,6 @@ extension UIViewController: ViperModuleTransitionHandler {
     // MARK - Navigation
 
     public func performSegue(_ segueIdentifier: String) {
-        swizzlePrepareForSegue()
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: segueIdentifier, sender: nil)
         }
@@ -98,11 +97,11 @@ extension UIViewController: ViperModuleTransitionHandler {
             done = true
 
             guard let containerProvider = self as? EmbedSegueContainerViewProvider else {
-                fatalError()
+                fatalError("\(type(of: self)) must conform to EmbedSegueContainerViewProvider to embed a module into container '\(containerIdentifier)'")
             }
 
             guard let containerView = containerProvider.containerViewForSegue(containerIdentifier) else {
-                fatalError()
+                fatalError("\(type(of: self)) returned no container view for identifier '\(containerIdentifier)' in containerViewForSegue(_:)")
             }
 
             let sourceController: UIViewController = {
@@ -145,7 +144,6 @@ extension UIViewController: ViperModuleTransitionHandler {
     }
 
     public func openModuleUsingSegue(_ segueIdentifier: String) -> ViperOpenModulePromise {
-        swizzlePrepareForSegue()
         let openModulePromise = ViperOpenModulePromise()
 
         UIViewController.openModuleUsingSegueKeyAssociation[self] = nil
@@ -234,6 +232,7 @@ extension UIViewController: ViperModuleTransitionHandler {
                 //sourceViewController = sourceModuleTransitionHandler as! UIViewController
                 destinationViewController = destinationModuleTransitionHandler as! UIViewController
             }.thenChainUsingBlock { (moduleInput) -> ViperModuleOutput? in
+                guard let moduleInput = moduleInput else { return nil }
                 return configurationBlock(moduleInput)
             }
 
@@ -406,45 +405,7 @@ extension UIViewController: ViperModuleTransitionHandler {
         return perform(NSSelectorFromString("swift_bridge_previousTransitionHandler"), with: nil) as? ViperModuleTransitionHandler
     }
 
-    // MARK - Swizzled methods
-
-    private func swizzlePrepareForSegue() {
-        DispatchQueue.once(token: "viperinfrastructure.swizzle.prepareForSegue") {
-            let originalSelector = #selector(UIViewController.prepare(for: sender:))
-            let swizzledSelector = #selector(UIViewController.swizzledPrepare(for: sender:))
-
-            let instanceClass = UIViewController.self
-            let originalMethod = class_getInstanceMethod(instanceClass, originalSelector)
-            let swizzledMethod = class_getInstanceMethod(instanceClass, swizzledSelector)
-
-            let didAddMethod = class_addMethod(instanceClass, originalSelector,
-                                               method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!))
-
-            if didAddMethod {
-                class_replaceMethod(instanceClass, swizzledSelector,
-                                    method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
-            } else {
-                method_exchangeImplementations(originalMethod!, swizzledMethod!)
-            }
-        }
-    }
-
-    @objc
-    private func swizzledPrepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.swizzledPrepare(for: segue, sender: sender)
-
-        guard let openModulePromise = sender as? ViperOpenModulePromise else { return }
-
-        var destinationViewController: UIViewController? = segue.destination
-        if let navigationViewController = segue.destination as? UINavigationController {
-            destinationViewController = navigationViewController.topViewController
-        }
-
-        let targetModuleTransitionHandler: ViperModuleTransitionHandler? = destinationViewController
-        let moduleInput = targetModuleTransitionHandler?.moduleInputInterface
-
-        openModulePromise.moduleInput = moduleInput
-    }
+    // MARK - Swift bridge
 
     @objc
     private func swift_bridge_moduleDidSkipOnDismiss() {
@@ -453,7 +414,7 @@ extension UIViewController: ViperModuleTransitionHandler {
 
     private func findValue(for propertyName: String, in mirror: Mirror) -> Any? {
         for property in mirror.children {
-            if property.label! == propertyName {
+            if property.label == propertyName {
                 return property.value
             }
         }
