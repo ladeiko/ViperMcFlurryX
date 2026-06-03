@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import ViperMcFlurryX_Swift
 
 public enum EmbeddableModuleBuilderError: Error {

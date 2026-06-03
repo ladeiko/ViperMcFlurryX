@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 public typealias EmbeddableModuleAttacher = (_ toView: UIView) -> Void
 public typealias EmbeddableModuleDetacher = () -> Void
