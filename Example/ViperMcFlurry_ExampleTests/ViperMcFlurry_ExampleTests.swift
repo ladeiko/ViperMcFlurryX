@@ -46,8 +46,9 @@ extension UIViewController {
     }
 }
 
+@MainActor
 extension XCTestCase {
-    
+
     fileprivate func setupCustomRootController() {
         // HACK :)
         // Wait a little to avoid: Unbalanced calls to begin/end appearance transitions for <UIViewController: 0x7ffe17e28000>
@@ -78,6 +79,7 @@ extension XCTestCase {
     }
 }
 
+@MainActor
 class ViperMcFlurry_ExampleTests: XCTestCase {
     
     override func setUp() {

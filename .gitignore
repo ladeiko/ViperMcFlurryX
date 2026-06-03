@@ -97,3 +97,6 @@ crashlytics.properties
 crashlytics-build.properties
 Podfile.lock
 Example/Pods
+
+# Claude Code local config
+.claude/

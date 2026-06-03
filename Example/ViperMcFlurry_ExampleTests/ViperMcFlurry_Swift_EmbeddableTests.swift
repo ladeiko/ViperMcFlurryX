@@ -10,29 +10,29 @@ import Foundation
 import XCTest
 import ViperMcFlurryX_Swift
 
-fileprivate protocol ViewInput: AnyObject {
+@MainActor fileprivate protocol ViewInput: AnyObject {
     func embed(_ embedder: EmbeddableEmbedBlock)
     func remove()
 }
-fileprivate protocol ViewOutput: AnyObject {
+@MainActor fileprivate protocol ViewOutput: AnyObject {
     func viewIsReady()
 }
-fileprivate protocol RouterInput: AnyObject {
+@MainActor fileprivate protocol RouterInput: AnyObject {
     func embed() -> EmbeddableEmbedBlock
 }
-fileprivate protocol ModuleInput: AnyObject {}
-fileprivate protocol EmbeddedModuleInput: AnyObject {
+@MainActor fileprivate protocol ModuleInput: AnyObject {}
+@MainActor fileprivate protocol EmbeddedModuleInput: AnyObject {
     func configure()
     func didBecomeVisible()
     func didBecomeInvisible()
 }
-fileprivate protocol ModuleOutput: AnyObject {}
-fileprivate protocol EmbeddedModuleOutput: AnyObject {
+@MainActor fileprivate protocol ModuleOutput: AnyObject {}
+@MainActor fileprivate protocol EmbeddedModuleOutput: AnyObject {
     func iamCreated(_ input: EmbeddedModuleInput)
 }
 
-fileprivate protocol InteractorInput: AnyObject {}
-fileprivate protocol InteractorOutput: AnyObject {}
+@MainActor fileprivate protocol InteractorInput: AnyObject {}
+@MainActor fileprivate protocol InteractorOutput: AnyObject {}
 
 
 fileprivate typealias EmbeddableRemoveBlock = () -> Void
@@ -45,7 +45,7 @@ fileprivate protocol Embeddable {
 fileprivate class Main {
     class MainViewController: UIViewController, ViewInput {
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
 
         var output: ViewOutput!
         var remover: EmbeddableRemoveBlock?
@@ -125,7 +125,7 @@ fileprivate class Main {
 
         }
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -137,7 +137,7 @@ fileprivate class Main {
     class MainInteractor: InteractorInput {
         weak var output: InteractorOutput!
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -170,7 +170,7 @@ fileprivate class Main {
             view.remove()
         }
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -234,7 +234,7 @@ fileprivate class Main {
 fileprivate class Embedded {
     class ViewController: UIViewController, ViewInput {
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
 
         var output: ViewOutput!
 
@@ -266,7 +266,7 @@ fileprivate class Embedded {
             fatalError()
         }
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -278,7 +278,7 @@ fileprivate class Embedded {
     class Interactor: InteractorInput {
         weak var output: InteractorOutput!
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -294,7 +294,7 @@ fileprivate class Embedded {
         var router: RouterInput!
         weak var output: EmbeddedModuleOutput?
 
-        static var count = 0
+        nonisolated(unsafe) static var count = 0
         init() {
             type(of: self).count += 1
         }
@@ -379,6 +379,7 @@ fileprivate class Embedded {
     }
 }
 
+@MainActor
 class ViperMcFlurry_Swift_EmbeddableTests: XCTestCase {
 
     func testDeallocation() {

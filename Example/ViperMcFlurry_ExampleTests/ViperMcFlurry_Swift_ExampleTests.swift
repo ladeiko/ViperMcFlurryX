@@ -61,8 +61,9 @@ extension UIViewController {
     }
 }
 
+@MainActor
 extension XCTestCase {
-    
+
     fileprivate func setupCustomRootController() {
         // HACK :)
         // Wait a little to avoid: Unbalanced calls to begin/end appearance transitions for <UIViewController: 0x7ffe17e28000>
@@ -93,6 +94,7 @@ extension XCTestCase {
     }
 }
 
+@MainActor
 class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
     
     override func setUp() {
@@ -633,4 +635,149 @@ class ViperMcFlurry_Swift_ExampleTests: XCTestCase {
         XCTAssertNil(controller1.presentedViewController)
     }
 
+}
+
+// MARK: - Bug-fix regression tests
+
+private final class BugFixOutput: ViperModuleOutput {}
+
+private final class BugFixInput: ViperModuleInput {
+    private(set) var setOutputCallCount = 0
+    private(set) var lastSetOutput: ViperModuleOutput?
+    func setModuleOutput(_ moduleOutput: ViperModuleOutput) {
+        setOutputCallCount += 1
+        lastSetOutput = moduleOutput
+    }
+}
+
+/// A destination view controller that exposes its module input via the
+/// "traditional" `output` property (exercised by the Mirror-based lookup in
+/// `moduleInputInterface`).
+private final class BugFixTraditionalVC: UIViewController {
+    let output = BugFixInput()
+}
+
+/// A destination presenter view controller that has NO module input but wants
+/// to be presented. Records how many times it was asked to present.
+private final class BugFixPresenterVC: UIViewController, ViperModuleViewControllerPresenter {
+    private(set) var presentCallCount = 0
+    func viperModuleViewControllerShouldPresent(in viewController: UIViewController) -> Bool { return true }
+    func viperModuleViewControllerPresent(in viewController: UIViewController) { presentCallCount += 1 }
+}
+
+private final class BugFixFactory: ViperModuleFactory {
+    private let viewController: UIViewController
+    init(_ viewController: UIViewController) { self.viewController = viewController }
+    func instantiateModuleTransitionHandler() -> ViperModuleTransitionHandler { return viewController }
+}
+
+@MainActor
+class ViperMcFlurry_Swift_BugFixTests: XCTestCase {
+
+    // #2: when a module has a module input, thenChainUsingBlock must receive it
+    // and the returned output must be wired back via setModuleOutput.
+    func test_openModuleUsingFactory_deliversModuleInput_andWiresOutput() {
+        let destination = UIViewController()
+        let input = BugFixInput()
+        destination.moduleInputInterface = input
+
+        let output = BugFixOutput()
+        var receivedInput: ViperModuleInput?
+
+        let source = UIViewController()
+        source.openModuleUsingFactory(BugFixFactory(destination))
+            .thenChainUsingBlock { moduleInput -> ViperModuleOutput? in
+                receivedInput = moduleInput
+                return output
+            }
+
+        XCTAssertTrue(receivedInput === input, "chain block should receive the destination's module input")
+        XCTAssertEqual(input.setOutputCallCount, 1)
+        XCTAssertTrue(input.lastSetOutput === output, "returned output should be set back on the module input")
+    }
+
+    // #2 regression: a module with a NIL module input must still (a) invoke the
+    // chain block (with a nil input, matching the Obj-C implementation) and
+    // (b) run the post-link action (the present/transition step). Before the
+    // fix the Swift promise gated linking on `moduleInput != nil`, so neither
+    // the block nor present fired.
+    func test_openModuleUsingFactory_firesPresent_evenWhenModuleInputIsNil() {
+        let destination = BugFixPresenterVC()
+        XCTAssertNil(destination.moduleInputInterface, "precondition: destination has no module input")
+
+        var chainCalled = false
+        var receivedNonNilInput = false
+        let source = UIViewController()
+        source.openModuleUsingFactory(BugFixFactory(destination))
+            .thenChainUsingBlock { moduleInput -> ViperModuleOutput? in
+                chainCalled = true
+                receivedNonNilInput = (moduleInput != nil)
+                return nil
+            }
+
+        XCTAssertTrue(chainCalled, "chain block must be invoked even with a nil module input")
+        XCTAssertFalse(receivedNonNilInput, "chain block should receive nil when the module has no input")
+        XCTAssertEqual(destination.presentCallCount, 1, "post-link present must fire despite a nil module input")
+    }
+
+    // #5: thenChainUsingBlock links regardless of call order relative to the
+    // module input being set (here the chain is set first via openModuleUsingFactory).
+    func test_chain_links_whenModuleInputPresent_singleSetOutput() {
+        let destination = UIViewController()
+        let input = BugFixInput()
+        destination.moduleInputInterface = input
+
+        let source = UIViewController()
+        source.openModuleUsingFactory(BugFixFactory(destination))
+            .thenChainUsingBlock { _ -> ViperModuleOutput? in return BugFixOutput() }
+
+        XCTAssertEqual(input.setOutputCallCount, 1, "link should run exactly once")
+    }
+
+    // #4: moduleInputInterface resolves the "traditional" `output` property via
+    // reflection.
+    func test_moduleInputInterface_reflectsOutputProperty() {
+        let vc = BugFixTraditionalVC()
+        XCTAssertTrue(vc.moduleInputInterface === vc.output)
+    }
+
+    // #4 robustness: reflecting an arbitrary controller with no `output` and no
+    // association must return nil and must not crash (the previous force-unwrap
+    // of a Mirror child label could trap).
+    func test_moduleInputInterface_nilForPlainController_doesNotCrash() {
+        let vc = UIViewController()
+        XCTAssertNil(vc.moduleInputInterface)
+    }
+
+    // An explicitly assigned module input takes precedence and round-trips.
+    func test_moduleInputInterface_explicitAssignmentRoundTrips() {
+        let vc = UIViewController()
+        let input = BugFixInput()
+        vc.moduleInputInterface = input
+        XCTAssertTrue(vc.moduleInputInterface === input)
+    }
+
+    // #3: the Swift segue bridge. The single Obj-C `prepareForSegue:` swizzle
+    // hands the (nav-unwrapped) destination to the Swift ViperOpenModulePromise
+    // via the `swift_bridge_prepareForSegueWithDestination:` selector. Driving
+    // that selector directly proves the promise gets populated with the
+    // destination's module input (the new code path behind fix #3, which the
+    // example app only exercises for the Obj-C promise).
+    func test_swiftBridge_deliversDestinationModuleInputToPromise() {
+        let promise = ViperOpenModulePromise()
+        let destination = UIViewController()
+        let input = BugFixInput()
+        destination.moduleInputInterface = input
+
+        promise.perform(NSSelectorFromString("swift_bridge_prepareForSegueWithDestination:"),
+                        with: destination)
+
+        var received: ViperModuleInput?
+        promise.thenChainUsingBlock { moduleInput -> ViperModuleOutput? in
+            received = moduleInput
+            return nil
+        }
+        XCTAssertTrue(received === input,
+                      "segue bridge should populate the promise with the destination's module input")
+    }
 }

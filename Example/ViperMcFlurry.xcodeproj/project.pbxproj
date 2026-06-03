@@ -10,6 +10,7 @@
 		1200CF7924AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1200CF7824AB43DA008B65C4 /* ViperMcFlurry_Swift_ExampleTests.swift */; };
 		1200CF7A24AB7450008B65C4 /* ViperMcFlurry_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DD72FD227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.swift */; };
 		1207D22224DAF6220019F966 /* ViperMcFlurry_Swift_EmbeddableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1207D22124DAF6220019F966 /* ViperMcFlurry_Swift_EmbeddableTests.swift */; };
+		12CA56FFAD69A061B51DC7F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609A928A339C5CC1C72DF694 /* Foundation.framework */; };
 		12E4BAE6240E8A6F00BAA9B3 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BACE240E8A6F00BAA9B3 /* Shared.swift */; };
 		12E4BAE7240E8A6F00BAA9B3 /* RootModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BAD1240E8A6F00BAA9B3 /* RootModuleInput.swift */; };
 		12E4BAE8240E8A6F00BAA9B3 /* RootModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4BAD2240E8A6F00BAA9B3 /* RootModuleOutput.swift */; };
@@ -42,6 +43,7 @@
 		429835351E2E835700DB54EC /* RamblerModuleGammaRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298352C1E2E835700DB54EC /* RamblerModuleGammaRouter.m */; };
 		429835361E2E835700DB54EC /* RamblerModuleGammaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298352F1E2E835700DB54EC /* RamblerModuleGammaViewController.m */; };
 		4298353C1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4298353B1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib */; };
+		5CCC0EE259551C210AD8DCAE /* ViperMcFlurry_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E28ADD69123697097A8FE1 /* ViperMcFlurry_ExampleUITests.swift */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -80,6 +82,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		12DD7300227AF15C003D1A2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6003F582195388D10070C39A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6003F589195388D20070C39A;
+			remoteInfo = ViperMcFlurry_Example;
+		};
+		B00420754CC45DDC5051CAB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6003F582195388D10070C39A /* Project object */;
 			proxyType = 1;
@@ -167,6 +176,7 @@
 		429835301E2E835700DB54EC /* RamblerModuleGammaViewInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewInput.h; sourceTree = "<group>"; };
 		429835311E2E835700DB54EC /* RamblerModuleGammaViewOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RamblerModuleGammaViewOutput.h; sourceTree = "<group>"; };
 		4298353B1E2E8FFE00DB54EC /* RamblerModuleGammaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RamblerModuleGammaViewController.xib; sourceTree = "<group>"; };
+		57E28ADD69123697097A8FE1 /* ViperMcFlurry_ExampleUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ViperMcFlurry_ExampleUITests.swift; sourceTree = "<group>"; };
 		57F2AD804A86129EE3540205 /* Pods-ViperMcFlurry_ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViperMcFlurry_ExampleTests/Pods-ViperMcFlurry_ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViperMcFlurry_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -180,6 +190,8 @@
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		609A928A339C5CC1C72DF694 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		800D61E05E39E44BEC485C9A /* ViperMcFlurry_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViperMcFlurry_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViperMcFlurry_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		96F30E1F9FBD8F1AF02466B7 /* ViperMcFlurryX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViperMcFlurryX.podspec; path = ../ViperMcFlurryX.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -223,6 +235,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9BFC7A7F91159949CABC5FD /* Pods_ViperMcFlurry_ExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21BFE7B9742D92103B0DAA6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12CA56FFAD69A061B51DC7F9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +556,7 @@
 				6003F58B195388D20070C39A /* Products */,
 				4D62E5BDBFF12E6425C93A40 /* Pods */,
 				12DD72E6227AEC0D003D1A2D /* ViperMcFlurry_Example-Bridging-Header.h */,
+				A8A6CDF29C25270F28CC9E6D /* ViperMcFlurry_ExampleUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -544,6 +565,7 @@
 			children = (
 				6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */,
 				12DD72FB227AF15C003D1A2D /* ViperMcFlurry_ExampleTests.xctest */,
+				800D61E05E39E44BEC485C9A /* ViperMcFlurry_ExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -559,6 +581,7 @@
 				8284984F2455D95519E1A3D9 /* Pods_ViperMcFlurry_Example.framework */,
 				3F6F5979FBF96E09EF139449 /* Pods_ViperMcFlurry_Tests.framework */,
 				0CD322451E0B42CA7879F4B1 /* Pods_ViperMcFlurry_ExampleTests.framework */,
+				7D3EC14659F382174E070EE3 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -620,12 +643,29 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		7D3EC14659F382174E070EE3 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				609A928A339C5CC1C72DF694 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		9FFF3D531B68C4D100BDD3F2 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Testing;
 			sourceTree = "<group>";
+		};
+		A8A6CDF29C25270F28CC9E6D /* ViperMcFlurry_ExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				57E28ADD69123697097A8FE1 /* ViperMcFlurry_ExampleUITests.swift */,
+			);
+			name = ViperMcFlurry_ExampleUITests;
+			path = ViperMcFlurry_ExampleUITests;
+			sourceTree = SOURCE_ROOT;
 		};
 		C0373C2E2443DC7E007632C0 /* Colors */ = {
 			isa = PBXGroup;
@@ -785,6 +825,24 @@
 			productReference = 6003F58A195388D20070C39A /* ViperMcFlurry_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AE2F2C149DDC81068958354C /* ViperMcFlurry_ExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA059DF1C86E12EE7F14CE42 /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleUITests" */;
+			buildPhases = (
+				624852EC5FE2BFB577583418 /* Sources */,
+				21BFE7B9742D92103B0DAA6B /* Frameworks */,
+				2C656CA625A85E087F6146CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				80C3B27DFA8780F2F1C382A4 /* PBXTargetDependency */,
+			);
+			name = ViperMcFlurry_ExampleUITests;
+			productName = ViperMcFlurry_ExampleUITests;
+			productReference = 800D61E05E39E44BEC485C9A /* ViperMcFlurry_ExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -821,12 +879,20 @@
 			targets = (
 				6003F589195388D20070C39A /* ViperMcFlurry_Example */,
 				12DD72FA227AF15C003D1A2D /* ViperMcFlurry_ExampleTests */,
+				AE2F2C149DDC81068958354C /* ViperMcFlurry_ExampleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		12DD72F9227AF15C003D1A2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C656CA625A85E087F6146CE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1023,6 +1089,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		624852EC5FE2BFB577583418 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CCC0EE259551C210AD8DCAE /* ViperMcFlurry_ExampleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1030,6 +1104,12 @@
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* ViperMcFlurry_Example */;
 			targetProxy = 12DD7300227AF15C003D1A2D /* PBXContainerItemProxy */;
+		};
+		80C3B27DFA8780F2F1C382A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ViperMcFlurry_Example;
+			target = 6003F589195388D20070C39A /* ViperMcFlurry_Example */;
+			targetProxy = B00420754CC45DDC5051CAB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1114,6 +1194,26 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViperMcFlurry_Example.app/ViperMcFlurry_Example";
 			};
 			name = Release;
+		};
+		1F51E6B292301E8B841118F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.ViperMcFlurry_ExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ViperMcFlurry_Example;
+			};
+			name = Debug;
 		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1272,6 +1372,27 @@
 			};
 			name = Release;
 		};
+		A15A5184915AED4CCE37FC3D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.ViperMcFlurry_ExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ViperMcFlurry_Example;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1298,6 +1419,15 @@
 			buildConfigurations = (
 				6003F5C0195388D20070C39A /* Debug */,
 				6003F5C1195388D20070C39A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA059DF1C86E12EE7F14CE42 /* Build configuration list for PBXNativeTarget "ViperMcFlurry_ExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A15A5184915AED4CCE37FC3D /* Release */,
+				1F51E6B292301E8B841118F1 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

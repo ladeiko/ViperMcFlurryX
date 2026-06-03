@@ -47,6 +47,16 @@
                ReferencedContainer = "container:ViperMcFlurry.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AE2F2C149DDC81068958354C"
+               BuildableName = "ViperMcFlurry_ExampleUITests.xctest"
+               BlueprintName = "ViperMcFlurry_ExampleUITests"
+               ReferencedContainer = "container:ViperMcFlurry.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
